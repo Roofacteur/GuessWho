@@ -1,0 +1,11 @@
+Guess Who digitalisé.
+
+Trouver l'algorithme dans les premières heures.
+
+Poser une bonne base (interface, boutons).
+
+Faire le minimum demandé sans poser les questions dans le jeux ?
+
+Même écran (comme demandé ou plutôt non-précisé) ou sur deux écrans ?
+
+3D ou 2D ?

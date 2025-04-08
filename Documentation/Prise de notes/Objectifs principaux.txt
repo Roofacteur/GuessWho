@@ -1,0 +1,15 @@
+
+- Générer aléatoirement 48 portraits sur deux plateaux, SANS SOSIES !
+	Algorithme
+
+- Possibilité de choisir un portrait que le joueur adverse doit deviner
+
+- Basculer un portrait, visible/invisible
+
+- Rejouabilité (Regéneration, replacer, rebasculer tout les nouveaux portraits en visible)
+
+- Responsive
+
+- C#
+
+- Diagramme de classes

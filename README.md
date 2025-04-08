@@ -1,2 +1,2 @@
 # GuessWho
-Le jeu "Qui est-ce" digitalisé pour le TPI
+Ce projet, réalisé pour être évalué par les experts lors de mon TPI, traite de la digitalisation du jeu de société "Qui est-ce ?".
