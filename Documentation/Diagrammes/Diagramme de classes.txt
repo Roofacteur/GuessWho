@@ -1,0 +1,59 @@
+Classe : Player
+Attributs :
+
+	name : String
+	portraitToGuess : Portrait (Le portrait secret de l’adversaire)
+	myPortrait : Portrait (Mon propre portrait à deviner par l’autre)
+	remainingPortraits : List<Portrait> 
+	(Les portraits encore possibles)
+	turn : Boolean
+	timesGuessed : Int
+
+Méthodes :
+
+	sendQuestion(String question)
+	sendAnswer(String answer)
+	makeGuess(Portrait p)
+	eliminatePortraits(String criteria, String value)
+	isMyTurn() : Boolean
+
+
+Classe : Game
+Attributs :
+
+	players : List<Player>
+	allPortraits : List<Portrait>
+	currentTurn : Player
+
+Méthodes :
+
+	startGame()
+	enterPlayerNames(List<String> names)
+	assignPortraits()
+	displayBoard()
+	askQuestion(String question, Player from, Player to)
+	checkVictory() : Boolean
+	getWinner() : Player
+	restart()
+	quit()
+
+Classe : Portrait
+Attributs :
+
+	id : Int 
+	name : String
+	gender : Boolean
+	hair : String
+	eyeColor : String
+	beard : String
+	mouth : String
+	clothes : String
+	glasses : String
+	hat : String
+	isVisible : Boolean
+
+Méthodes :
+
+	matchesCriteria(String criteria, String value) : Boolean
+	hide()
+	reveal()

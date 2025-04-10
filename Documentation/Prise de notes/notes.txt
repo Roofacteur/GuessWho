@@ -1,0 +1,4 @@
+Quelles sont les classes nécessaire pour créer "Guess Who ?" dans un projet Raylib C#
+
+Rendu de SVG : SVG.Net
+Conversion de SVG en PNG : SkiaSharp
