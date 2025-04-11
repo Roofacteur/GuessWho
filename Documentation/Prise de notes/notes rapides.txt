@@ -9,3 +9,18 @@ Faire le minimum demandé sans poser les questions dans le jeux ?
 Même écran (comme demandé ou plutôt non-précisé) ou sur deux écrans ?
 
 3D ou 2D ?
+
+
+=================Vendredi 11.04.2025=====================
+
+
+Ajout des packages :
+
+SkiaSharp
+
+Svg.Skia
+
+dans le projet.
+
+
+Copie du projet avataaars-generator de GitHub
