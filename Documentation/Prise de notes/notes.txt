@@ -2,3 +2,7 @@ Quelles sont les classes nécessaire pour créer "Guess Who ?" dans un projet Ra
 
 Rendu de SVG : SVG.Net
 Conversion de SVG en PNG : SkiaSharp
+
+
+Les paquets : SVG.Net et SkiaSharp ont été abandonnée compléxité inutile, j'ai créé moi même les PNG pendant les vacances,
+création du script d'export en PNG sans perte.

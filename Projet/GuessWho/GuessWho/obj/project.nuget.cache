@@ -1,21 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5ZFQAG0KFqHiDBZmI0l5yxU/2iDoCIhT/rpE6wwqnU4HbWf2MkB8OtmxN/hcf90MDkTppLPI7OcpVJe/G6Tx5Q==",
+  "dgSpecHash": "f9Y59w3GvGM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\GuessWho.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\leones1\\.nuget\\packages\\excss\\4.3.0\\excss.4.3.0.nupkg.sha512",
-    "C:\\Users\\leones1\\.nuget\\packages\\harfbuzzsharp\\7.3.0.3\\harfbuzzsharp.7.3.0.3.nupkg.sha512",
-    "C:\\Users\\leones1\\.nuget\\packages\\harfbuzzsharp.nativeassets.macos\\7.3.0.3\\harfbuzzsharp.nativeassets.macos.7.3.0.3.nupkg.sha512",
-    "C:\\Users\\leones1\\.nuget\\packages\\harfbuzzsharp.nativeassets.win32\\7.3.0.3\\harfbuzzsharp.nativeassets.win32.7.3.0.3.nupkg.sha512",
-    "C:\\Users\\leones1\\.nuget\\packages\\shimskiasharp\\2.0.0.7\\shimskiasharp.2.0.0.7.nupkg.sha512",
-    "C:\\Users\\leones1\\.nuget\\packages\\skiasharp\\3.116.1\\skiasharp.3.116.1.nupkg.sha512",
-    "C:\\Users\\leones1\\.nuget\\packages\\skiasharp.harfbuzz\\2.88.9\\skiasharp.harfbuzz.2.88.9.nupkg.sha512",
-    "C:\\Users\\leones1\\.nuget\\packages\\skiasharp.nativeassets.macos\\3.116.1\\skiasharp.nativeassets.macos.3.116.1.nupkg.sha512",
-    "C:\\Users\\leones1\\.nuget\\packages\\skiasharp.nativeassets.win32\\3.116.1\\skiasharp.nativeassets.win32.3.116.1.nupkg.sha512",
-    "C:\\Users\\leones1\\.nuget\\packages\\svg.custom\\2.0.0.7\\svg.custom.2.0.0.7.nupkg.sha512",
-    "C:\\Users\\leones1\\.nuget\\packages\\svg.model\\2.0.0.7\\svg.model.2.0.0.7.nupkg.sha512",
-    "C:\\Users\\leones1\\.nuget\\packages\\svg.skia\\2.0.0.7\\svg.skia.2.0.0.7.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\Inconnu\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\GuessWho.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
