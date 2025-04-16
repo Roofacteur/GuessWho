@@ -11,7 +11,7 @@ namespace GuessWho
     {
         public int Id;
         public required string Name;
-        public required string Gender, Hair, EyeColor, Beard, Mouth, Clothes, Glasses, Hat;
+        public required string Skin, Hair, Eyes, Eyebrows, Beard, Mouth, Clothes, Logo, Glasses;
         public bool IsVisible = true;
         public Texture2D PortraitTexture;
 
@@ -19,14 +19,15 @@ namespace GuessWho
         {
             return criteria switch
             {
-                "gender" => Gender == value,
+                "skin" => Skin == value,
                 "hair" => Hair == value,
-                "eyeColor" => EyeColor == value,
+                "eyes" => Eyes == value,
+                "eyebrows" => Eyebrows == value,
                 "beard" => Beard == value,
                 "mouth" => Mouth == value,
                 "clothes" => Clothes == value,
+                "logo" => Logo == value,
                 "glasses" => Glasses == value,
-                "hat" => Hat == value,
                 _ => false
             };
         }

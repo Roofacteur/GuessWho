@@ -13,47 +13,59 @@ namespace GuessWho
 
         public static List<Character> GenerateCharacters(List<string> names)
         {
-            List<Character> characters = new();
+            var characters = new List<Character>();
+            var usedCombinations = new HashSet<string>();
+
             foreach (var name in names)
             {
-                Character c;
+                Character character;
                 do
                 {
-                    c = GenerateRandomCharacter(name);
-                } while (!UsedCombinations.Add(c.Hair + c.EyeColor + c.Beard + c.Mouth + c.Clothes + c.Glasses + c.Hat));
+                    character = GenerateRandomCharacter(name);
+                }
+                while (!usedCombinations.Add(GenerateCombinationKey(character)));
 
-                c.PortraitTexture = ComposeTexture(c);
-                characters.Add(c);
+                character.PortraitTexture = ComposeTexture(character);
+                characters.Add(character);
             }
+
             return characters;
         }
 
         public static Character GenerateRandomCharacter(string name)
         {
-            Random rng = new();
+            var rng = new Random();
+
             return new Character
             {
                 Name = name,
-                Gender = rng.Next(2) == 0 ? "Male" : "Female",
-                Hair = RandomFrom("assets/portraits/hair/"),
-                EyeColor = RandomFrom("assets/portraits/eyes/"),
-                Beard = RandomFrom("assets/portraits/beard/"),
-                Mouth = RandomFrom("assets/portraits/mouth/"),
-                Clothes = RandomFrom("assets/portraits/clothes/"),
-                Glasses = RandomFrom("assets/portraits/glasses/"),
-                Hat = RandomFrom("assets/portraits/hat/")
+                Skin = RandomFrom("assets\\portrait\\base\\"),
+                Hair = RandomFrom("assets\\portrait\\hair\\"),
+                Eyes = RandomFrom("assets\\portrait\\eyes\\"),
+                Eyebrows = RandomFrom("assets\\portrait\\eyebrows\\"),
+                Beard = RandomFrom("assets\\portrait\\beard\\"),
+                Mouth = RandomFrom("assets\\portrait\\mouth\\"),
+                Clothes = RandomFrom("assets\\portrait\\clothes\\"),
+                Logo = RandomFrom("assets\\portrait\\clothes\\logos\\"),
+                Glasses = RandomFrom("assets\\portrait\\glasses\\")
             };
         }
 
+        private static string GenerateCombinationKey(Character c)
+        {
+            return $"{c.Skin}|{c.Hair}|{c.Eyes}|{c.Eyebrows}|{c.Beard}|{c.Mouth}|{c.Clothes}|{c.Logo}|{c.Glasses}";
+        }
+
+
         private static string RandomFrom(string folder)
         {
-            var files = Directory.GetFiles(folder, "*.svg");
+            var files = Directory.GetFiles(folder, "*.png");
             return files.Length > 0 ? files[new Random().Next(files.Length)] : "";
         }
 
         public static Texture2D ComposeTexture(Character c)
         {
-            // Convertir et superposer les SVG ici selon ton moteur
+            
             return new Texture2D(); // Placeholder
         }
     }
