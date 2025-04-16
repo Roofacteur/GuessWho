@@ -40,9 +40,7 @@ C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\runt
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\runtimes\win-x86\native\libSkiaSharp.dll
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\GuessWho.exe
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\Board.cs
-C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\Character.cs
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\GameManager.cs
-C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\PortraitGenerator.cs
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\libs\Raylib-cs.dll
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\raylib.dll
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\GuessWho.deps.json
@@ -226,3 +224,4 @@ C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\asse
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthSerious.png
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthTongue.png
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthVomit.png
+C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\names.txt

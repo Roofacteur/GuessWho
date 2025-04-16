@@ -8,21 +8,54 @@ namespace GuessWho
 {
     public class Board
     {
-        public void Display(List<Character> characters)
+        public Portrait[] Portraits;
+
+        public Board(Portrait[] portraits)
         {
-            foreach (var c in characters)
+            Portraits = portraits;
+        }
+
+        public void Display()
+        {
+            foreach (var portrait in Portraits)
             {
-                if (c.IsVisible)
+                if (!portrait.IsEliminated)
                 {
-                    // DrawTexture(c.PortraitTexture, posX, posY, WHITE);
+                    // Afficher portrait avec Raylib
                 }
             }
         }
 
-        public Character GetClickedCharacter(int mouseX, int mouseY)
+        public void EliminatePortraitsByQuestion(string attribute, string value)
         {
-            // Retourner le personnage cliqué (à implémenter selon le placement)
-            return null;
+            foreach (var portrait in Portraits)
+            {
+                var dna = portrait.GetDNA();
+                bool match = attribute switch
+                {
+                    "Skin" => portrait.Skin == value,
+                    "Clothes" => portrait.Clothes == value,
+                    "Logo" => portrait.Logo == value,
+                    "Eyebrows" => portrait.Eyebrows == value,
+                    "Eyes" => portrait.Eyes == value,
+                    "Glasses" => portrait.Glasses == value,
+                    "Hair" => portrait.Hair == value,
+                    "Mouth" => portrait.Mouth == value,
+                    _ => false
+                };
+
+                if (!match) portrait.IsEliminated = true;
+            }
+        }
+
+        public void Reset()
+        {
+            foreach (var portrait in Portraits)
+            {
+                portrait.IsEliminated = false;
+            }
         }
     }
+
+
 }
