@@ -8,7 +8,7 @@ namespace GuessWho
 {
     public class PortraitGenerator
     {
-        private const int MaxSimilarAttributes = 3;
+        private const int MaxSimilarAttributes = 2;
         private Random random = new Random();
 
         public Portrait[] GeneratePortraits(int count)

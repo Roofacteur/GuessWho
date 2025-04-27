@@ -12,7 +12,6 @@ namespace GuessWho
     public class PortraitRenderer
     {
         private Dictionary<string, Texture2D> textures = new();
-
         public void LoadTextures(Portrait portrait)
         {
             LoadTexture(portrait.Skin);
@@ -30,6 +29,7 @@ namespace GuessWho
             if (!textures.ContainsKey(path))
             {
                 Texture2D tex = Raylib.LoadTexture(path);
+                SetTextureFilter(tex, TextureFilter.Bilinear);
 
                 textures[path] = tex;
             }
@@ -37,7 +37,7 @@ namespace GuessWho
 
         public void Draw(Portrait portrait, int x, int y, int size)
         {
-                var layers = new[] { portrait.Skin, portrait.Clothes, portrait.Logo, portrait.Eyebrows, portrait.Eyes, portrait.Glasses, portrait.Hair, portrait.Mouth };
+            var layers = new[] { portrait.Skin, portrait.Clothes, portrait.Logo, portrait.Eyebrows, portrait.Eyes, portrait.Glasses, portrait.Hair, portrait.Mouth };
 
             foreach (var path in layers)
             {
@@ -53,7 +53,6 @@ namespace GuessWho
                 }
             }
         }
-
 
         public void UnloadAll()
         {

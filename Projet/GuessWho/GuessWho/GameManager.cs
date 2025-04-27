@@ -20,9 +20,7 @@ namespace GuessWho
             Victory,
             Defeat
         }
-
-        public GameState currentState;
-        public GameState CurrentState => currentState;
+        public GameState CurrentState;
 
         public Player player1;
         public Player player2;
@@ -43,12 +41,12 @@ namespace GuessWho
             player2 = new Player(portraits.Skip(24).ToArray(), 2);
             currentPlayerTurn = 1;
             uiManager = new UIManager();
-            currentState = GameState.InGame;
+            CurrentState = GameState.InGame;
         }
 
         public void Update()
         {
-            switch (currentState)
+            switch (CurrentState)
             {
                 case GameState.Menu:
                     uiManager.DrawMenu();
@@ -69,7 +67,7 @@ namespace GuessWho
 
                 case GameState.Victory:
                 case GameState.Defeat:
-                    uiManager.DrawEndScreen(currentState, currentPlayerTurn);
+                    uiManager.DrawEndScreen(CurrentState, currentPlayerTurn);
                     if (Raylib.IsKeyPressed(KeyboardKey.R)) Initialize();
                     break;
             }
@@ -80,11 +78,11 @@ namespace GuessWho
             // Vérifier si la supposition du joueur est correcte
             if (guesser.SelectedGuess == opponent.TargetPortrait)
             {
-                currentState = GameState.Victory;
+                CurrentState = GameState.Victory;
             }
             else
             {
-                currentState = GameState.Defeat;
+                CurrentState = GameState.Defeat;
             }
         }
 
@@ -108,7 +106,7 @@ namespace GuessWho
             // Pour chaque joueur, gérer la sélection d'un portrait
             if (Raylib.IsKeyPressed(KeyboardKey.Enter))  // Une fois que les joueurs ont choisi
             {
-                currentState = GameState.InGame;
+                CurrentState = GameState.InGame;
             }
         }
 
@@ -117,12 +115,16 @@ namespace GuessWho
             player1.Reset();
             player2.Reset();
             ResetTurn();
-            currentState = GameState.SelectingPortraits;
+            CurrentState = GameState.SelectingPortraits;
         }
 
         public void EndGame(bool player1Won)
         {
-            currentState = player1Won ? GameState.Victory : GameState.Defeat;
+            CurrentState = player1Won ? GameState.Victory : GameState.Defeat;
+        }
+        public void ChangeState(GameState newState)
+        {
+            CurrentState = newState;
         }
     }
 }

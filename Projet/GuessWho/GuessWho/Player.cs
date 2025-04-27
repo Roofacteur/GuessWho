@@ -41,6 +41,4 @@ namespace GuessWho
         }
     }
 
-
-
 }
