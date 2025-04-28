@@ -5,6 +5,8 @@ namespace GuessWho
 {
     public class GameManager
     {
+        bool gameStarted = false;
+
         public enum GameState
         {
             Menu,
@@ -19,6 +21,7 @@ namespace GuessWho
         public Player player1;
         public Player player2;
         public PortraitGenerator generator;
+        public PortraitRenderer renderer;
         public UIManager uiManager;
         public int currentPlayerTurn = 1;
         public int GetCurrentPlayer() => currentPlayerTurn;
@@ -39,7 +42,11 @@ namespace GuessWho
                     break;
 
                 case GameState.InGame:
-                    Generate();
+                    if (!gameStarted)
+                    {
+                        Generate();
+                        gameStarted = true;
+                    }
                     break;
 
                 case GameState.Guessing:
@@ -48,7 +55,11 @@ namespace GuessWho
 
                 case GameState.Victory:
                     uiManager.DrawEndScreen(CurrentState, currentPlayerTurn);
-                    if (IsKeyPressed(KeyboardKey.R)) Generate();
+                    if (IsKeyPressed(KeyboardKey.R))
+                    {
+                        gameStarted = false;
+                        Generate();
+                    }
                     break;
             }
         }
@@ -62,12 +73,36 @@ namespace GuessWho
 
         public void Generate()
         {
+            // Chargement et mélange des noms
+            List<string> names = LoadNames(Path.Combine(Directory.GetCurrentDirectory(), "assets", "names.txt"));
+            if (names.Count < 48)
+            {
+                throw new Exception("Erreur critique : pas assez de noms dans 'names.txt' !");
+            }
+
+            names = names.OrderBy(_ => new Random().Next()).ToList();
+
+            renderer = new PortraitRenderer();
             generator = new PortraitGenerator();
             allPortraits = generator.GeneratePortraits(48);
+
+            // Attribution des noms
+            for (int i = 0; i < allPortraits.Length; i++)
+            {
+                allPortraits[i].Name = names[i];
+            }
+
+            // Attribution aux joueurs
             player1 = new Player(allPortraits.Take(24).ToArray(), 1);
-            player2 = new Player(allPortraits.Skip(24).ToArray(), 2);
-            
+            player2 = new Player(allPortraits.Skip(24).Take(24).ToArray(), 2);
+
+            // Chargement des textures
+            foreach (Portrait p in allPortraits)
+            {
+                renderer.LoadPotraitTextures(p);
+            }
         }
+
 
         public void CheckVictory(Player guesser, Player opponent)
         {
@@ -102,6 +137,21 @@ namespace GuessWho
         public void EndGame(bool player1Won)
         {
             CurrentState = GameState.Victory;
+        }
+        public static List<string> LoadNames(string filePath)
+        {
+            try
+            {
+                string fileContent = File.ReadAllText(filePath);
+                return fileContent.Split(',').Select(name => name.Trim()).ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erreur de lecture du fichier : " + ex.Message);
+                return new List<string>();
+
+
+            }
         }
     }
 }

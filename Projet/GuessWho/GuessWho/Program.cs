@@ -19,9 +19,6 @@ public static class Program
         UIManager uIManager = new UIManager();
         GameManager gameManager = new();
         gameManager.Initialize();
-        Portrait[] player1Portraits = Array.Empty<Portrait>();
-        Portrait[] player2Portraits = Array.Empty<Portrait>();
-        PortraitRenderer renderer = new();
 
         GameState lastState = gameManager.CurrentState; // Suivi de l'ancien état
 
@@ -77,36 +74,17 @@ public static class Program
             {
                 if (!portraitsGenerated)
                 {
-                    List<string> names = LoadNames(Path.Combine(Directory.GetCurrentDirectory(), "assets", "names.txt"));
-                    if (names.Count < 48)
-                    {
-                        Console.WriteLine("Erreur : Il n'y a pas assez de noms dans le fichier !");
-                        break;
-                    }
-
-                    names = names.OrderBy(_ => new Random().Next()).ToList();
-
-                    PortraitGenerator generator = new();
-                    Portrait[] allPortraits = generator.GeneratePortraits(48);
-
-                    for (int i = 0; i < allPortraits.Length; i++)
-                        allPortraits[i].Name = names[i];
-
-                    player1Portraits = allPortraits.Take(24).ToArray();
-                    player2Portraits = allPortraits.Skip(24).Take(24).ToArray();
-
-                    foreach (Portrait p in allPortraits)
-                        renderer.LoadPotraitTextures(p);
-
+                    gameManager.Generate();
                     portraitsGenerated = true;
-
                 }
+
 
                 Rectangle player1Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
                 Rectangle player2Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
 
-                uIManager.DrawPortraitGrid(player1Portraits, renderer, player1Zone, 100, 6, BasePortraitSize, 1, gameManager);
-                uIManager.DrawPortraitGrid(player2Portraits, renderer, player2Zone, 100, 6, BasePortraitSize, 2, gameManager);
+                uIManager.DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, player1Zone, 100, 6, BasePortraitSize, 1, gameManager);
+                uIManager.DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, player2Zone, 100, 6, BasePortraitSize, 2, gameManager);
+
 
                 string turnText = $"Le joueur {gameManager.GetCurrentPlayer()} pose une question...";
 
@@ -128,22 +106,8 @@ public static class Program
 
         UnloadTexture(backgroundMenu);
         UnloadTexture(backgroundInGame);
-        renderer.UnloadAll();
+        gameManager.renderer.UnloadAll();
         CloseWindow();
     }
-    public static List<string> LoadNames(string filePath)
-    {
-        try
-        {
-            string fileContent = File.ReadAllText(filePath);
-            return fileContent.Split(',').Select(name => name.Trim()).ToList();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Erreur de lecture du fichier : " + ex.Message);
-            return new List<string>();
-
-
-        }
-    }
+    
 }
