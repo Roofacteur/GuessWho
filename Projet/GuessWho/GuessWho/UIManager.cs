@@ -8,7 +8,7 @@ namespace GuessWho
     public class UIManager
     {
         public static UIManager Instance { get; } = new UIManager();
-        private string[] menuLabels = { "Jouer", "Options", "Quitter" };
+        private string[] menuLabels = { "Jouer", "Génération", "Options", "Quitter" };
         public void UpdateMenu(GameManager gamemanager)
         {
             Vector2 mouse = GetMousePosition();
@@ -19,9 +19,10 @@ namespace GuessWho
                 {
                     if (CheckCollisionPointRec(mouse, GetButtonRect(i)))
                     {
-                        if (i == 0) gamemanager.ChangeState(GameState.InGame);
-                        if (i == 1) TraceLog(TraceLogLevel.Info, "Options : à faire");
-                        if (i == 2) CloseWindow();
+                        if (i == 0) gamemanager.CurrentState = GameState.InGame;
+                        if (i == 1) Console.WriteLine("Clic sur génération");
+                        if (i == 2) Console.WriteLine("Clic sur options");
+                        if (i == 3) CloseWindow();
                     }
                 }
             }
@@ -43,11 +44,9 @@ namespace GuessWho
                 Vector2 textPos = new Vector2(btn.X + (btn.Width - textSize.X) / 2, btn.Y + (btn.Height - textSize.Y) / 2);
                 DrawText(menuLabels[i], (int)textPos.X, (int)textPos.Y, fontSize, Color.DarkBlue);
             }
+
         }
 
-        public void DrawQuestionPanel(string[] availableQuestions)
-        {
-        }
         public void DrawPortraitGrid(
             Portrait[] portraits,
             PortraitRenderer renderer,
@@ -82,7 +81,7 @@ namespace GuessWho
                     portraits[i].IsEliminated = !portraits[i].IsEliminated;
                 }
 
-                renderer.Draw(portraits[i], x, y, size);
+                renderer.DrawPortraits(portraits[i], x, y, size);
             }
         }
 
@@ -93,6 +92,7 @@ namespace GuessWho
             DrawText("Appuyez sur R pour recommencer", 360, 360, 20, Color.Black);
 
         }
+
         private Rectangle GetButtonRect(int index)
         {
             float width = 200;
@@ -109,6 +109,5 @@ namespace GuessWho
             );
         }
     }
-
 
 }

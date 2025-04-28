@@ -12,7 +12,6 @@ namespace GuessWho
         public Portrait TargetPortrait { get; private set; }
         public Portrait SelectedGuess { get; set; }  // Le portrait que le joueur pense être celui de l'adversaire
         public int Id { get; private set; }
-
         public Player(Portrait[] portraits, int id)
         {
             Id = id;

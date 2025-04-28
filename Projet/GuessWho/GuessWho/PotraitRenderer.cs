@@ -32,9 +32,10 @@ namespace GuessWho
                 SetTextureFilter(texture, TextureFilter.Bilinear);
                 textures[path] = texture;
             }
+
         }
 
-        public void Draw(Portrait portrait, int x, int y, int size)
+        public void DrawPortraits(Portrait portrait, int x, int y, int size)
         {
             string[] layers = { portrait.Skin, portrait.Clothes, portrait.Logo, portrait.Eyebrows, portrait.Eyes, portrait.Glasses, portrait.Hair, portrait.Mouth };
 
@@ -55,7 +56,6 @@ namespace GuessWho
                 }
             }
         }
-
 
         public void UnloadAll()
         {

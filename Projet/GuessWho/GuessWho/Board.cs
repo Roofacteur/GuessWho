@@ -21,7 +21,7 @@ namespace GuessWho
             {
                 if (!portrait.IsEliminated)
                 {
-                    // Afficher portrait avec Raylib
+                    
                 }
             }
         }

@@ -6,18 +6,15 @@ using static Raylib_cs.Raylib;
 
 public static class Program
 {
+    const int BasePortraitSize = 300;
     static Texture2D backgroundMenu;
     static Texture2D backgroundInGame;
-
-    const int BasePortraitSize = 300;
-
     public static void Main()
     {
         InitWindow(1800, 800, "Qui est-ce ?");
         SetTargetFPS(60);
 
-        backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
-        backgroundInGame = LoadTexture("assets/backgrounds/GameBackground.png");
+
 
         bool portraitsGenerated = false;
 
@@ -30,37 +27,45 @@ public static class Program
 
         GameState lastState = gameManager.CurrentState; // Suivi de l'ancien état
 
+        backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
+        backgroundInGame = LoadTexture("assets/backgrounds/GameBackground.png");
+
         while (!WindowShouldClose())
         {
             gameManager.Update();
 
             BeginDrawing();
 
-            // Dessiner l'arrière-plan selon l'état du jeu
-            if (gameManager.CurrentState == GameState.Menu)
+            if (gameManager.CurrentState == GameState.InGame)
             {
-                DrawTexture(backgroundMenu, 0, 0, Color.White); // Dessiner le fond du menu
+                ClearBackground(Color.White);
+                DrawTexture(backgroundInGame, 0, 0, Color.White);
             }
-            else if (gameManager.CurrentState == GameState.InGame)
+            else if (gameManager.CurrentState == GameState.Menu)
             {
-                DrawTexture(backgroundInGame, 0, 0, Color.White); // Dessiner le fond du jeu
+                ClearBackground(Color.White);
+                DrawTexture(backgroundMenu, 0, 0, Color.White);
             }
 
-            // Ensuite, afficher les autres éléments du jeu
             if (gameManager.CurrentState != lastState)
             {
-                // Gestion des changements d'état (menu / jeu)
                 if (gameManager.CurrentState == GameState.Menu)
                 {
                     CloseWindow();
                     InitWindow(1800, 800, "Qui est-ce ?");
                     SetTargetFPS(60);
+                    //ClearBackground(Color.White);
+                    //DrawTexture(backgroundMenu, 0, 0, Color.White);
+
                 }
                 else if (gameManager.CurrentState == GameState.InGame)
                 {
                     CloseWindow();
                     InitWindow(3740, 900, "Qui est-ce ?");
                     SetTargetFPS(60);
+                    //ClearBackground(Color.White);
+                    //DrawTexture(backgroundInGame, 0, 0, Color.White);
+
                 }
                 lastState = gameManager.CurrentState;
             }
@@ -96,9 +101,9 @@ public static class Program
                         renderer.LoadPotraitTextures(p);
 
                     portraitsGenerated = true;
+
                 }
 
-                // Reste du code pour l'affichage des portraits et de l'UI
                 Rectangle player1Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
                 Rectangle player2Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
 
@@ -128,7 +133,6 @@ public static class Program
         renderer.UnloadAll();
         CloseWindow();
     }
-
     public static List<string> LoadNames(string filePath)
     {
         try
@@ -140,7 +144,8 @@ public static class Program
         {
             Console.WriteLine("Erreur de lecture du fichier : " + ex.Message);
             return new List<string>();
+
+
         }
     }
-
 }
