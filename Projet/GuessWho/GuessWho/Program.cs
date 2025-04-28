@@ -14,8 +14,6 @@ public static class Program
         InitWindow(1800, 800, "Qui est-ce ?");
         SetTargetFPS(60);
 
-
-
         bool portraitsGenerated = false;
 
         UIManager uIManager = new UIManager();
@@ -28,7 +26,6 @@ public static class Program
         GameState lastState = gameManager.CurrentState; // Suivi de l'ancien état
 
         backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
-        backgroundInGame = LoadTexture("assets/backgrounds/GameBackground.png");
 
         while (!WindowShouldClose())
         {
@@ -62,6 +59,7 @@ public static class Program
                 {
                     CloseWindow();
                     InitWindow(3740, 900, "Qui est-ce ?");
+                    backgroundInGame = LoadTexture("assets/backgrounds/GameBackground.png");
                     SetTargetFPS(60);
                     //ClearBackground(Color.White);
                     //DrawTexture(backgroundInGame, 0, 0, Color.White);
@@ -113,12 +111,12 @@ public static class Program
                 string turnText = $"Le joueur {gameManager.GetCurrentPlayer()} pose une question...";
 
                 if (gameManager.GetCurrentPlayer() == 1)
-                {
-                    DrawText(turnText, 100, 30, 40, Color.Black);
+                {   
+                    DrawText(turnText, GetScreenWidth() / 2 + 100, 30, 40, Color.Black);
                 }
                 else
                 {
-                    DrawText(turnText, GetScreenWidth() / 2 + 100, 30, 40, Color.Black);
+                    DrawText(turnText, 100, 30, 40, Color.Black);
                 }
 
                 if (IsKeyPressed(KeyboardKey.Space))

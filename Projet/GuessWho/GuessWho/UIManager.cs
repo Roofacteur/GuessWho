@@ -74,9 +74,9 @@ namespace GuessWho
                 if (!string.IsNullOrEmpty(portraits[i].Name))
                     DrawText(portraits[i].Name, x, y + size + 5, 16, Color.Black);
 
-                if (gameManager.GetCurrentPlayer() == playerId &&
-                    CheckCollisionPointRec(GetMousePosition(), rect) &&
-                    IsMouseButtonPressed(MouseButton.Left))
+                if (gameManager.GetCurrentPlayer() == playerId
+                    && CheckCollisionPointRec(GetMousePosition(), rect) 
+                    && IsMouseButtonPressed(MouseButton.Left))
                 {
                     portraits[i].IsEliminated = !portraits[i].IsEliminated;
                 }

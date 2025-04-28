@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "YvfZNTDBfU4YC2LTzd7jPiImyPFSgdFOR071SM+baPuhAVzL0cbxOixkhpqu8c5aqdeSbAxUL/sXUWPQjauDfg==",
+  "dgSpecHash": "b2YtmrCX34rXL5qKWPmSuD3tacgYR6p5g5bREAm0LkspD4k9YQCiPdzZwjH5N/l6tPsWWwdX6mVrtWGuhAx3Mw==",
   "success": true,
   "projectFilePath": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\GuessWho.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\leones1\\.nuget\\packages\\raylib-cs\\7.0.1\\raylib-cs.7.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
