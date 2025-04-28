@@ -12,47 +12,50 @@ namespace GuessWho
     public class PortraitRenderer
     {
         private Dictionary<string, Texture2D> textures = new();
-        public void LoadTextures(Portrait portrait)
+        public void LoadPotraitTextures(Portrait portrait)
         {
-            LoadTexture(portrait.Skin);
-            LoadTexture(portrait.Clothes);
-            LoadTexture(portrait.Logo);
-            LoadTexture(portrait.Eyebrows);
-            LoadTexture(portrait.Eyes);
-            LoadTexture(portrait.Glasses);
-            LoadTexture(portrait.Hair);
-            LoadTexture(portrait.Mouth);
+            LoadPortrait(portrait.Skin);
+            LoadPortrait(portrait.Clothes);
+            LoadPortrait(portrait.Logo);
+            LoadPortrait(portrait.Eyebrows);
+            LoadPortrait(portrait.Eyes);
+            LoadPortrait(portrait.Glasses);
+            LoadPortrait(portrait.Hair);
+            LoadPortrait(portrait.Mouth);
         }
 
-        private void LoadTexture(string path)
+        private void LoadPortrait(string path)
         {
             if (!textures.ContainsKey(path))
             {
-                Texture2D tex = Raylib.LoadTexture(path);
-                SetTextureFilter(tex, TextureFilter.Bilinear);
-
-                textures[path] = tex;
+                Texture2D texture = LoadTexture(path);
+                SetTextureFilter(texture, TextureFilter.Bilinear);
+                textures[path] = texture;
             }
         }
 
         public void Draw(Portrait portrait, int x, int y, int size)
         {
-            var layers = new[] { portrait.Skin, portrait.Clothes, portrait.Logo, portrait.Eyebrows, portrait.Eyes, portrait.Glasses, portrait.Hair, portrait.Mouth };
+            string[] layers = { portrait.Skin, portrait.Clothes, portrait.Logo, portrait.Eyebrows, portrait.Eyes, portrait.Glasses, portrait.Hair, portrait.Mouth };
 
-            foreach (var path in layers)
+            foreach (string path in layers)
             {
-                if (textures.TryGetValue(path, out var texture))
+                if (textures.TryGetValue(path, out Texture2D texture))
                 {
-                    Rectangle gridDestination = new(x, y, size, size);
-                    DrawTexturePro(texture,
+                    Rectangle gridDestination = new Rectangle(x, y, size, size);
+
+                    DrawTexturePro(
+                        texture,
                         new Rectangle(0, 0, texture.Width, texture.Height),
                         gridDestination,
                         Vector2.Zero,
                         0f,
-                        portrait.IsEliminated ? new Color(0, 0, 0, 255) : Color.White);
+                        portrait.IsEliminated ? new Color(0, 0, 0, 255) : Color.White
+                    );
                 }
             }
         }
+
 
         public void UnloadAll()
         {

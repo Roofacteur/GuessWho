@@ -20,7 +20,7 @@ namespace GuessWho
                     if (CheckCollisionPointRec(mouse, GetButtonRect(i)))
                     {
                         if (i == 0) gamemanager.ChangeState(GameState.InGame);
-                        if (i == 1) TraceLog(TraceLogLevel.Info, "Options – à implémenter");
+                        if (i == 1) TraceLog(TraceLogLevel.Info, "Options : à faire");
                         if (i == 2) CloseWindow();
                     }
                 }
@@ -30,7 +30,6 @@ namespace GuessWho
         }
         public void DrawMenu()
         {
-
             for (int i = 0; i < menuLabels.Length; i++)
             {
                 Rectangle btn = GetButtonRect(i);
@@ -46,29 +45,30 @@ namespace GuessWho
             }
         }
 
-        public void DrawBoard(Board board)
-        {
-            board.Display();
-        }
-
         public void DrawQuestionPanel(string[] availableQuestions)
         {
         }
-        public void DrawPortraitGrid(Portrait[] portraits, PortraitRenderer renderer, int screenWidth, int startY, int cols, int originalSize, int playerId, GameManager gameManager)
+        public void DrawPortraitGrid(
+            Portrait[] portraits,
+            PortraitRenderer renderer,
+            Rectangle zone,
+            int startY,
+            int cols,
+            int originalSize,
+            int playerId,
+            GameManager gameManager)
         {
             int size = originalSize / 2;
             int spacing = 20;
             int gridWidth = cols * (size + spacing);
-            int startX = (playerId == 1)
-                ? (screenWidth / 4) - (gridWidth / 2)
-                : (3 * screenWidth / 4) - (gridWidth / 2);
+            int startX = (int)(zone.X + (zone.Width / 2) - (gridWidth / 2)); // Centrer dans la zone du joueur
 
             for (int i = 0; i < portraits.Length; i++)
             {
                 int row = i / cols;
                 int col = i % cols;
                 int x = startX + col * (size + spacing);
-                int y = startY + row * (size + spacing);
+                int y = (int)(zone.Y + startY + row * (size + spacing)); // Y relatif à la zone
 
                 Rectangle rect = new(x, y, size, size);
 
@@ -85,20 +85,13 @@ namespace GuessWho
                 renderer.Draw(portraits[i], x, y, size);
             }
         }
+
         public void DrawEndScreen(GameState state, int winner)
         {
-            if (state == GameState.Victory)
-            {
-                DrawRectangle(0, 0, 1280, 720, Color.Green);
-                DrawText($"Victoire du joueur {winner} !", 400, 300, 40, Color.Black);
-                DrawText("Appuyez sur R pour recommencer", 360, 360, 20, Color.Black);
-            }
-            else if (state == GameState.Defeat)
-            {
-                DrawRectangle(0, 0, 1280, 720, Color.Red);
-                DrawText($"Défaite du joueur {winner}...", 400, 300, 40, Color.White);
-                DrawText("Appuyez sur R pour recommencer", 360, 360, 20, Color.White);
-            }
+            DrawRectangle(0, 0, 1280, 720, Color.Green);
+            DrawText($"Victoire du joueur {winner} !", 400, 300, 40, Color.Black);
+            DrawText("Appuyez sur R pour recommencer", 360, 360, 20, Color.Black);
+
         }
         private Rectangle GetButtonRect(int index)
         {

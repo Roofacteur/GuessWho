@@ -1,11 +1,4 @@
 ﻿using Raylib_cs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuessWho
 {
@@ -17,8 +10,7 @@ namespace GuessWho
             SelectingPortraits,
             InGame,
             Guessing,
-            Victory,
-            Defeat
+            Victory
         }
         public GameState CurrentState;
 
@@ -31,18 +23,6 @@ namespace GuessWho
         public int GetCurrentPlayer() => currentPlayerTurn;
         public void NextTurn() => currentPlayerTurn = (currentPlayerTurn == 1) ? 2 : 1;
         public void ResetTurn() => currentPlayerTurn = 1;
-
-
-        public void Initialize()
-        {
-            generator = new PortraitGenerator();
-            var portraits = generator.GeneratePortraits(48);
-            player1 = new Player(portraits.Take(24).ToArray(), 1);
-            player2 = new Player(portraits.Skip(24).ToArray(), 2);
-            currentPlayerTurn = 1;
-            uiManager = new UIManager();
-            CurrentState = GameState.InGame;
-        }
 
         public void Update()
         {
@@ -58,7 +38,7 @@ namespace GuessWho
                     break;
 
                 case GameState.InGame:
-                    HandleGameLogic();
+                    Generate();
                     break;
 
                 case GameState.Guessing:
@@ -66,11 +46,25 @@ namespace GuessWho
                     break;
 
                 case GameState.Victory:
-                case GameState.Defeat:
                     uiManager.DrawEndScreen(CurrentState, currentPlayerTurn);
-                    if (Raylib.IsKeyPressed(KeyboardKey.R)) Initialize();
+                    if (Raylib.IsKeyPressed(KeyboardKey.R)) Generate();
                     break;
             }
+        }
+
+        public void Initialize()
+        {
+            uiManager = new UIManager();
+            currentPlayerTurn = 1;
+            CurrentState = GameState.Menu;
+        }
+
+        public void Generate()
+        {
+            generator = new PortraitGenerator();
+            Portrait[] portraits = generator.GeneratePortraits(48);
+            player1 = new Player(portraits.Take(24).ToArray(), 1);
+            player2 = new Player(portraits.Skip(24).ToArray(), 2);
         }
 
         public void CheckVictory(Player guesser, Player opponent)
@@ -80,16 +74,6 @@ namespace GuessWho
             {
                 CurrentState = GameState.Victory;
             }
-            else
-            {
-                CurrentState = GameState.Defeat;
-            }
-        }
-
-
-        private void HandleGameLogic()
-        {
-            // Logique principale de gestion des actions du joueur (sélection portrait, etc.)
         }
 
         private void HandleGuessing()
@@ -98,13 +82,8 @@ namespace GuessWho
         }
         private void HandlePortraitSelection()
         {
-            // Afficher l'écran de sélection des portraits pour les joueurs
-            // Exemple de code d'affichage :
-            uiManager.DrawBoard(player1.Board);
-            uiManager.DrawBoard(player2.Board);
-
             // Pour chaque joueur, gérer la sélection d'un portrait
-            if (Raylib.IsKeyPressed(KeyboardKey.Enter))  // Une fois que les joueurs ont choisi
+            if (Raylib.IsKeyPressed(KeyboardKey.Enter))
             {
                 CurrentState = GameState.InGame;
             }
@@ -120,7 +99,7 @@ namespace GuessWho
 
         public void EndGame(bool player1Won)
         {
-            CurrentState = player1Won ? GameState.Victory : GameState.Defeat;
+            CurrentState = GameState.Victory;
         }
         public void ChangeState(GameState newState)
         {
