@@ -54,9 +54,12 @@ namespace GuessWho
 
         private string GetRandomAsset(string category)
         {
+
+            // Récupération du fichier
             string directoryPath = Path.Combine("assets", "portrait", category);
             string[] allFiles = Directory.GetFiles(directoryPath, "*.png");
 
+            // Rareté
             if (allFiles.Length == 0)
                 throw new FileNotFoundException($"Aucun fichier trouvé dans le répertoire : {directoryPath}");
 
