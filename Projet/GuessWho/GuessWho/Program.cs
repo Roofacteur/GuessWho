@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 public static class Program
 {
-    const int BasePortraitSize = 300;
+    const int BasePortraitSize = 350;
     static Texture2D backgroundMenu;
     static Texture2D backgroundInGame;
 
@@ -30,11 +30,13 @@ public static class Program
 
         bool portraitsGenerated = false;
 
-        UIManager uIManager = new UIManager();
-        GameManager gameManager = new();
+        UIManager uIManager = UIManager.Instance;
+        GameManager gameManager = Instance;
         gameManager.Initialize();
 
         GameState lastState = gameManager.CurrentState;
+
+        backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
 
         while (!WindowShouldClose())
         {
@@ -56,13 +58,13 @@ public static class Program
                 {
                     InitWindow(1800, 800, "Qui est-ce ?");
                     backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
-                    CenterWindow(1800, 800, false); 
+                    CenterWindow(1800, 1000, false); 
                 }
                 else if (gameManager.CurrentState == GameState.InGame)
                 {
                     InitWindow(3740, 900, "Qui est-ce ?");
                     backgroundInGame = LoadTexture("assets/backgrounds/GameBackground.png");
-                    CenterWindow(3740, 900, true);
+                    CenterWindow(3760, 1000, true);
                 }
 
 
@@ -89,10 +91,10 @@ public static class Program
                 uIManager.DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, player1Zone, 100, 6, BasePortraitSize, 1, gameManager);
                 uIManager.DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, player2Zone, 100, 6, BasePortraitSize, 2, gameManager);
 
-                string turnText = $"Le joueur {gameManager.GetCurrentPlayer()} pose une question...";
-                int positionXText = (gameManager.GetCurrentPlayer() == 1) ? GetScreenWidth() / 2 + 100 : 100;
+                string turnText = $"Le joueur {gameManager.GetCurrentPlayer()} se fait interroger...";
+                int positionXText = (gameManager.GetCurrentPlayer() == 1) ? GetScreenWidth() / 6 : GetScreenWidth() / 2 + GetScreenWidth() / 6;
 
-                DrawText(turnText, positionXText, 30, 40, Color.Black);
+                DrawText(turnText, positionXText, 30, 40, Color.White);
 
                 if (IsKeyPressed(KeyboardKey.Space))
                     gameManager.NextTurn();

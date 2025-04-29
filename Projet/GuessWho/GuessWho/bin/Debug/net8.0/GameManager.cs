@@ -5,6 +5,8 @@ namespace GuessWho
 {
     public class GameManager
     {
+        public static GameManager Instance { get; } = new GameManager();
+
         bool gameStarted = false;
 
         public enum GameState

@@ -9,7 +9,7 @@ namespace GuessWho
 {
     public class PortraitGenerator
     {
-        private const int MaxSimilarAttributes = 3;
+        private const int MaxSimilarAttributes = 4;
         private Random random = new Random();
 
         public Portrait[] GeneratePortraits(int count)
@@ -34,7 +34,7 @@ namespace GuessWho
 
             string clothesFileName = Path.GetFileName(clothesAsset);
 
-            string logoAsset = clothesFileName.StartsWith("Special_") ? "logoNone.png" : GetRandomAsset("logos");
+            string logoAsset = clothesFileName.StartsWith("rare_") || clothesFileName.StartsWith("legendary_") ? "logoNone.png" : GetRandomAsset("logos");
 
             return new Portrait
             {
@@ -54,12 +54,33 @@ namespace GuessWho
 
         private string GetRandomAsset(string category)
         {
-            // Utilisation de Path.Combine pour générer le chemin de manière sûre
             string directoryPath = Path.Combine("assets", "portrait", category);
-            string[] files = Directory.GetFiles(directoryPath, "*.png");
-            return files[random.Next(files.Length)];
+            string[] allFiles = Directory.GetFiles(directoryPath, "*.png");
+
+            if (allFiles.Length == 0)
+                throw new FileNotFoundException($"Aucun fichier trouvé dans le répertoire : {directoryPath}");
+
+            double rarityRoll = random.NextDouble();
+
+            string[] FilterFilesByRarity(string rarityTag) =>
+                allFiles.Where(f => f.Contains(rarityTag, StringComparison.OrdinalIgnoreCase)).ToArray();
+
+            string[] selectedFiles = rarityRoll switch
+            {
+                < 0.60 => allFiles.Where(f => !f.Contains("uncommon", StringComparison.OrdinalIgnoreCase) &&
+                                              !f.Contains("rare", StringComparison.OrdinalIgnoreCase) &&
+                                              !f.Contains("legendary", StringComparison.OrdinalIgnoreCase)).ToArray(),
+                < 0.85 => FilterFilesByRarity("uncommon"),
+                < 0.95 => FilterFilesByRarity("rare"),
+                _ => FilterFilesByRarity("legendary")
+            };
+
+            return selectedFiles.Length > 0
+                ? selectedFiles[random.Next(selectedFiles.Length)]
+                : allFiles[random.Next(allFiles.Length)];
         }
-        
+
+
     }
 
 

@@ -3,28 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\projet\\guesswho\\guesswho\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\projet\\guesswho\\guesswho\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\projet\\guesswho\\guesswho\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\projet\\guesswho\\guesswho\\potraitgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\potraitgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\projet\\guesswho\\guesswho\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\projet\\guesswho\\guesswho\\portrait.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\portrait.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\projet\\guesswho\\guesswho\\board.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\board.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\projet\\guesswho\\guesswho\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\projet\\guesswho\\guesswho\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\projet\\guesswho\\guesswho\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\projet\\guesswho\\guesswho\\board.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\board.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +42,34 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
+              "Title": "PotraitGenerator.cs",
+              "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\PotraitGenerator.cs",
+              "RelativeDocumentMoniker": "GuessWho\\PotraitGenerator.cs",
+              "ToolTip": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\PotraitGenerator.cs",
+              "RelativeToolTip": "GuessWho\\PotraitGenerator.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAAADQAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-28T13:49:04.776Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Portrait.cs",
+              "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\Portrait.cs",
+              "RelativeDocumentMoniker": "GuessWho\\Portrait.cs",
+              "ToolTip": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\Portrait.cs",
+              "RelativeToolTip": "GuessWho\\Portrait.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T13:58:53.847Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Board.cs",
               "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\Board.cs",
               "RelativeDocumentMoniker": "GuessWho\\Board.cs",
@@ -46,31 +77,17 @@
               "RelativeToolTip": "GuessWho\\Board.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAADUAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T09:51:47.301Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T09:51:47.301Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PotraitGenerator.cs",
-              "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\PotraitGenerator.cs",
-              "RelativeDocumentMoniker": "GuessWho\\PotraitGenerator.cs",
-              "ToolTip": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\PotraitGenerator.cs",
-              "RelativeToolTip": "GuessWho\\PotraitGenerator.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAgwDcAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T13:49:04.776Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "GameManager.cs",
               "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\GameManager.cs",
               "RelativeDocumentMoniker": "GuessWho\\GameManager.cs",
               "ToolTip": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\GameManager.cs",
               "RelativeToolTip": "GuessWho\\GameManager.cs",
-              "ViewState": "AQIAAHsAAAAAAAAAAAAmwCYAAAApAAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAQwB4AAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-28T13:37:11.999Z",
               "EditorCaption": ""
@@ -90,26 +107,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "UIManager.cs",
               "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\UIManager.cs",
               "RelativeDocumentMoniker": "GuessWho\\UIManager.cs",
               "ToolTip": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\UIManager.cs",
               "RelativeToolTip": "GuessWho\\UIManager.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAIwB0AAAAMAAAA",
+              "ViewState": "AQIAAFgAAAAAAAAAAAAIwGgAAAA3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-28T12:10:52.594Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\Program.cs",
               "RelativeDocumentMoniker": "GuessWho\\Program.cs",
               "ToolTip": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\Program.cs",
               "RelativeToolTip": "GuessWho\\Program.cs",
-              "ViewState": "AQIAAEUAAAAAAAAAAAAswEoAAAArAAAA",
+              "ViewState": "AQIAAEwAAAAAAAAAAAAkwGEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-28T11:19:30.279Z",
               "EditorCaption": ""

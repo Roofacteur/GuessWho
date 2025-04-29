@@ -21,6 +21,7 @@ namespace GuessWho
         required public string Hair;
         required public string Mouth;
 
+        public float HoverOffset = 0f;
         public bool IsEliminated = false;
 
         public string[] GetDNA()

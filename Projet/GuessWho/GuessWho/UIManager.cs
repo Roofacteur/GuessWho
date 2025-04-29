@@ -57,6 +57,8 @@ namespace GuessWho
             int playerId,
             GameManager gameManager)
         {
+
+
             int size = originalSize / 2;
             int spacing = 20;
             int gridWidth = cols * (size + spacing);
@@ -69,37 +71,54 @@ namespace GuessWho
             int btnHeight = 40;
 
             // Dessiner le rectangle du bouton
-            DrawRectangle(btnX, btnY, btnWidth, btnHeight, Color.Gray);
+            DrawRectangleLines(btnX, btnY, btnWidth, btnHeight, Color.White);
 
-            DrawText("Retour au Menu", btnX + 10, btnY + 10, 18, Color.Beige);
+            DrawText("Retour au Menu", btnX + 10, btnY + 10, 18, Color.White);
 
-            if (CheckCollisionPointRec(GetMousePosition(), new Rectangle(btnX, btnY, btnWidth, btnHeight)) &&
-                IsMouseButtonPressed(MouseButton.Left))
+            if (CheckCollisionPointRec(GetMousePosition(), new Rectangle(btnX, btnY, btnWidth, btnHeight)))
             {
-                gameManager.CurrentState = GameState.Menu; // Changer d'état vers le Menu
+                DrawRectangle(btnX, btnY, btnWidth, btnHeight, new Color(255, 255, 255, 64));
+
+                if (IsMouseButtonPressed(MouseButton.Left))
+                {
+                    gameManager.CurrentState = GameState.Menu; // Changer d'état vers le Menu
+                }
             }
+
+            const float hoverTarget = -8f;      // Valeur de décalage max
+            const float hoverSpeed = 10f;       // Vitesse d'interpolation
 
             for (int i = 0; i < portraits.Length; i++)
             {
                 int row = i / cols;
                 int col = i % cols;
                 int x = startX + col * (size + spacing);
-                int y = (int)(zone.Y + startY + row * (size + spacing)); // Y relatif à la zone
 
-                Rectangle rect = new(x, y, size, size);
+                // Y de base sans hover
+                int baseY = (int)(zone.Y + startY + row * (size + spacing));
 
+                Rectangle rect = new(x, baseY, size, size);
+                bool isHovered = gameManager.GetCurrentPlayer() == playerId && CheckCollisionPointRec(GetMousePosition(), rect);
+
+                // Interpolation fluide vers la cible (hoverTarget ou 0)
+                float targetOffset = isHovered ? hoverTarget : 0f;
+                portraits[i].HoverOffset = Raymath.Lerp(portraits[i].HoverOffset, targetOffset, hoverSpeed * GetFrameTime());
+
+                // Application de l'offset
+                int y = (int)(baseY + portraits[i].HoverOffset);
+
+                // Dessin
                 if (!string.IsNullOrEmpty(portraits[i].Name))
-                    DrawText(portraits[i].Name, x, y + size + 5, 16, Color.Black);
+                    DrawText(portraits[i].Name, x, y + size + 5, 25, Color.White);
 
-                if (gameManager.GetCurrentPlayer() == playerId
-                    && CheckCollisionPointRec(GetMousePosition(), rect)
-                    && IsMouseButtonPressed(MouseButton.Left))
+                if (isHovered && IsMouseButtonPressed(MouseButton.Left))
                 {
                     portraits[i].IsEliminated = !portraits[i].IsEliminated;
                 }
 
                 renderer.DrawPortraits(portraits[i], x, y, size);
             }
+
         }
 
 
