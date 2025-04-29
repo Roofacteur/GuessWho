@@ -10,6 +10,8 @@ namespace GuessWho
         public enum GameState
         {
             Menu,
+            Options,
+            Generation,
             SelectingPortraits,
             InGame,
             Guessing,
@@ -21,7 +23,7 @@ namespace GuessWho
         public Player player1;
         public Player player2;
         public PortraitGenerator generator;
-        public PortraitRenderer renderer;
+        public PortraitRenderer renderer = new PortraitRenderer();
         public UIManager uiManager;
         public int currentPlayerTurn = 1;
         public int GetCurrentPlayer() => currentPlayerTurn;
@@ -33,17 +35,28 @@ namespace GuessWho
             switch (CurrentState)
             {
                 case GameState.Menu:
+                    gameStarted = false;
                     uiManager.DrawMenu();
-                    if (IsKeyPressed(KeyboardKey.End)) Initialize();
+                    break;
+
+                case GameState.Options:
+
+                    break;
+
+                case GameState.Generation:
+
                     break;
 
                 case GameState.SelectingPortraits:
+                    
                     HandlePortraitSelection();
                     break;
 
                 case GameState.InGame:
+                    
                     if (!gameStarted)
                     {
+                        ResetTurn();
                         Generate();
                         gameStarted = true;
                     }
@@ -58,6 +71,7 @@ namespace GuessWho
                     if (IsKeyPressed(KeyboardKey.R))
                     {
                         gameStarted = false;
+                        ResetTurn();
                         Generate();
                     }
                     break;
@@ -119,14 +133,14 @@ namespace GuessWho
         }
         private void HandlePortraitSelection()
         {
-            // Pour chaque joueur, gérer la sélection d'un portrait
+            
             if (IsKeyPressed(KeyboardKey.Enter))
             {
                 CurrentState = GameState.InGame;
             }
         }
 
-        public void Reset(Player player1, Player player2, List<Portrait> newPortraits)
+        public void Reset(Player player1, Player player2)
         {
             player1.Reset();
             player2.Reset();

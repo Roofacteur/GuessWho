@@ -377,3 +377,4 @@ C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\runt
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\runtimes\osx-x64\native\libraylib.dylib
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\runtimes\win-x64\native\raylib.dll
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\runtimes\win-x86\native\raylib.dll
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\libs\Raylib-cs.dll

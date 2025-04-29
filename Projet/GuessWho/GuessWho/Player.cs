@@ -16,19 +16,13 @@ namespace GuessWho
         {
             Id = id;
             Board = new Board(portraits);
-            TargetPortrait = SelectRandomPortrait(portraits);
+            TargetPortrait = null;
             SelectedGuess = null;
-        }
-
-        private Portrait SelectRandomPortrait(Portrait[] portraits)
-        {
-            var random = new Random();
-            return portraits[random.Next(portraits.Length)];
         }
 
         public void Reset()
         {
-            TargetPortrait = SelectRandomPortrait(Board.Portraits);
+            TargetPortrait = null;
             SelectedGuess = null;
             Board.Reset();
         }

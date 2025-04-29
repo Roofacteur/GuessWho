@@ -9,25 +9,25 @@ namespace GuessWho
     {
         public static UIManager Instance { get; } = new UIManager();
         private string[] menuLabels = { "Jouer", "Génération", "Options", "Quitter" };
-        public void UpdateMenu(GameManager gamemanager)
+        public void UpdateMenu(GameManager gameManager)
         {
             Vector2 mouse = GetMousePosition();
+            DrawMenu();
 
             if (IsMouseButtonPressed(MouseButton.Left))
             {
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     if (CheckCollisionPointRec(mouse, GetButtonRect(i)))
                     {
-                        if (i == 0) gamemanager.CurrentState = GameState.InGame;
+                        if (i == 0) gameManager.CurrentState = GameState.InGame;
                         if (i == 1) Console.WriteLine("Clic sur génération");
                         if (i == 2) Console.WriteLine("Clic sur options");
-                        if (i == 3) CloseWindow();
+                        if (i == 3) Environment.Exit(0);
                     }
                 }
             }
-
-            DrawMenu();
+            
         }
         public void DrawMenu()
         {
@@ -62,6 +62,23 @@ namespace GuessWho
             int gridWidth = cols * (size + spacing);
             int startX = (int)(zone.X + (zone.Width / 2) - (gridWidth / 2)); // Centrer dans la zone du joueur
 
+            // Rectangle bouton
+            int btnX = 10;
+            int btnY = 10;
+            int btnWidth = 150;
+            int btnHeight = 40;
+
+            // Dessiner le rectangle du bouton
+            DrawRectangle(btnX, btnY, btnWidth, btnHeight, Color.Gray);
+
+            DrawText("Retour au Menu", btnX + 10, btnY + 10, 18, Color.Beige);
+
+            if (CheckCollisionPointRec(GetMousePosition(), new Rectangle(btnX, btnY, btnWidth, btnHeight)) &&
+                IsMouseButtonPressed(MouseButton.Left))
+            {
+                gameManager.CurrentState = GameState.Menu; // Changer d'état vers le Menu
+            }
+
             for (int i = 0; i < portraits.Length; i++)
             {
                 int row = i / cols;
@@ -75,7 +92,7 @@ namespace GuessWho
                     DrawText(portraits[i].Name, x, y + size + 5, 16, Color.Black);
 
                 if (gameManager.GetCurrentPlayer() == playerId
-                    && CheckCollisionPointRec(GetMousePosition(), rect) 
+                    && CheckCollisionPointRec(GetMousePosition(), rect)
                     && IsMouseButtonPressed(MouseButton.Left))
                 {
                     portraits[i].IsEliminated = !portraits[i].IsEliminated;
@@ -84,6 +101,7 @@ namespace GuessWho
                 renderer.DrawPortraits(portraits[i], x, y, size);
             }
         }
+
 
         public void DrawEndScreen(GameState state, int winner)
         {

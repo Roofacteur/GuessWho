@@ -551,6 +551,9 @@
     <None Update="assets\portrait\mouth\mouthVomit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="libs\Raylib-cs.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

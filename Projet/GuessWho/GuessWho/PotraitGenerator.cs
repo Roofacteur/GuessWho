@@ -23,10 +23,8 @@ namespace GuessWho
                 if (portraits.All(existing => !newPortrait.IsSimilarTo(existing, MaxSimilarAttributes)))
                 {
                     portraits.Add(newPortrait);
-                    
                 }
             }
-            
             
             return portraits.ToArray();
         }
