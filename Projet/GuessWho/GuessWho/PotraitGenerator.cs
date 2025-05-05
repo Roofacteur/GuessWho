@@ -19,10 +19,14 @@ namespace GuessWho
             {
                 Portrait newPortrait = CreateRandomPortrait(portraits.Count);
 
-                if (portraits.All(existing => !newPortrait.IsSimilarTo(existing, MaxSimilarAttributes)))
+                if (MaxSimilarAttributes > 1 && MaxSimilarAttributes <= 10)
                 {
-                    portraits.Add(newPortrait);
+                    if (portraits.All(existing => !newPortrait.IsSimilarTo(existing, MaxSimilarAttributes)))
+                    {
+                        portraits.Add(newPortrait);
+                    }
                 }
+                
             }
             
             return portraits.ToArray();

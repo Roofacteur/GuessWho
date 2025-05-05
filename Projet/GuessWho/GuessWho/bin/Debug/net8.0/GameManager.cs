@@ -1,7 +1,5 @@
 ﻿using Raylib_cs;
-using System.Drawing;
 using static Raylib_cs.Raylib;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GuessWho
 {
@@ -15,8 +13,9 @@ namespace GuessWho
         {
             None,
             Menu,
-            Options,
             Generation,
+            Options,
+            Creating,
             SelectingPortraits,
             InGame,
             Guessing,
@@ -26,11 +25,12 @@ namespace GuessWho
         public Portrait[] allPortraits;
         public Player player1;
         public Player player2;
+        public PortraitCreator creator;
         public PortraitGenerator generator;
         public PortraitRenderer renderer = new PortraitRenderer();
         public UIManager uIManager;
         public int currentPlayerTurn = 1;
-        public int userMaxAttributesInput;
+        public int userMaxAttributesInput = 4;
         public int GetCurrentPlayer() => currentPlayerTurn;
         public void NextTurn() => currentPlayerTurn = (currentPlayerTurn == 1) ? 2 : 1;
         public void ResetTurn() => currentPlayerTurn = 1;
@@ -49,9 +49,8 @@ namespace GuessWho
                     break;
 
                 case GameState.Options:
-                    gameStarted = false;
-                    portraitsGenerated = false;
-                    uIManager.DrawOptions();
+                    uIManager.DrawBackground(gamemanager);
+                    uIManager.DrawOptions(gamemanager);
                     break;
 
                 case GameState.Generation:
@@ -63,6 +62,12 @@ namespace GuessWho
                         generatedExample = true;
                     }
                     uIManager.DrawGeneration(gamemanager);
+                    break;
+
+                case GameState.Creating:
+                    InitializeCreator();
+                    uIManager.DrawBackground(gamemanager);
+                    uIManager.DrawCreator(gamemanager);
                     break;
 
                 case GameState.SelectingPortraits:
@@ -102,6 +107,12 @@ namespace GuessWho
             uIManager = new UIManager();
             currentPlayerTurn = 1;
             CurrentState = GameState.Menu;
+        }
+
+        public void InitializeCreator()
+        {
+            uIManager = new UIManager();
+            creator = new PortraitCreator();
         }
 
         public void Generate()

@@ -1,11 +1,6 @@
 ﻿using Raylib_cs;
 using static Raylib_cs.Raylib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuessWho
 {
@@ -36,7 +31,7 @@ namespace GuessWho
 
         }
 
-        public void DrawPortraits(Portrait portrait, int x, int y, int size)
+        public void DrawPortrait(Portrait portrait, int x, int y, int size)
         {
             string[] layers = { portrait.Skin, portrait.Clothes, portrait.Logo, portrait.Eyes, portrait.Eyebrows, portrait.Hair, portrait.Beard, portrait.Glasses, portrait.Mouth };
 

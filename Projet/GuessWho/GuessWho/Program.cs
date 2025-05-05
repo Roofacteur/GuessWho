@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using GuessWho;
+﻿using GuessWho;
 using Raylib_cs;
 using static GuessWho.GameManager;
 using static Raylib_cs.Raylib;
@@ -39,7 +38,7 @@ public static class Program
             {
                 CloseWindow();
 
-                if (gameManager.CurrentState == GameState.Menu || gameManager.CurrentState == GameState.Generation)
+                if (gameManager.CurrentState != GameState.InGame)
                 {
                     InitWindow(1800, 800, "Guess Who");
                     SetTargetFPS(60);
