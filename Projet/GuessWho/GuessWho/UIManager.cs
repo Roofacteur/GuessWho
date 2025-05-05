@@ -8,12 +8,11 @@ namespace GuessWho
     public class UIManager
     {
         private string[] menuLabels = { "Play", "Generation", "Collection", "Options", "Quit" };
-        float time = 0f;
+        private GameState previousState = GameState.None;
         private Model guessWhoTitle;
         static Texture2D backgroundMenu;
         static Texture2D backgroundInGame;
-        bool isMenuLoaded = false;
-        bool isGameLoaded = false;
+        const int BasePortraitSize = 350;
 
         Camera3D camera;
 
@@ -36,12 +35,25 @@ namespace GuessWho
                     }
                 }
             }
-            
         }
 
+        public void DrawGame(GameManager gameManager)
+        {
+            gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
+            gameManager.player2.Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
+
+            DrawBackground(gameManager);
+            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, 6, BasePortraitSize, 1, gameManager);
+            DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, 6, BasePortraitSize, 2, gameManager);
+
+            string turnText = $"Ask player {gameManager.GetCurrentPlayer()} a question !";
+            int positionXText = (gameManager.GetCurrentPlayer() == 1) ? GetScreenWidth() / 6 : GetScreenWidth() / 2 + GetScreenWidth() / 6;
+
+            DrawText(turnText, positionXText, 30, 40, Color.White);
+
+        }
         public void DrawMenu()
         {
-
             // Interface 2D
             for (int i = 0; i < menuLabels.Length; i++)
             {
@@ -58,10 +70,12 @@ namespace GuessWho
             }
         }
 
-        public void DrawGeneration()
+        public void DrawGeneration(GameManager gameManager)
         {
+            DrawBackToMenuButton(gameManager);
 
-           
+            DrawText("Portrait generation examples", 50, 60, 30, Color.White);
+
         }
 
         public void DrawOptions()
@@ -81,34 +95,15 @@ namespace GuessWho
             GameManager gameManager)
         {
 
+            DrawBackToMenuButton(gameManager);
+
             int size = originalSize / 2;
             int spacing = 20;
             int gridWidth = cols * (size + spacing);
-            int startX = (int)(zone.X + (zone.Width / 2) - (gridWidth / 2)); // Centrer dans la zone du joueur
+            int startX = (int)(zone.X + (zone.Width / 2) - (gridWidth / 2));
 
-            // Rectangle bouton
-            int btnX = 10;
-            int btnY = 10;
-            int btnWidth = 150;
-            int btnHeight = 40;
-
-            // Dessiner le rectangle du bouton
-            DrawRectangleLines(btnX, btnY, btnWidth, btnHeight, Color.White);
-
-            DrawText("Back to menu", btnX + 10, btnY + 10, 18, Color.White);
-
-            if (CheckCollisionPointRec(GetMousePosition(), new Rectangle(btnX, btnY, btnWidth, btnHeight)))
-            {
-                DrawRectangle(btnX, btnY, btnWidth, btnHeight, new Color(255, 255, 255, 64));
-
-                if (IsMouseButtonPressed(MouseButton.Left))
-                {
-                    gameManager.CurrentState = GameState.Menu; // Changer d'état vers le Menu
-                }
-            }
-
-            const float hoverTarget = -8f;      // Valeur de décalage max
-            const float hoverSpeed = 10f;       // Vitesse d'interpolation
+            const float hoverTarget = -8f;
+            const float hoverSpeed = 10f;
 
             for (int i = 0; i < portraits.Length; i++)
             {
@@ -140,6 +135,30 @@ namespace GuessWho
 
         }
 
+        public void DrawBackToMenuButton(GameManager gameManager)
+        {
+            // Rectangle bouton
+            int btnX = 10;
+            int btnY = 10;
+            int btnWidth = 150;
+            int btnHeight = 40;
+
+            // Dessiner le rectangle du bouton
+            DrawRectangleLines(btnX, btnY, btnWidth, btnHeight, Color.White);
+
+            DrawText("Back to menu", btnX + 10, btnY + 10, 18, Color.White);
+
+            if (CheckCollisionPointRec(GetMousePosition(), new Rectangle(btnX, btnY, btnWidth, btnHeight)))
+            {
+                DrawRectangle(btnX, btnY, btnWidth, btnHeight, new Color(255, 255, 255, 64));
+
+                if (IsMouseButtonPressed(MouseButton.Left))
+                {
+                    gameManager.CurrentState = GameState.Menu;
+                }
+            }
+                
+        }
 
         public void DrawEndScreen(GameState state, int winner)
         {
@@ -164,17 +183,19 @@ namespace GuessWho
                 height
             );
         }
+
         public void DrawBackground(GameManager gamemanager)
         {
-            switch (gamemanager.CurrentState)
+            GameState state = gamemanager.CurrentState;
+
+            // Chargement des ressources uniquement si l'état a changé
+            if (state != previousState)
             {
-                case GameState.Menu:
-                    if (!isMenuLoaded)
-                    {
+                switch (state)
+                {
+                    case GameState.Menu:
                         backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
                         guessWhoTitle = LoadModel("assets/model3D/title/GuessWho3DTitle.glb");
-                        isMenuLoaded = true;
-                        isGameLoaded = false;
 
                         camera = new Camera3D(
                             new Vector3(0.0f, 2.5f, 5.0f),
@@ -182,25 +203,36 @@ namespace GuessWho
                             new Vector3(0.0f, 1.0f, 0.0f),
                             45.0f,
                             CameraProjection.Perspective);
-                    }
+                        break;
 
+                    case GameState.Generation:
+                        backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
+                        break;
+
+                    case GameState.InGame:
+                        backgroundInGame = LoadTexture("assets/backgrounds/GameBackground.png");
+                        break;
+                }
+
+                previousState = state;
+            }
+
+            // Affichage selon l'état actuel
+            switch (state)
+            {
+                case GameState.Menu:
                     DrawTexture(backgroundMenu, 0, 0, Color.White);
 
                     BeginMode3D(camera);
-
                     DrawModel(guessWhoTitle, new Vector3(0.0f, 2.5f, 3f), 2.0f, Color.White);
-
                     EndMode3D();
+                    break;
 
+                case GameState.Generation:
+                    DrawTexture(backgroundMenu, 0, 0, Color.White);
                     break;
 
                 case GameState.InGame:
-                    if (!isGameLoaded)
-                    {
-                        backgroundInGame = LoadTexture("assets/backgrounds/GameBackground.png");
-                        isGameLoaded = true;
-                        isMenuLoaded = false;
-                    }
                     DrawTexture(backgroundInGame, 0, 0, Color.White);
                     break;
             }

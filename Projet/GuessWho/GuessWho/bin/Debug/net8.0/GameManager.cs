@@ -1,4 +1,5 @@
 ﻿using Raylib_cs;
+using System.Drawing;
 using static Raylib_cs.Raylib;
 
 namespace GuessWho
@@ -6,9 +7,11 @@ namespace GuessWho
     public class GameManager
     {
         bool gameStarted = false;
+        public bool portraitsGenerated = false;
 
         public enum GameState
         {
+            None,
             Menu,
             Options,
             Generation,
@@ -23,43 +26,48 @@ namespace GuessWho
         public Player player2;
         public PortraitGenerator generator;
         public PortraitRenderer renderer = new PortraitRenderer();
-        public UIManager uiManager;
+        public UIManager uIManager;
         public int currentPlayerTurn = 1;
         public int GetCurrentPlayer() => currentPlayerTurn;
         public void NextTurn() => currentPlayerTurn = (currentPlayerTurn == 1) ? 2 : 1;
         public void ResetTurn() => currentPlayerTurn = 1;
 
-        public void Update()
+        public void Update(GameManager gamemanager)
         {
-            // Gestion de l'état du jeu
             switch (CurrentState)
             {
                 case GameState.Menu:
                     gameStarted = false;
-                    uiManager.DrawMenu();
+                    portraitsGenerated = false;
+                    uIManager.DrawBackground(gamemanager);
+                    uIManager.UpdateMenu(gamemanager);
+                    uIManager.DrawMenu();
                     break;
 
                 case GameState.Options:
-
+                    gameStarted = false;
+                    portraitsGenerated = false;
+                    uIManager.DrawOptions();
                     break;
 
                 case GameState.Generation:
-
+                    uIManager.DrawBackground(gamemanager);
+                    uIManager.DrawGeneration(gamemanager);
                     break;
 
                 case GameState.SelectingPortraits:
                     
-                    HandlePortraitSelection();
                     break;
 
                 case GameState.InGame:
-                    
+
                     if (!gameStarted)
                     {
                         ResetTurn();
                         Generate();
                         gameStarted = true;
                     }
+                    uIManager.DrawGame(gamemanager);
                     break;
 
                 case GameState.Guessing:
@@ -67,7 +75,7 @@ namespace GuessWho
                     break;
 
                 case GameState.Victory:
-                    uiManager.DrawEndScreen(CurrentState, currentPlayerTurn);
+                    uIManager.DrawEndScreen(CurrentState, currentPlayerTurn);
                     if (IsKeyPressed(KeyboardKey.R))
                     {
                         gameStarted = false;
@@ -80,44 +88,53 @@ namespace GuessWho
 
         public void Initialize()
         {
-            uiManager = new UIManager();
+            uIManager = new UIManager();
             currentPlayerTurn = 1;
             CurrentState = GameState.Menu;
         }
 
         public void Generate()
         {
-            // Récupérer les noms
-            List<string> names = LoadNames(Path.Combine(Directory.GetCurrentDirectory(), "assets", "names.txt"));
-            if (names.Count < 48)
+            if (!portraitsGenerated)
             {
-                throw new Exception("Erreur critique : le fichier 'names.txt' doit contenir au moins 48 noms **uniques** !");
-            }
+                // Récupérer les noms
+                List<string> names = LoadNames(Path.Combine(Directory.GetCurrentDirectory(), "assets", "names.txt"));
+                if (names.Count < 48)
+                {
+                    throw new Exception("Erreur critique : le fichier 'names.txt' doit contenir au moins 48 noms **uniques** !");
+                }
 
-            // Mélange aléatoire des noms en triant selon des GUID générés aléatoirement
-            names = names.OrderBy(str => Guid.NewGuid()).Take(48).ToList();
+                // Mélange aléatoire des noms en triant selon des GUID générés aléatoirement
+                names = names.OrderBy(str => Guid.NewGuid()).Take(48).ToList();
 
-            renderer = new PortraitRenderer();
-            generator = new PortraitGenerator();
-            allPortraits = generator.GeneratePortraits(48);
+                renderer = new PortraitRenderer();
+                generator = new PortraitGenerator();
+                allPortraits = generator.GeneratePortraits(48);
 
-            // Ajouter le nom au portrait
-            for (int i = 0; i < allPortraits.Length; i++)
-            {
-                allPortraits[i].Name = names[i];
-            }
+                // Ajouter le nom au portrait
+                for (int i = 0; i < allPortraits.Length; i++)
+                {
+                    allPortraits[i].Name = names[i];
+                }
 
-            // Créer les deux joueur
-            player1 = new Player(allPortraits.Take(24).ToArray(), 1);
-            player2 = new Player(allPortraits.Skip(24).Take(24).ToArray(), 2);
+                // Créer les deux joueur
+                player1 = new Player(allPortraits.Take(24).ToArray(), 1);
+                player2 = new Player(allPortraits.Skip(24).Take(24).ToArray(), 2);
 
-            // Afficher les portraits générés
-            foreach (Portrait p in allPortraits)
-            {
-                renderer.LoadPotraitTextures(p);
+                // Afficher les portraits générés
+                foreach (Portrait p in allPortraits)
+                {
+                    renderer.LoadPotraitTextures(p);
+                }
+
+                portraitsGenerated = true;
             }
         }
 
+        public void GenerateExample()
+        {
+
+        }
 
         public void CheckVictory(Player guesser, Player opponent)
         {
@@ -134,10 +151,7 @@ namespace GuessWho
         }
         private void HandlePortraitSelection()
         { 
-            if (IsKeyPressed(KeyboardKey.Enter))
-            {
-                CurrentState = GameState.InGame;
-            }
+            
         }
 
         public void Reset(Player player1, Player player2)
