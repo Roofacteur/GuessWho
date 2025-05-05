@@ -60,6 +60,7 @@ public static class Program
                 if (IsKeyPressed(KeyboardKey.R))
                     gameManager.generatedExample = false;
             }
+
             else if (gameManager.CurrentState == GameState.InGame)
             {
                 if (IsKeyPressed(KeyboardKey.Space))
