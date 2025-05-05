@@ -67,23 +67,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\leones1\\.nuget\\packages\\": {},
+    "C:\\Users\\leones1.S2\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\GuessWho.csproj",
+      "projectUniqueName": "C:\\Users\\leones1.S2\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\GuessWho.csproj",
       "projectName": "GuessWho",
-      "projectPath": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\GuessWho.csproj",
-      "packagesPath": "C:\\Users\\leones1\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\leones1\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\obj\\",
+      "projectPath": "C:\\Users\\leones1.S2\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\GuessWho.csproj",
+      "packagesPath": "C:\\Users\\leones1.S2\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\leones1.S2\\Desktop\\GuessWho\\Projet\\GuessWho\\GuessWho\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\leones1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\leones1.S2\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

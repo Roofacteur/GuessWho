@@ -8,11 +8,8 @@ using System.Runtime.InteropServices;
 public static class Program
 {
     const int BasePortraitSize = 350;
-    static Texture2D backgroundMenu;
-    static Texture2D backgroundInGame;
 
     // Déclarations de la WinAPI (Attention ne fonctionne que sur Windows) qui permettent de centrer les fenêtres sur l'écran
-
     [DllImport("user32.dll", SetLastError = true)]
     static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
@@ -25,30 +22,22 @@ public static class Program
 
     public static void Main()
     {
-        InitWindow(1800, 800, "Qui est-ce ?");
+        InitWindow(1800, 800, "Guess who ?");
         SetTargetFPS(60);
 
         bool portraitsGenerated = false;
 
-        UIManager uIManager = UIManager.Instance;
-        GameManager gameManager = Instance;
+        UIManager uIManager = new UIManager();
+        GameManager gameManager = new GameManager();
+
         gameManager.Initialize();
 
         GameState lastState = gameManager.CurrentState;
 
-        backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
-
         while (!WindowShouldClose())
         {
             gameManager.Update();
-
             BeginDrawing();
-            ClearBackground(Color.White);
-
-            if (gameManager.CurrentState == GameState.InGame)
-                DrawTexture(backgroundInGame, 0, 0, Color.White);
-            else if (gameManager.CurrentState == GameState.Menu)
-                DrawTexture(backgroundMenu, 0, 0, Color.White);
 
             if (gameManager.CurrentState != lastState)
             {
@@ -56,17 +45,15 @@ public static class Program
 
                 if (gameManager.CurrentState == GameState.Menu)
                 {
-                    InitWindow(1800, 800, "Qui est-ce ?");
-                    backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
-                    CenterWindow(1800, 1000, false); 
+                    InitWindow(1800, 800, "Guess Who");
+                    SetTargetFPS(60);
+                    CenterWindow(1800, 1000, false);
                 }
                 else if (gameManager.CurrentState == GameState.InGame)
                 {
-                    InitWindow(3740, 900, "Qui est-ce ?");
-                    backgroundInGame = LoadTexture("assets/backgrounds/GameBackground.png");
+                    InitWindow(3740, 900, "Guess who ?");
                     CenterWindow(3760, 1000, true);
                 }
-
 
                 SetTargetFPS(60);
                 lastState = gameManager.CurrentState;
@@ -74,8 +61,9 @@ public static class Program
 
             if (gameManager.CurrentState == GameState.Menu)
             {
-                portraitsGenerated = false;
+                uIManager.DrawBackground(gameManager);
                 uIManager.UpdateMenu(gameManager);
+                portraitsGenerated = false;
             }
             else if (gameManager.CurrentState == GameState.InGame)
             {
@@ -88,10 +76,11 @@ public static class Program
                 Rectangle player1Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
                 Rectangle player2Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
 
+                uIManager.DrawBackground(gameManager);
                 uIManager.DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, player1Zone, 100, 6, BasePortraitSize, 1, gameManager);
                 uIManager.DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, player2Zone, 100, 6, BasePortraitSize, 2, gameManager);
 
-                string turnText = $"Le joueur {gameManager.GetCurrentPlayer()} se fait interroger...";
+                string turnText = $"Ask player {gameManager.GetCurrentPlayer()} a question !";
                 int positionXText = (gameManager.GetCurrentPlayer() == 1) ? GetScreenWidth() / 6 : GetScreenWidth() / 2 + GetScreenWidth() / 6;
 
                 DrawText(turnText, positionXText, 30, 40, Color.White);
@@ -106,8 +95,6 @@ public static class Program
             
         }
 
-        UnloadTexture(backgroundMenu);
-        UnloadTexture(backgroundInGame);
         gameManager.renderer.UnloadAll();
         CloseWindow();
     }

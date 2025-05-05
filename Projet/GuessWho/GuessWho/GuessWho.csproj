@@ -23,6 +23,9 @@
     <None Update="assets\backgrounds\MenuBackground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\model3D\title\GuessWho3DTitle.glb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\names.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

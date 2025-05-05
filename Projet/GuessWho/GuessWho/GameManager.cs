@@ -5,7 +5,6 @@ namespace GuessWho
 {
     public class GameManager
     {
-        public static GameManager Instance { get; } = new GameManager();
         bool gameStarted = false;
 
         public enum GameState
@@ -41,16 +40,15 @@ namespace GuessWho
                     break;
 
                 case GameState.Options:
-
+                    uiManager.DrawOptions();
                     break;
 
                 case GameState.Generation:
-
+                    uiManager.DrawGeneration();
                     break;
 
                 case GameState.SelectingPortraits:
                     
-                    HandlePortraitSelection();
                     break;
 
                 case GameState.InGame:

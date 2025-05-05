@@ -38,7 +38,7 @@ namespace GuessWho
 
         public void DrawPortraits(Portrait portrait, int x, int y, int size)
         {
-            string[] layers = { portrait.Skin, portrait.Clothes, portrait.Logo, portrait.Eyes, portrait.Eyebrows,  portrait.Hair, portrait.Beard, portrait.Glasses, portrait.Mouth };
+            string[] layers = { portrait.Skin, portrait.Clothes, portrait.Logo, portrait.Eyes, portrait.Eyebrows, portrait.Hair, portrait.Beard, portrait.Glasses, portrait.Mouth };
 
             foreach (string path in layers)
             {
