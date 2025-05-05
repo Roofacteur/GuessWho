@@ -1,6 +1,7 @@
 ﻿using Raylib_cs;
 using System.Drawing;
 using static Raylib_cs.Raylib;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GuessWho
 {
@@ -8,6 +9,7 @@ namespace GuessWho
     {
         bool gameStarted = false;
         public bool portraitsGenerated = false;
+        public bool generatedExample = false;
 
         public enum GameState
         {
@@ -28,6 +30,7 @@ namespace GuessWho
         public PortraitRenderer renderer = new PortraitRenderer();
         public UIManager uIManager;
         public int currentPlayerTurn = 1;
+        public int userMaxAttributesInput;
         public int GetCurrentPlayer() => currentPlayerTurn;
         public void NextTurn() => currentPlayerTurn = (currentPlayerTurn == 1) ? 2 : 1;
         public void ResetTurn() => currentPlayerTurn = 1;
@@ -39,6 +42,7 @@ namespace GuessWho
                 case GameState.Menu:
                     gameStarted = false;
                     portraitsGenerated = false;
+                    generatedExample = false;
                     uIManager.DrawBackground(gamemanager);
                     uIManager.UpdateMenu(gamemanager);
                     uIManager.DrawMenu();
@@ -51,7 +55,13 @@ namespace GuessWho
                     break;
 
                 case GameState.Generation:
+
                     uIManager.DrawBackground(gamemanager);
+                    if (!generatedExample)
+                    {
+                        GenerateExample();
+                        generatedExample = true;
+                    }
                     uIManager.DrawGeneration(gamemanager);
                     break;
 
@@ -67,6 +77,7 @@ namespace GuessWho
                         Generate();
                         gameStarted = true;
                     }
+                    uIManager.DrawBackground(gamemanager);
                     uIManager.DrawGame(gamemanager);
                     break;
 
@@ -109,7 +120,7 @@ namespace GuessWho
 
                 renderer = new PortraitRenderer();
                 generator = new PortraitGenerator();
-                allPortraits = generator.GeneratePortraits(48);
+                allPortraits = generator.GeneratePortraits(48, userMaxAttributesInput);
 
                 // Ajouter le nom au portrait
                 for (int i = 0; i < allPortraits.Length; i++)
@@ -133,7 +144,30 @@ namespace GuessWho
 
         public void GenerateExample()
         {
+            List<string> names = LoadNames(Path.Combine(Directory.GetCurrentDirectory(), "assets", "names.txt"));
+            if (names.Count < 48)
+            {
+                throw new Exception("Erreur critique : le fichier 'names.txt' doit contenir au moins 48 noms **uniques** !");
+            }
 
+            // Mélange aléatoire des noms en triant selon des GUID générés aléatoirement
+            names = names.OrderBy(str => Guid.NewGuid()).Take(48).ToList();
+
+            renderer = new PortraitRenderer();
+            generator = new PortraitGenerator();
+            allPortraits = generator.GeneratePortraits(2, userMaxAttributesInput);
+
+            for (int i = 0; i < allPortraits.Length; i++)
+            {
+                allPortraits[i].Name = names[i];
+            }
+
+            player1 = new Player(allPortraits.Take(2).ToArray(), 1);
+
+            foreach (Portrait p in allPortraits)
+            {
+                renderer.LoadPotraitTextures(p);
+            }
         }
 
         public void CheckVictory(Player guesser, Player opponent)

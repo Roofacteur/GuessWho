@@ -23,8 +23,6 @@ public static class Program
         InitWindow(1800, 800, "Guess who ?");
         SetTargetFPS(60);
 
-        
-        UIManager uIManager = new UIManager();
         GameManager gameManager = new GameManager();
 
         gameManager.Initialize();
@@ -46,6 +44,7 @@ public static class Program
                     InitWindow(1800, 800, "Guess Who");
                     SetTargetFPS(60);
                     CenterWindow(1800, 1000, false);
+                   
                 }
                 else if (gameManager.CurrentState == GameState.InGame)
                 {
@@ -55,6 +54,11 @@ public static class Program
 
                 SetTargetFPS(60);
                 lastState = gameManager.CurrentState;
+            }
+            else if (gameManager.CurrentState == GameState.Generation)
+            {
+                if (IsKeyPressed(KeyboardKey.R))
+                    gameManager.generatedExample = false;
             }
             else if (gameManager.CurrentState == GameState.InGame)
             {
@@ -69,6 +73,7 @@ public static class Program
         }
 
         gameManager.renderer.UnloadAll();
+        gameManager.uIManager.UnloadAll();
         CloseWindow();
     }
 

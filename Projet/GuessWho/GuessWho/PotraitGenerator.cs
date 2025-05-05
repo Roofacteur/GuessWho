@@ -9,10 +9,9 @@ namespace GuessWho
 {
     public class PortraitGenerator
     {
-        public int MaxSimilarAttributes = 4;
         private Random random = new Random();
 
-        public Portrait[] GeneratePortraits(int count)
+        public Portrait[] GeneratePortraits(int count, int MaxSimilarAttributes)
         {
             List<Portrait> portraits = new List<Portrait>();
 

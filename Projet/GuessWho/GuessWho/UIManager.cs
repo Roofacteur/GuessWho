@@ -36,22 +36,6 @@ namespace GuessWho
                 }
             }
         }
-
-        public void DrawGame(GameManager gameManager)
-        {
-            gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
-            gameManager.player2.Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
-
-            DrawBackground(gameManager);
-            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, 6, BasePortraitSize, 1, gameManager);
-            DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, 6, BasePortraitSize, 2, gameManager);
-
-            string turnText = $"Ask player {gameManager.GetCurrentPlayer()} a question !";
-            int positionXText = (gameManager.GetCurrentPlayer() == 1) ? GetScreenWidth() / 6 : GetScreenWidth() / 2 + GetScreenWidth() / 6;
-
-            DrawText(turnText, positionXText, 30, 40, Color.White);
-
-        }
         public void DrawMenu()
         {
             // Interface 2D
@@ -70,13 +54,89 @@ namespace GuessWho
             }
         }
 
+        public void DrawGame(GameManager gameManager)
+        {
+            gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
+            gameManager.player2.Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
+
+            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, 6, BasePortraitSize, 1, gameManager);
+            DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, 6, BasePortraitSize, 2, gameManager);
+
+            string turnText = $"Ask player {gameManager.GetCurrentPlayer()} a question !";
+            int positionXText = (gameManager.GetCurrentPlayer() == 1) ? GetScreenWidth() / 6 : GetScreenWidth() / 2 + GetScreenWidth() / 6;
+
+            DrawText(turnText, positionXText, 30, 40, Color.White);
+
+        }
+
+        // Déclarer ces variables en dehors de la méthode (au niveau de la classe contenant DrawGeneration)
+        bool inputActive = false;
+        string inputText = "";
+        Rectangle inputBox = new Rectangle(50, 190, 200, 30);
+
+        // Appelle ensuite cette méthode dans ta boucle principale de Draw
         public void DrawGeneration(GameManager gameManager)
         {
             DrawBackToMenuButton(gameManager);
-
             DrawText("Portrait generation examples", 50, 60, 30, Color.White);
+            DrawText("Press \"R\" to regenerate", 50, 100, 20, Color.White);
 
+            // Texte actuel
+            string similarAttributes = gameManager.userMaxAttributesInput.ToString();
+            DrawText("Maximum of similar genes in DNA : " + similarAttributes, 50, 150, 20, Color.White);
+
+            // Zone d’affichage de la boîte de texte
+            DrawText("Set Max Similar Attributes:", 50, 170, 20, Color.White);
+            DrawRectangleRec(inputBox, inputActive ? Color.SkyBlue : Color.DarkGray);
+            DrawRectangleLinesEx(inputBox, 1, Color.Black);
+
+            // Affichage du texte saisi
+            DrawText(inputText, (int)inputBox.X + 5, (int)inputBox.Y + 5, 20, Color.Black);
+
+            // Activation de la zone de saisie si clic
+            if (CheckCollisionPointRec(GetMousePosition(), inputBox) && IsMouseButtonPressed(MouseButton.Left))
+            {
+                inputActive = true;
+            }
+            else if (IsMouseButtonPressed(MouseButton.Left))
+            {
+                inputActive = false;
+            }
+
+            // Saisie clavier
+            if (inputActive)
+            {
+                int key = GetCharPressed();
+                while (key > 0)
+                {
+                    if ((key >= 48 && key <= 57) && inputText.Length < 3) // Chiffres seulement
+                    {
+                        inputText += (char)key;
+                    }
+                    key = GetCharPressed();
+                }
+
+                if (IsKeyPressed(KeyboardKey.Backspace) && inputText.Length > 0)
+                {
+                    inputText = inputText.Substring(0, inputText.Length - 1);
+                }
+
+                if (IsKeyPressed(KeyboardKey.Enter) && inputText.Length > 0)
+                {
+                    if (int.TryParse(inputText, out int newValue))
+                    {
+                        gameManager.userMaxAttributesInput = newValue;
+                    }
+                    inputText = ""; // Réinitialise le champ après validation
+                    inputActive = false;
+                }
+            }
+
+            // Dessin des portraits
+            gameManager.player1.Zone = new Rectangle(GetScreenWidth() / 2, GetScreenHeight() / 4, GetScreenWidth() / 2, GetScreenHeight());
+            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, 6, BasePortraitSize, 1, gameManager);
         }
+
 
         public void DrawOptions()
         {
@@ -237,6 +297,27 @@ namespace GuessWho
                     break;
             }
         }
+        public void UnloadAll()
+        {
+            if (backgroundMenu.Id != 0)
+            {
+                UnloadTexture(backgroundMenu);
+                backgroundMenu = new Texture2D();
+            }
+
+            if (backgroundInGame.Id != 0)
+            {
+                UnloadTexture(backgroundInGame);
+                backgroundInGame = new Texture2D();
+            }
+
+            if (guessWhoTitle.MeshCount > 0)
+            {
+                UnloadModel(guessWhoTitle);
+                guessWhoTitle = new Model();
+            }
+        }
+
 
     }
 
