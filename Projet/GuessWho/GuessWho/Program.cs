@@ -43,9 +43,9 @@ public static class Program
                     InitWindow(1800, 800, "Guess Who");
                     SetTargetFPS(60);
                     CenterWindow(1800, 1000, false);
-                   
+
                 }
-                else if (gameManager.CurrentState == GameState.InGame)
+                else
                 {
                     InitWindow(3740, 900, "Guess who ?");
                     CenterWindow(3760, 1000, true);
@@ -59,17 +59,25 @@ public static class Program
                 if (IsKeyPressed(KeyboardKey.R))
                     gameManager.generatedExample = false;
             }
-
             else if (gameManager.CurrentState == GameState.InGame)
             {
                 if (IsKeyPressed(KeyboardKey.Space))
                     gameManager.NextTurn();
 
                 if (IsKeyPressed(KeyboardKey.R))
+                {
                     gameManager.portraitsGenerated = false;
+                    gameManager.Generate();
+                }
+
             }
+            else if (gameManager.StateSelectingPortrait)
+            {
+                if (IsKeyPressed(KeyboardKey.Space))
+                    gameManager.NextTurn();
+            }
+
             EndDrawing();
-            
         }
 
         gameManager.renderer.UnloadAll();

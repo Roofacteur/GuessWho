@@ -20,13 +20,14 @@ namespace GuessWho
         required public string Glasses;
         required public string Hair;
         required public string Mouth;
+        required public string Gender;
 
         public float HoverOffset = 0f;
         public bool IsEliminated = false;
 
         public string[] GetDNA()
         {
-            return new[] { Skin, Clothes, Logo, Eyebrows, Eyes, Beard, Glasses, Hair, Mouth };
+            return new[] { Skin, Clothes, Logo, Eyebrows, Eyes, Beard, Glasses, Hair, Mouth, Gender };
         }
 
         public bool IsSimilarTo(Portrait other, int maxSimilarAttributes)

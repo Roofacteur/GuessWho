@@ -18,6 +18,7 @@ namespace GuessWho
             LoadPortrait(portrait.Glasses);
             LoadPortrait(portrait.Hair);
             LoadPortrait(portrait.Mouth);
+            LoadPortrait(portrait.Gender);
         }
 
         private void LoadPortrait(string path)
@@ -33,7 +34,7 @@ namespace GuessWho
 
         public void DrawPortrait(Portrait portrait, int x, int y, int size)
         {
-            string[] layers = { portrait.Skin, portrait.Clothes, portrait.Logo, portrait.Eyes, portrait.Eyebrows, portrait.Hair, portrait.Beard, portrait.Glasses, portrait.Mouth };
+            string[] layers = { portrait.Skin, portrait.Clothes, portrait.Logo, portrait.Eyes, portrait.Eyebrows, portrait.Hair, portrait.Beard, portrait.Glasses, portrait.Mouth, portrait.Gender };
 
             foreach (string path in layers)
             {

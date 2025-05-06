@@ -145,7 +145,6 @@ C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\asse
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthSerious.png
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthTongue.png
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\names.txt
-C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\names.txt
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\base\baseBrown.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\base\basePale.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\base\baseTanned.png
@@ -586,3 +585,15 @@ C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\Potr
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\PotraitRenderer.cs
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\Program.cs
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\UIManager.cs
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\Player.cs
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\Portrait.cs
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\PortraitCreator.cs
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\PotraitGenerator.cs
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\PotraitRenderer.cs
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\Program.cs
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\UIManager.cs
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\model3D\title\GuessWho3DTitle.glb
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\gender\female.png
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\gender\male.png
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\femalenames.txt
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\malenames.txt

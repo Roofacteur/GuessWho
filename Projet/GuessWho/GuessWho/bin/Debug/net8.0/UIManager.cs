@@ -58,6 +58,37 @@ namespace GuessWho
                 DrawText(menuLabels[i], (int)textPos.X, (int)textPos.Y, fontSize, Color.DarkBlue);
             }
         }
+        public void DrawSelectingPortraits(GameManager gameManager)
+        {
+            string turnText;
+
+            gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
+            gameManager.player2.Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
+
+            Rectangle hidden = (gameManager.GetCurrentPlayer() == 1) ?
+                new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight()) :
+                new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
+
+            Color transparentBlack = new Color(0, 0, 0, 128);
+
+            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, 6, BasePortraitSize, 1, gameManager);
+            DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, 6, BasePortraitSize, 2, gameManager);
+
+            DrawRectangle((int)hidden.X, (int)hidden.Y, (int)hidden.Width, (int)hidden.Height, transparentBlack);
+
+            if (gameManager.GetCurrentPlayer() == 1)
+            {
+                turnText = $"Player {gameManager.GetCurrentPlayer()} is choosing a character !\n Player 2 don't you dare look...";
+            }
+            else
+            {
+                turnText = $"Player {gameManager.GetCurrentPlayer()} is choosing a character !\n Player 1 don't you dare look...";
+            }
+
+            int positionXText = (gameManager.GetCurrentPlayer() == 1) ? GetScreenWidth() / 6 : GetScreenWidth() / 2 + GetScreenWidth() / 6;
+            DrawText(turnText, positionXText, 30, 30, Color.White);
+            
+        }
 
         public void DrawGame(GameManager gameManager)
         {
@@ -72,8 +103,6 @@ namespace GuessWho
 
             DrawText(turnText, positionXText, 30, 40, Color.White);
 
-            //string similarAttributes = gameManager.userMaxAttributesInput.ToString();
-            //DrawText("DNA : " + similarAttributes, 50, 150, 20, Color.White);
 
         }
 
@@ -126,18 +155,17 @@ namespace GuessWho
                 {
                     if (int.TryParse(inputText, out int newValue))
                     {
-                        if (newValue > 1 && newValue <= 10 )
+                        if (newValue > 2 && newValue <= 10 )
                         {
                             gameManager.userMaxAttributesInput = newValue;
                         }
                         
                     }
-                    inputText = ""; // Réinitialise le champ après validation
+                    inputText = "";
                     inputActive = false;
                 }
             }
 
-            // Dessin des portraits
             gameManager.player1.Zone = new Rectangle(
                 GetScreenWidth() / 1.5f,
                 GetScreenHeight() / 6,
@@ -196,13 +224,27 @@ namespace GuessWho
 
                 int y = (int)(baseY + portraits[i].HoverOffset);
 
-                // Dessin
                 if (!string.IsNullOrEmpty(portraits[i].Name))
                     DrawText(portraits[i].Name, x, y + size + 5, 25, Color.White);
 
-                if (isHovered && IsMouseButtonPressed(MouseButton.Left))
+                if (isHovered && IsMouseButtonPressed(MouseButton.Left) && gameManager.StateSelectingPortrait == false)
                 {
                     portraits[i].IsEliminated = !portraits[i].IsEliminated;
+                }
+
+                if (isHovered && IsMouseButtonPressed(MouseButton.Left) && gameManager.StateSelectingPortrait)
+                {
+                    if(gameManager.player1.TargetPortrait == null && gameManager.GetCurrentPlayer() == 1)
+                    {
+                        gameManager.SelectingPortrait(gameManager.player1, portraits[i]);
+                        gameManager.NextTurn();
+                    }
+                    else if (gameManager.player2.TargetPortrait == null && gameManager.GetCurrentPlayer() == 2)
+                    {
+                        gameManager.SelectingPortrait(gameManager.player2, portraits[i]);
+                        gameManager.NextTurn();
+                    }
+                    
                 }
 
                 renderer.DrawPortrait(portraits[i], x, y, size);
@@ -213,14 +255,14 @@ namespace GuessWho
         {
             // Rectangle bouton
             int btnX = 10;
-            int btnY = 10;
-            int btnWidth = 150;
-            int btnHeight = 40;
+            int btnY = 5;
+            int btnWidth = 70;
+            int btnHeight = 65;
 
             // Dessiner le rectangle du bouton
             DrawRectangleLines(btnX, btnY, btnWidth, btnHeight, Color.White);
 
-            DrawText("Back to menu", btnX + 10, btnY + 10, 18, Color.White);
+            DrawText("<-", btnX + 10, btnY, 60, Color.White);
 
             if (CheckCollisionPointRec(GetMousePosition(), new Rectangle(btnX, btnY, btnWidth, btnHeight)))
             {
@@ -325,6 +367,7 @@ namespace GuessWho
                 case GameState.InGame:
                     DrawTexture(backgroundInGame, 0, 0, Color.White);
                     break;
+               
             }
         }
         public void UnloadAll()

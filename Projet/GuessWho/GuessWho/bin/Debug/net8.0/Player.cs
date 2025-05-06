@@ -11,21 +11,17 @@ namespace GuessWho
     {
         public Board Board { get; private set; }
         public Raylib_cs.Rectangle Zone; // Spécifier car conflit entre "System.Drawing.Rectangle" et "Raylib_cs.Rectangle"
-        public Portrait TargetPortrait { get; private set; }
+        public Portrait TargetPortrait;
         public Portrait SelectedGuess { get; set; }
         public int Id { get; private set; }
         public Player(Portrait[] portraits, int id)
         {
             Id = id;
             Board = new Board(portraits);
-            TargetPortrait = null;
-            SelectedGuess = null;
         }
 
         public void Reset()
         {
-            TargetPortrait = null;
-            SelectedGuess = null;
             Board.Reset();
         }
 

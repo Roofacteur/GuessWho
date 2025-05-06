@@ -19,14 +19,13 @@ namespace GuessWho
             {
                 Portrait newPortrait = CreateRandomPortrait(portraits.Count);
 
-                if (MaxSimilarAttributes > 1 && MaxSimilarAttributes <= 10)
+                if (MaxSimilarAttributes > 2 && MaxSimilarAttributes <= 10)
                 {
                     if (portraits.All(existing => !newPortrait.IsSimilarTo(existing, MaxSimilarAttributes)))
                     {
                         portraits.Add(newPortrait);
                     }
                 }
-                
             }
             
             return portraits.ToArray();
@@ -34,15 +33,18 @@ namespace GuessWho
         private Portrait CreateRandomPortrait(int id)
         {
             string clothesAsset = GetRandomAsset("clothes");
-
             string clothesFileName = Path.GetFileName(clothesAsset);
+            string logoAsset = clothesFileName.StartsWith("rare_") || clothesFileName.StartsWith("legendary_")
+                ? "logoNone.png"
+                : GetRandomAsset("logos");
 
-            string logoAsset = clothesFileName.StartsWith("rare_") || clothesFileName.StartsWith("legendary_") ? "logoNone.png" : GetRandomAsset("logos");
+
+            string genderAsset = GetRandomAsset("gender");
+            string gender = Path.GetFileName(genderAsset); 
 
             return new Portrait
             {
                 Id = id,
-                Name = $"Portrait_{id}",
                 Skin = GetRandomAsset("base"),
                 Clothes = clothesAsset,
                 Logo = logoAsset,
@@ -52,17 +54,17 @@ namespace GuessWho
                 Glasses = GetRandomAsset("glasses"),
                 Hair = GetRandomAsset("hair"),
                 Mouth = GetRandomAsset("mouth"),
+                Gender = genderAsset,
+                Name = GetRandomName(gender)
             };
         }
 
         private string GetRandomAsset(string category)
         {
 
-            // Récupération du fichier
             string directoryPath = Path.Combine("assets", "portrait", category);
             string[] allFiles = Directory.GetFiles(directoryPath, "*.png");
 
-            // Rareté
             if (allFiles.Length == 0)
                 throw new FileNotFoundException($"Aucun fichier trouvé dans le répertoire : {directoryPath}");
 
@@ -86,8 +88,54 @@ namespace GuessWho
                 : allFiles[random.Next(allFiles.Length)];
         }
 
+        private static string GetRandomName(string gender)
+        {
+            string genderFileName;
+
+            if (gender == "female.png")
+            {
+                genderFileName = "femalenames.txt";
+            }
+            else if (gender == "male.png")
+            {
+                genderFileName = "malenames.txt";
+            }
+            else
+            {
+                throw new ArgumentException("Invalid gender value. Expected 'female.png' or 'male.png'");
+            }
+
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "assets", genderFileName);
+            List<string> names = LoadNames(filePath);
+
+            if (names.Count < 48)
+            {
+                throw new Exception($"Critical error: '{genderFileName}' must contain at least 48 unique names!");
+            }
+
+            // Return a random name
+            return names.OrderBy(str => Guid.NewGuid()).First();
+        }
+
+        public static List<string> LoadNames(string filePath)
+        {
+            try
+            {
+                string fileContent = File.ReadAllText(filePath);
+                return fileContent
+                    .Split(',')
+                    .Select(name => name.Trim())
+                    .Where(name => !string.IsNullOrWhiteSpace(name))
+                    .Distinct()
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error reading file: " + ex.Message);
+                return new List<string>();
+            }
+        }
+
 
     }
-
-
 }

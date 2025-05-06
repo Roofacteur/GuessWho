@@ -11,7 +11,10 @@ namespace GuessWho
 {
     public class PortraitCreator
     {
-        
+        private void GenerateDefaultPortrait()
+        {
+
+        }
     }
 
 }
