@@ -134,7 +134,8 @@ namespace GuessWho
             {
                 renderer = new PortraitRenderer();
                 generator = new PortraitGenerator();
-                allPortraits = generator.GeneratePortraits(48, userMaxAttributesInput);
+
+                allPortraits = generator.GeneratePortraits(24, userMaxAttributesInput);
 
                 // Créer les deux joueur
                 player1 = new Player(allPortraits.Take(24).ToArray(), 1);

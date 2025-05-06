@@ -14,7 +14,7 @@ namespace GuessWho
         static Texture2D backgroundMenu;
         static Texture2D backgroundInGame;
         static Texture2D screenIcon;
-        const int BasePortraitSize = 350;
+        static int BasePortraitSize = 350;
 
         private bool inputInitialized = false;
         bool inputActive = false;
@@ -219,36 +219,64 @@ namespace GuessWho
         {
             DrawBackToMenuButton(gameManager);
 
-            // Titre centré
             string title = "Screen configuration";
-            int titleWidth = MeasureText(title, 30); // Utilise MeasureText si dispo, sinon ajuste à la main
+            int titleWidth = MeasureText(title, 30);
             DrawText(title, GetScreenWidth() / 2 - titleWidth / 2, 30, 30, Color.White);
 
-            // Textes d’options
-            if(gameManager.userHasDualScreen)
+            int singleX = GetScreenWidth() / 4 - 100;
+            int dualX = 3 * GetScreenWidth() / 4 - 100;
+            int textY = 350;
+            int textWidth = 230;
+            int textHeight = 40;
+
+            Vector2 mousePos = GetMousePosition();
+            Rectangle singleRect = new Rectangle(singleX, textY, textWidth, textHeight);
+            Rectangle dualRect = new Rectangle(dualX, textY, textWidth, textHeight);
+
+            Color hoverColor = new Color(255, 255, 255, 128); // Blanc à 50% d’opacité
+
+            if (CheckCollisionPointRec(mousePos, singleRect))
             {
-               DrawText("V", GetScreenWidth() / 4 + 120, 350, 30, Color.Green);
+                DrawRectangle((int)singleRect.X, (int)singleRect.Y, (int)singleRect.Width, (int)singleRect.Height, hoverColor);
+                if (IsMouseButtonPressed(MouseButton.Left))
+                {
+                    BasePortraitSize = 250;
+                    gameManager.userHasDualScreen = false;
+                }
             }
-            else
+            if (CheckCollisionPointRec(mousePos, dualRect))
             {
-                DrawText("V", 3 * GetScreenWidth() / 4 + 120, 350, 30, Color.Green);
+                DrawRectangle((int)dualRect.X, (int)dualRect.Y, (int)dualRect.Width, (int)dualRect.Height, hoverColor);
+                if (IsMouseButtonPressed(MouseButton.Left))
+                {
+                    BasePortraitSize = 350;
+                    gameManager.userHasDualScreen = true;
+                }
             }
 
-            DrawText("Single screen", GetScreenWidth() / 4 - 100, 350, 30, Color.White);
-            DrawText("Dualscreen", 3 * GetScreenWidth() / 4 - 100, 350, 30, Color.White);
-            // Dessin des icônes
+            DrawText("Single screen", singleX, textY, 30, Color.White);
+            DrawText("Dualscreen", dualX, textY, 30, Color.White);
+
             int screenWidth = GetScreenWidth();
             int iconWidth = 300;
 
-            // 1er screenIcon - centré dans la première moitié
-            int singleX = screenWidth / 4 - iconWidth / 2;
-            DrawTexture(screenIcon, singleX, 400, Color.White);
+            int singleIconX = screenWidth / 4 - iconWidth / 2;
+            DrawTexture(screenIcon, singleIconX, 400, Color.White);
 
-            // 2ème et 3ème screenIcon - côte à côte dans la deuxième moitié
             int dualStartX = screenWidth / 2 + (screenWidth / 2 - iconWidth * 2) / 2;
             DrawTexture(screenIcon, dualStartX, 400, Color.White);
             DrawTexture(screenIcon, dualStartX + iconWidth, 400, Color.White);
+
+            if (gameManager.userHasDualScreen)
+            {
+                DrawText("Selected", dualX, 320, 30, Color.Green);
+            }
+            else
+            {
+                DrawText("Selected", singleX, 320, 30, Color.Green);
+            }
         }
+
 
 
         public void DrawPortraitGrid(
@@ -398,7 +426,14 @@ namespace GuessWho
                         break;
 
                     case GameState.InGame:
-                        backgroundInGame = LoadTexture("assets/backgrounds/GameBackground.png");
+                        if (gamemanager.userHasDualScreen)
+                        {
+                            backgroundInGame = LoadTexture("assets/backgrounds/GameBackground.png");
+                        }
+                        else
+                        {
+                            backgroundInGame = LoadTexture("assets/backgrounds/GameSmallBackground.png");
+                        }
                         break;
                 }
 

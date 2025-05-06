@@ -15,10 +15,12 @@ namespace GuessWho
         public Portrait[] GeneratePortraits(int count, int MaxSimilarAttributes)
         {
             List<Portrait> portraits = new List<Portrait>();
+            int numberOfTries = 0;
 
+            // Étape 1 : Générer les portraits originaux
             while (portraits.Count < count)
             {
-                Portrait newPortrait = CreateRandomPortrait(portraits.Count);
+                Portrait newPortrait = CreateRandomPortrait(portraits.Count.ToString());
 
                 if (MaxSimilarAttributes > 0 && MaxSimilarAttributes <= 10)
                 {
@@ -32,12 +34,18 @@ namespace GuessWho
                         Console.WriteLine("Retried generation " + numberOfTries.ToString() + " times");
                     }
                 }
-                
             }
-            
+
+            // Étape 2 : Dupliquer les portraits dans le même ordre
+            List<Portrait> duplicates = portraits
+                .Select(p => p.Clone())
+                .ToList();
+
+            portraits.AddRange(duplicates); // Ajoute les clones à la fin
+
             return portraits.ToArray();
         }
-        private Portrait CreateRandomPortrait(int id)
+        private Portrait CreateRandomPortrait(string id)
         {
             string clothesAsset = GetRandomAsset("clothes");
             string clothesFileName = Path.GetFileName(clothesAsset);

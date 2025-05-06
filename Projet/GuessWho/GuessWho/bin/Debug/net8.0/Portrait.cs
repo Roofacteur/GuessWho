@@ -9,7 +9,7 @@ namespace GuessWho
 {
     public class Portrait
     {
-        public int Id;
+        public string Id;
         required public string Name;
         required public string Skin;
         required public string Clothes;
@@ -34,6 +34,26 @@ namespace GuessWho
         {
             int similarCount = GetDNA().Zip(other.GetDNA(), (a, b) => a == b).Count(match => match);
             return similarCount > maxSimilarAttributes;
+        }
+        public Portrait Clone()
+        {
+            return new Portrait
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = this.Name,
+                Skin = this.Skin,
+                Clothes = this.Clothes,
+                Logo = this.Logo,
+                Eyebrows = this.Eyebrows,
+                Eyes = this.Eyes,
+                Beard = this.Beard,
+                Glasses = this.Glasses,
+                Hair = this.Hair,
+                Mouth = this.Mouth,
+                Gender = this.Gender,
+                HoverOffset = this.HoverOffset,
+                IsEliminated = this.IsEliminated
+            };
         }
     }
 
