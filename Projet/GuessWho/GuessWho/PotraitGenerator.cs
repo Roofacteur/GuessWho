@@ -10,6 +10,7 @@ namespace GuessWho
     public class PortraitGenerator
     {
         private Random random = new Random();
+        private int numberOfTries;
 
         public Portrait[] GeneratePortraits(int count, int MaxSimilarAttributes)
         {
@@ -19,13 +20,19 @@ namespace GuessWho
             {
                 Portrait newPortrait = CreateRandomPortrait(portraits.Count);
 
-                if (MaxSimilarAttributes > 2 && MaxSimilarAttributes <= 10)
+                if (MaxSimilarAttributes > 0 && MaxSimilarAttributes <= 10)
                 {
                     if (portraits.All(existing => !newPortrait.IsSimilarTo(existing, MaxSimilarAttributes)))
                     {
                         portraits.Add(newPortrait);
                     }
+                    else
+                    {
+                        numberOfTries++;
+                        Console.WriteLine("Retried generation " + numberOfTries.ToString() + " times");
+                    }
                 }
+                
             }
             
             return portraits.ToArray();
@@ -35,8 +42,7 @@ namespace GuessWho
             string clothesAsset = GetRandomAsset("clothes");
             string clothesFileName = Path.GetFileName(clothesAsset);
             string logoAsset = clothesFileName.StartsWith("rare_") || clothesFileName.StartsWith("legendary_")
-                ? "logoNone.png"
-                : GetRandomAsset("logos");
+                ? "assets\\portrait\\logos\\logoNone.png" : GetRandomAsset("logos");
 
 
             string genderAsset = GetRandomAsset("gender");

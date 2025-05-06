@@ -13,11 +13,13 @@ namespace GuessWho
         private Model guessWhoTitle;
         static Texture2D backgroundMenu;
         static Texture2D backgroundInGame;
+        static Texture2D screenIcon;
         const int BasePortraitSize = 350;
 
+        private bool inputInitialized = false;
         bool inputActive = false;
         string inputText = "";
-        Rectangle inputBox = new Rectangle(50, 290, 200, 30);
+        Rectangle inputBox = new Rectangle(320, 210, 50, 40);
 
         Camera3D camera;
 
@@ -103,34 +105,55 @@ namespace GuessWho
 
             DrawText(turnText, positionXText, 30, 40, Color.White);
 
+            DrawBackToMenuButton(gameManager);
 
         }
 
         public void DrawGeneration(GameManager gameManager)
         {
-            DrawBackToMenuButton(gameManager);
-            DrawText("Portrait generation examples", 50, 60, 30, Color.White);
-            DrawText("Press R !", GetScreenWidth()/2 -100, GetScreenHeight() - 100, 40, Color.White);
+            if (!inputInitialized)
+            {
+                inputText = gameManager.userMaxAttributesInput.ToString();
+                inputInitialized = true;
+            }
 
-            
-            string similarAttributes = gameManager.userMaxAttributesInput.ToString();
-            DrawText("Maximum of similar genes in DNA : " + similarAttributes, 50, 150, 20, Color.White);
+            DrawText("Portrait generation examples", GetScreenWidth() / 3 + 60, 30, 30, Color.White);
+            DrawText("Press R !", GetScreenWidth() / 2 + 300, GetScreenHeight() - 100, 40, Color.White);
 
-            // Zone d’affichage de la boîte de texte
-            DrawText("Set maximum of similar genes in DNA", 50, 270, 20, Color.White);
+            DrawText("Max similar genes in DNA :", 50, 220, 20, Color.White);
             DrawRectangleRec(inputBox, inputActive ? Color.SkyBlue : Color.LightGray);
             DrawRectangleLinesEx(inputBox, 1, Color.Black);
+            DrawText(inputText, (int)inputBox.X + 5, (int)inputBox.Y + 5, 35, Color.Black);
 
-            // Affichage du texte saisi
-            DrawText(inputText, (int)inputBox.X + 5, (int)inputBox.Y + 5, 20, Color.Black);
-
-            // Activation de la zone de saisie si clic
             if (CheckCollisionPointRec(GetMousePosition(), inputBox) && IsMouseButtonPressed(MouseButton.Left))
             {
                 inputActive = true;
+
+                if (string.IsNullOrEmpty(inputText))
+                {
+                    inputText = gameManager.userMaxAttributesInput.ToString();
+                }
             }
             else if (IsMouseButtonPressed(MouseButton.Left))
             {
+                inputActive = false;
+                if (int.TryParse(inputText, out int newValue))
+                {
+                    if (newValue > 1 && newValue <= 10)
+                    {
+                        gameManager.userMaxAttributesInput = newValue;
+                    }
+                    else
+                    {
+                        gameManager.userMaxAttributesInput = 4;
+                        inputText = "4";
+                    }
+                }
+                else
+                {
+                    gameManager.userMaxAttributesInput = 4;
+                    inputText = "4";
+                }
                 inputActive = false;
             }
 
@@ -139,7 +162,7 @@ namespace GuessWho
                 int key = GetCharPressed();
                 while (key > 0)
                 {
-                    if ((key >= 48 && key <= 57) && inputText.Length < 3)
+                    if ((key >= 48 && key <= 57) && inputText.Length < 2)
                     {
                         inputText += (char)key;
                     }
@@ -155,24 +178,35 @@ namespace GuessWho
                 {
                     if (int.TryParse(inputText, out int newValue))
                     {
-                        if (newValue > 2 && newValue <= 10 )
+                        if (newValue > 1 && newValue <= 10)
                         {
                             gameManager.userMaxAttributesInput = newValue;
                         }
-                        
+                        else
+                        {
+                            gameManager.userMaxAttributesInput = 4;
+                            inputText = "4";
+                        }
                     }
-                    inputText = "";
+                    else
+                    {
+                        gameManager.userMaxAttributesInput = 4;
+                        inputText = "4";
+                    }
                     inputActive = false;
                 }
+
             }
 
             gameManager.player1.Zone = new Rectangle(
-                GetScreenWidth() / 1.5f,
+                GetScreenWidth() - 200,
                 GetScreenHeight() / 6,
                 GetScreenWidth() / 2,
                 GetScreenHeight() / 2
             );
             DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, 6, BasePortraitSize * 2, 1, gameManager);
+
+            DrawBackToMenuButton(gameManager);
         }
 
         public void DrawCreator(GameManager gameManager)
@@ -185,7 +219,37 @@ namespace GuessWho
         {
             DrawBackToMenuButton(gameManager);
 
+            // Titre centré
+            string title = "Screen configuration";
+            int titleWidth = MeasureText(title, 30); // Utilise MeasureText si dispo, sinon ajuste à la main
+            DrawText(title, GetScreenWidth() / 2 - titleWidth / 2, 30, 30, Color.White);
+
+            // Textes d’options
+            if(gameManager.userHasDualScreen)
+            {
+               DrawText("V", GetScreenWidth() / 4 + 120, 350, 30, Color.Green);
+            }
+            else
+            {
+                DrawText("V", 3 * GetScreenWidth() / 4 + 120, 350, 30, Color.Green);
+            }
+
+            DrawText("Single screen", GetScreenWidth() / 4 - 100, 350, 30, Color.White);
+            DrawText("Dualscreen", 3 * GetScreenWidth() / 4 - 100, 350, 30, Color.White);
+            // Dessin des icônes
+            int screenWidth = GetScreenWidth();
+            int iconWidth = 300;
+
+            // 1er screenIcon - centré dans la première moitié
+            int singleX = screenWidth / 4 - iconWidth / 2;
+            DrawTexture(screenIcon, singleX, 400, Color.White);
+
+            // 2ème et 3ème screenIcon - côte à côte dans la deuxième moitié
+            int dualStartX = screenWidth / 2 + (screenWidth / 2 - iconWidth * 2) / 2;
+            DrawTexture(screenIcon, dualStartX, 400, Color.White);
+            DrawTexture(screenIcon, dualStartX + iconWidth, 400, Color.White);
         }
+
 
         public void DrawPortraitGrid(
             Portrait[] portraits,
@@ -197,8 +261,6 @@ namespace GuessWho
             int playerId,
             GameManager gameManager)
         {
-
-            DrawBackToMenuButton(gameManager);
 
             int size = originalSize / 2;
             int spacing = 20;
@@ -248,6 +310,7 @@ namespace GuessWho
                 }
 
                 renderer.DrawPortrait(portraits[i], x, y, size);
+                
             }
         }
 
@@ -331,6 +394,7 @@ namespace GuessWho
 
                     case GameState.Options:
                         backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
+                        screenIcon = LoadTexture("assets/icons/singlescreenicon.png");
                         break;
 
                     case GameState.InGame:
@@ -341,7 +405,6 @@ namespace GuessWho
                 previousState = state;
             }
 
-            // Affichage selon l'état actuel
             switch (state)
             {
                 case GameState.Menu:

@@ -37,19 +37,29 @@ public static class Program
             if (gameManager.CurrentState != lastState)
             {
                 CloseWindow();
+                if(gameManager.userHasDualScreen)
+                {
+                    if (gameManager.CurrentState != GameState.InGame)
+                    {
+                        InitWindow(1800, 800, "Guess Who");
+                        SetTargetFPS(60);
+                        CenterWindow(1800, 1000, false);
 
-                if (gameManager.CurrentState != GameState.InGame)
+                    }
+                    else
+                    {
+                        InitWindow(3740, 900, "Guess who ?");
+                        SetTargetFPS(60);
+                        CenterWindow(3760, 1000, true);
+                    }
+                }
+                else
                 {
                     InitWindow(1800, 800, "Guess Who");
                     SetTargetFPS(60);
                     CenterWindow(1800, 1000, false);
-
                 }
-                else
-                {
-                    InitWindow(3740, 900, "Guess who ?");
-                    CenterWindow(3760, 1000, true);
-                }
+                
 
                 SetTargetFPS(60);
                 lastState = gameManager.CurrentState;

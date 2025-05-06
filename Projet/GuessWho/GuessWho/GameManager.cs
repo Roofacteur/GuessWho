@@ -9,6 +9,7 @@ namespace GuessWho
         bool gameStarted = false;
         public bool portraitsGenerated = false;
         public bool generatedExample = false;
+        public bool userHasDualScreen = true;
 
         public enum GameState
         {
@@ -179,7 +180,6 @@ namespace GuessWho
 
         public void Reset(Player player1, Player player2)
         {
-            //Recommencer la partie
 
             player1.Reset();
             player2.Reset();
