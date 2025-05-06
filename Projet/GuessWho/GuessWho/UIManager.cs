@@ -14,7 +14,8 @@ namespace GuessWho
         static Texture2D backgroundMenu;
         static Texture2D backgroundInGame;
         static Texture2D screenIcon;
-        static int BasePortraitSize = 350;
+        static int BasePortraitSize;
+        static int cols;
 
         private bool inputInitialized = false;
         bool inputActive = false;
@@ -73,8 +74,17 @@ namespace GuessWho
 
             Color transparentBlack = new Color(0, 0, 0, 128);
 
-            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, 6, BasePortraitSize, 1, gameManager);
-            DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, 6, BasePortraitSize, 2, gameManager);
+            if (gameManager.userHasDualScreen)
+            {
+                cols = 6;
+            }
+            else
+            {
+                cols = 5;
+            }
+
+            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, cols, BasePortraitSize, 1, gameManager);
+            DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, cols, BasePortraitSize, 2, gameManager);
 
             DrawRectangle((int)hidden.X, (int)hidden.Y, (int)hidden.Width, (int)hidden.Height, transparentBlack);
 
@@ -97,8 +107,17 @@ namespace GuessWho
             gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
             gameManager.player2.Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
 
-            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, 6, BasePortraitSize, 1, gameManager);
-            DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, 6, BasePortraitSize, 2, gameManager);
+            if (gameManager.userHasDualScreen)
+            {
+                cols = 6;
+            }
+            else
+            {
+                cols = 5;
+            }
+
+            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, cols, BasePortraitSize, 1, gameManager);
+            DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, cols, BasePortraitSize, 2, gameManager);
 
             string turnText = $"Ask player {gameManager.GetCurrentPlayer()} a question !";
             int positionXText = (gameManager.GetCurrentPlayer() == 1) ? GetScreenWidth() / 6 : GetScreenWidth() / 2 + GetScreenWidth() / 6;
@@ -240,7 +259,6 @@ namespace GuessWho
                 DrawRectangle((int)singleRect.X, (int)singleRect.Y, (int)singleRect.Width, (int)singleRect.Height, hoverColor);
                 if (IsMouseButtonPressed(MouseButton.Left))
                 {
-                    BasePortraitSize = 250;
                     gameManager.userHasDualScreen = false;
                 }
             }
@@ -249,7 +267,6 @@ namespace GuessWho
                 DrawRectangle((int)dualRect.X, (int)dualRect.Y, (int)dualRect.Width, (int)dualRect.Height, hoverColor);
                 if (IsMouseButtonPressed(MouseButton.Left))
                 {
-                    BasePortraitSize = 350;
                     gameManager.userHasDualScreen = true;
                 }
             }
@@ -297,6 +314,16 @@ namespace GuessWho
 
             const float hoverTarget = -8f;
             const float hoverSpeed = 10f;
+
+
+            if (gameManager.userHasDualScreen) 
+            {
+                BasePortraitSize = 380;
+            }
+            else
+            {
+                BasePortraitSize = 300;
+            }
 
             for (int i = 0; i < portraits.Length; i++)
             {

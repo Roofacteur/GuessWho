@@ -19,7 +19,8 @@ public static class Program
 
     public static void Main()
     {
-        InitWindow(1800, 800, "Guess who ?");
+        InitWindow(1870, 1000, "Guess who ?");
+        CenterWindow(1890, 1100, false);
         SetTargetFPS(60);
 
         GameManager gameManager = new GameManager();
@@ -41,23 +42,23 @@ public static class Program
                 {
                     if (gameManager.CurrentState != GameState.InGame)
                     {
-                        InitWindow(1800, 800, "Guess Who");
+                        InitWindow(1870, 1000, "Guess who ?");
+                        CenterWindow(1890, 1100, false);
                         SetTargetFPS(60);
-                        CenterWindow(1800, 1000, false);
 
                     }
                     else
                     {
-                        InitWindow(3740, 900, "Guess who ?");
+                        InitWindow(3740, 1000, "Guess who ?");
                         SetTargetFPS(60);
-                        CenterWindow(3760, 1000, true);
+                        CenterWindow(3760, 1100, true);
                     }
                 }
                 else
                 {
-                    InitWindow(1800, 800, "Guess Who");
+                    InitWindow(1870, 1000, "Guess who ?");
+                    CenterWindow(1890, 1100, false);
                     SetTargetFPS(60);
-                    CenterWindow(1800, 1000, false);
                 }
                 
 
@@ -76,6 +77,7 @@ public static class Program
 
                 if (IsKeyPressed(KeyboardKey.R))
                 {
+                    gameManager.StateSelectingPortrait = true;
                     gameManager.portraitsGenerated = false;
                     gameManager.Generate();
                 }

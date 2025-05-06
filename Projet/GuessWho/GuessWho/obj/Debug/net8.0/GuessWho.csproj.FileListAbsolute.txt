@@ -144,7 +144,6 @@ C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\asse
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthScream.png
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthSerious.png
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthTongue.png
-C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\names.txt
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\base\baseBrown.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\base\basePale.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\base\baseTanned.png
@@ -598,3 +597,9 @@ C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\asse
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\femalenames.txt
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\malenames.txt
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\icons\singlescreenicon.png
+C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\femalenames.txt
+C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\icons\singlescreenicon.png
+C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\malenames.txt
+C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\gender\female.png
+C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\gender\male.png
+C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\backgrounds\GameSmallBackground.png
