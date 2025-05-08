@@ -41,7 +41,13 @@
     <None Update="assets\backgrounds\GameBackground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\backgrounds\GameBackgroundInverted.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\backgrounds\GameSmallBackground.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\backgrounds\GameSmallBackgroundInverted.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="assets\backgrounds\MenuBackground.png">

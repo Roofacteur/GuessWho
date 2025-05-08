@@ -41,7 +41,7 @@ namespace GuessWho
                 .Select(p => p.Clone())
                 .ToList();
 
-            portraits.AddRange(duplicates); // Ajoute les clones à la fin
+            portraits.AddRange(duplicates);
 
             return portraits.ToArray();
         }
@@ -75,31 +75,46 @@ namespace GuessWho
 
         private string GetRandomAsset(string category)
         {
-
             string directoryPath = Path.Combine("assets", "portrait", category);
             string[] allFiles = Directory.GetFiles(directoryPath, "*.png");
 
             if (allFiles.Length == 0)
                 throw new FileNotFoundException($"Aucun fichier trouvé dans le répertoire : {directoryPath}");
 
+            // Définir les taux de rareté
+            // Plus le chiffre est proche de 1.0 plus il est rare
+            const double legendaryThreshold = 0.999;  // 0.1% chance pour "legendary"
+            const double rareThreshold = 0.80;       // 20% chance pour "rare"
+            const double uncommonThreshold = 0.50;   // 50% chance pour "uncommon"
+
             double rarityRoll = random.NextDouble();
 
-            string[] FilterFilesByRarity(string rarityTag) =>
-                allFiles.Where(f => f.Contains(rarityTag, StringComparison.OrdinalIgnoreCase)).ToArray();
+            string[] selectedFiles;
 
-            string[] selectedFiles = rarityRoll switch
+            if (rarityRoll < uncommonThreshold) // Entre 0.00 et 0.50
             {
-                < 0.60 => allFiles.Where(f => !f.Contains("uncommon", StringComparison.OrdinalIgnoreCase) &&
-                                              !f.Contains("rare", StringComparison.OrdinalIgnoreCase) &&
-                                              !f.Contains("legendary", StringComparison.OrdinalIgnoreCase)).ToArray(),
-                < 0.85 => FilterFilesByRarity("uncommon"),
-                < 0.95 => FilterFilesByRarity("rare"),
-                _ => FilterFilesByRarity("legendary")
-            };
+                // 50 % de chances — fichiers "communs"
+                selectedFiles = FilterFiles(allFiles, file => !file.Contains("uncommon", StringComparison.OrdinalIgnoreCase) &&
+                                                            !file.Contains("rare", StringComparison.OrdinalIgnoreCase) &&
+                                                            !file.Contains("legendary", StringComparison.OrdinalIgnoreCase));
+            }
+            else if (rarityRoll < rareThreshold) // Entre 0.50 et 0.80
+            {
+                // 20 % de chances — fichiers "rare"
+                selectedFiles = FilterFiles(allFiles, file => file.Contains("uncommon", StringComparison.OrdinalIgnoreCase));
+            }
+            else if (rarityRoll < legendaryThreshold) // Entre 0.80 et 0.99
+            {
+                // 20 % de chances — fichiers "rare"
+                selectedFiles = FilterFiles(allFiles, file => file.Contains("rare", StringComparison.OrdinalIgnoreCase));
+            }
+            else // Entre 0.99 et 1.00
+            {
+                // 0.1 % de chances — fichiers "legendary"
+                selectedFiles = FilterFiles(allFiles, file => file.Contains("legendary", StringComparison.OrdinalIgnoreCase));
+            }
 
-            return selectedFiles.Length > 0
-                ? selectedFiles[random.Next(selectedFiles.Length)]
-                : allFiles[random.Next(allFiles.Length)];
+            return selectedFiles.Length > 0 ? selectedFiles[random.Next(selectedFiles.Length)] : allFiles[random.Next(allFiles.Length)];
         }
 
         private static string GetRandomName(string gender)
@@ -127,7 +142,6 @@ namespace GuessWho
                 throw new Exception($"Critical error: '{genderFileName}' must contain at least 48 unique names!");
             }
 
-            // Return a random name
             return names.OrderBy(str => Guid.NewGuid()).First();
         }
 
@@ -150,6 +164,20 @@ namespace GuessWho
             }
         }
 
+        // Méthode générique pour filtrer les fichiers selon un prédicat donné
+        private string[] FilterFiles(string[] allFiles, Func<string, bool> predicate)
+        {
+            List<string> selectedFiles = new List<string>();
 
+            foreach (var file in allFiles)
+            {
+                if (predicate(file))
+                {
+                    selectedFiles.Add(file);
+                }
+            }
+
+            return selectedFiles.ToArray();
+        }
     }
 }

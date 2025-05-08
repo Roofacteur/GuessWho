@@ -24,6 +24,7 @@ namespace GuessWho
 
         public float HoverOffset = 0f;
         public bool IsEliminated = false;
+        public bool isTarget = false;
 
         public string[] GetDNA()
         {

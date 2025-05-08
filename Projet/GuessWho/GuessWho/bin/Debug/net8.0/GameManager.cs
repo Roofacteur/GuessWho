@@ -55,15 +55,16 @@ namespace GuessWho
 
                 case GameState.InGame:
 
+                    uIManager.DrawBackground(gamemanager);
+
                     if (StateSelectingPortrait)
                     {
                         Generate();
-                        uIManager.DrawBackground(gamemanager);
                         if (player1.TargetPortrait == null || player2.TargetPortrait == null)
                             uIManager.DrawSelectingPortraits(gamemanager);
                         else
                             StateSelectingPortrait = false;
-                            gamemanager.CurrentState = GameState.InGame;
+
                     }
                     else
                     {
@@ -72,7 +73,6 @@ namespace GuessWho
                             ResetTurn();
                             gameStarted = true;
                         }
-                        uIManager.DrawBackground(gamemanager);
                         uIManager.DrawGame(gamemanager);
                     }
 
@@ -174,14 +174,14 @@ namespace GuessWho
             }
         }
 
-        public void SelectingPortrait(Player player, Portrait portrait)
+        public void SelectedPortrait(Player player, Portrait portrait)
         {
             player.TargetPortrait = portrait;
+            portrait.isTarget = true;
         }
 
         public void Reset(Player player1, Player player2)
         {
-
             player1.Reset();
             player2.Reset();
             ResetTurn();

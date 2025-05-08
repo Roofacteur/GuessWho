@@ -603,3 +603,6 @@ C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\asse
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\gender\female.png
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\gender\male.png
 C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\backgrounds\GameSmallBackground.png
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\backgrounds\GameSmallBackground.png
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\backgrounds\GameBackgroundInverted.png
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\backgrounds\GameSmallBackgroundInverted.png

@@ -13,6 +13,7 @@ namespace GuessWho
         private Model guessWhoTitle;
         static Texture2D backgroundMenu;
         static Texture2D backgroundInGame;
+        static Texture2D backgroundInGameSelecting;
         static Texture2D screenIcon;
         static int BasePortraitSize;
         static int cols;
@@ -46,7 +47,6 @@ namespace GuessWho
         }
         public void DrawMenu()
         {
-            // Interface 2D
             for (int i = 0; i < menuLabels.Length; i++)
             {
                 Rectangle btn = GetButtonRect(i);
@@ -63,16 +63,12 @@ namespace GuessWho
         }
         public void DrawSelectingPortraits(GameManager gameManager)
         {
+
             string turnText;
 
             gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
             gameManager.player2.Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
 
-            Rectangle hidden = (gameManager.GetCurrentPlayer() == 1) ?
-                new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight()) :
-                new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
-
-            Color transparentBlack = new Color(0, 0, 0, 128);
 
             if (gameManager.userHasDualScreen)
             {
@@ -86,7 +82,7 @@ namespace GuessWho
             DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, cols, BasePortraitSize, 1, gameManager);
             DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, cols, BasePortraitSize, 2, gameManager);
 
-            DrawRectangle((int)hidden.X, (int)hidden.Y, (int)hidden.Width, (int)hidden.Height, transparentBlack);
+            HideBoard(gameManager);
 
             if (gameManager.GetCurrentPlayer() == 1)
             {
@@ -97,34 +93,49 @@ namespace GuessWho
                 turnText = $"Player {gameManager.GetCurrentPlayer()} is choosing a character !\n Player 1 don't you dare look...";
             }
 
-            int positionXText = (gameManager.GetCurrentPlayer() == 1) ? GetScreenWidth() / 6 : GetScreenWidth() / 2 + GetScreenWidth() / 6;
-            DrawText(turnText, positionXText, 30, 30, Color.White);
-            
+            DrawTitle(gameManager, turnText, 30, 30, Color.White, gameManager.GetCurrentPlayer());
+
         }
 
         public void DrawGame(GameManager gameManager)
         {
+
             gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
             gameManager.player2.Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
+
+
+            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, cols, BasePortraitSize, 1, gameManager);
+            DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, cols, BasePortraitSize, 2, gameManager);
+            HideBoard(gameManager);
 
             if (gameManager.userHasDualScreen)
             {
                 cols = 6;
+
+                int reference = BasePortraitSize / 2;
+                int namePositionY = reference / 4 + reference;
+                int targetPortraitPositionY = reference / 4;
+
+                if (gameManager.GetCurrentPlayer() == 1)
+                {
+                    DrawText(gameManager.player2.TargetPortrait.Name, GetScreenWidth() - reference - reference / 3, namePositionY, 20, Color.White);
+                    gameManager.renderer.DrawPortrait(gameManager.player2.TargetPortrait, GetScreenWidth() - reference - reference / 3, targetPortraitPositionY, reference);
+
+                }
+                else
+                {
+                    DrawText(gameManager.player1.TargetPortrait.Name, GetScreenWidth() / 2 - reference - reference / 3, namePositionY, 20, Color.White);
+                    gameManager.renderer.DrawPortrait(gameManager.player1.TargetPortrait, GetScreenWidth() / 2 - reference - reference / 3, targetPortraitPositionY, reference);
+                }
+
             }
             else
             {
                 cols = 5;
             }
 
-            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, cols, BasePortraitSize, 1, gameManager);
-            DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, cols, BasePortraitSize, 2, gameManager);
-
-            string turnText = $"Ask player {gameManager.GetCurrentPlayer()} a question !";
-            int positionXText = (gameManager.GetCurrentPlayer() == 1) ? GetScreenWidth() / 6 : GetScreenWidth() / 2 + GetScreenWidth() / 6;
-
-            DrawText(turnText, positionXText, 30, 40, Color.White);
-
-            DrawBackToMenuButton(gameManager);
+            string turnText = $"Player {gameManager.GetCurrentPlayer()} is asking you a question !";
+            DrawTitle(gameManager, turnText, 30, 40, Color.White, gameManager.GetCurrentPlayer());
 
         }
 
@@ -136,7 +147,9 @@ namespace GuessWho
                 inputInitialized = true;
             }
 
-            DrawText("Portrait generation examples", GetScreenWidth() / 3 + 60, 30, 30, Color.White);
+            string title = "Portrait generator";
+            DrawTitle(gameManager, title, 30, 30, Color.White, 1);
+
             DrawText("Press R !", GetScreenWidth() / 2 + 300, GetScreenHeight() - 100, 40, Color.White);
 
             DrawText("Max similar genes in DNA :", 50, 220, 20, Color.White);
@@ -230,6 +243,8 @@ namespace GuessWho
 
         public void DrawCreator(GameManager gameManager)
         {
+            string title = "Your characters";
+            DrawTitle(gameManager, title, 30, 30, Color.White, 1);
             DrawBackToMenuButton(gameManager);
         }
 
@@ -237,10 +252,8 @@ namespace GuessWho
         public void DrawOptions(GameManager gameManager)
         {
             DrawBackToMenuButton(gameManager);
-
             string title = "Screen configuration";
-            int titleWidth = MeasureText(title, 30);
-            DrawText(title, GetScreenWidth() / 2 - titleWidth / 2, 30, 30, Color.White);
+            DrawTitle(gameManager, title, 30, 30, Color.White, 1);
 
             int singleX = GetScreenWidth() / 4 - 100;
             int dualX = 3 * GetScreenWidth() / 4 - 100;
@@ -252,7 +265,7 @@ namespace GuessWho
             Rectangle singleRect = new Rectangle(singleX, textY, textWidth, textHeight);
             Rectangle dualRect = new Rectangle(dualX, textY, textWidth, textHeight);
 
-            Color hoverColor = new Color(255, 255, 255, 128); // Blanc à 50% d’opacité
+            Color hoverColor = new Color(255, 255, 255, 128);
 
             if (CheckCollisionPointRec(mousePos, singleRect))
             {
@@ -337,6 +350,7 @@ namespace GuessWho
                 bool isHovered = gameManager.GetCurrentPlayer() == playerId && CheckCollisionPointRec(GetMousePosition(), rect);
 
                 float targetOffset = isHovered ? hoverTarget : 0f;
+
                 portraits[i].HoverOffset = Raymath.Lerp(portraits[i].HoverOffset, targetOffset, hoverSpeed * GetFrameTime());
 
                 int y = (int)(baseY + portraits[i].HoverOffset);
@@ -353,12 +367,12 @@ namespace GuessWho
                 {
                     if(gameManager.player1.TargetPortrait == null && gameManager.GetCurrentPlayer() == 1)
                     {
-                        gameManager.SelectingPortrait(gameManager.player1, portraits[i]);
+                        gameManager.SelectedPortrait(gameManager.player1, portraits[i].Clone());
                         gameManager.NextTurn();
                     }
                     else if (gameManager.player2.TargetPortrait == null && gameManager.GetCurrentPlayer() == 2)
                     {
-                        gameManager.SelectingPortrait(gameManager.player2, portraits[i]);
+                        gameManager.SelectedPortrait(gameManager.player2, portraits[i].Clone());
                         gameManager.NextTurn();
                     }
                     
@@ -371,13 +385,11 @@ namespace GuessWho
 
         public void DrawBackToMenuButton(GameManager gameManager)
         {
-            // Rectangle bouton
             int btnX = 10;
             int btnY = 5;
             int btnWidth = 70;
             int btnHeight = 65;
 
-            // Dessiner le rectangle du bouton
             DrawRectangleLines(btnX, btnY, btnWidth, btnHeight, Color.White);
 
             DrawText("<-", btnX + 10, btnY, 60, Color.White);
@@ -422,7 +434,6 @@ namespace GuessWho
         {
             GameState state = gamemanager.CurrentState;
 
-            // Chargement des ressources uniquement si l'état a changé
             if (state != previousState)
             {
                 switch (state)
@@ -455,11 +466,13 @@ namespace GuessWho
                     case GameState.InGame:
                         if (gamemanager.userHasDualScreen)
                         {
-                            backgroundInGame = LoadTexture("assets/backgrounds/GameBackground.png");
+                            backgroundInGameSelecting = LoadTexture("assets/backgrounds/GameBackground.png");
+                            backgroundInGame = LoadTexture("assets/backgrounds/GameBackgroundInverted.png");
                         }
                         else
                         {
-                            backgroundInGame = LoadTexture("assets/backgrounds/GameSmallBackground.png");
+                            backgroundInGameSelecting = LoadTexture("assets/backgrounds/GameSmallBackground.png");
+                            backgroundInGame = LoadTexture("assets/backgrounds/GameSmallBackgroundInverted.png");
                         }
                         break;
                 }
@@ -490,11 +503,54 @@ namespace GuessWho
                     break;
 
                 case GameState.InGame:
-                    DrawTexture(backgroundInGame, 0, 0, Color.White);
+
+                    if(!gamemanager.StateSelectingPortrait)
+                    {
+                        DrawTexture(backgroundInGame, 0 ,0, Color.White);
+                    }
+                    else
+                    {
+                        DrawTexture(backgroundInGameSelecting, 0, 0, Color.White);
+                    }
+                    
                     break;
                
             }
         }
+        void DrawTitle(GameManager gameManager, string text, int yPosition, int fontSize, Color color, int currentPlayer)
+        {
+            int screenWidth = GetScreenWidth();
+            int textWidth = MeasureText(text, fontSize);
+            int positionX;
+
+            if (gameManager.userHasDualScreen && gameManager.CurrentState == GameState.InGame)
+            {
+                int halfScreenWidth = screenWidth / 2;
+                positionX = currentPlayer != 1
+                    ? (halfScreenWidth - textWidth) / 2
+                    : halfScreenWidth + (halfScreenWidth - textWidth) / 2;
+            }
+            else
+            {
+                positionX = (screenWidth - textWidth) / 2;
+            }
+
+            DrawText(text, positionX, yPosition, fontSize, color);
+        }
+        void HideBoard(GameManager gameManager)
+        {
+            int screenWidth = GetScreenWidth();
+            int screenHeight = GetScreenHeight();
+
+            Rectangle hidden = (gameManager.GetCurrentPlayer() == 1)
+                ? new Rectangle(screenWidth / 2, 0, screenWidth / 2, screenHeight)
+                : new Rectangle(0, 0, screenWidth / 2, screenHeight);
+
+            Color transparentBlack = new Color(0, 0, 0, 128);
+
+            DrawRectangle((int)hidden.X, (int)hidden.Y, (int)hidden.Width, (int)hidden.Height, transparentBlack);
+        }
+
         public void UnloadAll()
         {
             if (backgroundMenu.Id != 0)
@@ -507,6 +563,12 @@ namespace GuessWho
             {
                 UnloadTexture(backgroundInGame);
                 backgroundInGame = new Texture2D();
+            }
+            
+            if (backgroundInGameSelecting.Id != 0)
+            {
+                UnloadTexture(backgroundInGameSelecting);
+                backgroundInGameSelecting = new Texture2D();
             }
 
             if (guessWhoTitle.MeshCount > 0)
