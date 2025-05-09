@@ -607,3 +607,4 @@ C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\asse
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\uncommon_mouthGrinning.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\uncommon_mouthTongue.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\uncommon_mouthWatering.png
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\icons\addCharacter.png

@@ -56,6 +56,9 @@
     <None Update="assets\femalenames.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\icons\addCharacter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\icons\singlescreenicon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

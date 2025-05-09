@@ -2,6 +2,7 @@
 using static Raylib_cs.Raylib;
 using System.Numerics;
 using static GuessWho.GameManager;
+using System.ComponentModel;
 
 
 namespace GuessWho
@@ -15,6 +16,7 @@ namespace GuessWho
         static Texture2D backgroundInGame;
         static Texture2D backgroundInGameSelecting;
         static Texture2D screenIcon;
+        static Texture2D addCharacter;
         static int BasePortraitSize;
         static int cols;
 
@@ -47,6 +49,18 @@ namespace GuessWho
         }
         public void DrawMenu()
         {
+            camera = new Camera3D(
+                new Vector3(0.0f, 2.5f, 5.0f),
+                new Vector3(0.0f, 1.5f, 0.0f),
+                new Vector3(0.0f, 1.0f, 0.0f),
+                45.0f,
+                CameraProjection.Perspective);
+
+            DrawTexture(backgroundMenu, 0, 0, Color.White);
+            BeginMode3D(camera);
+            DrawModel(guessWhoTitle, new Vector3(0.0f, 2.5f, 3f), 2.0f, Color.White);
+            EndMode3D();
+
             for (int i = 0; i < menuLabels.Length; i++)
             {
                 Rectangle btn = GetButtonRect(i);
@@ -63,6 +77,7 @@ namespace GuessWho
         }
         public void DrawSelectingPortraits(GameManager gameManager)
         {
+            DrawTexture(backgroundInGameSelecting, 0, 0, Color.White);
 
             string hiddenPlayer;
             string displayedPlayer;
@@ -104,6 +119,8 @@ namespace GuessWho
 
         public void DrawGame(GameManager gameManager)
         {
+
+            DrawTexture(backgroundInGame, 0, 0, Color.White);
             DrawBackToMenuButton(gameManager);
 
             gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
@@ -158,6 +175,8 @@ namespace GuessWho
 
         public void DrawGeneration(GameManager gameManager)
         {
+            DrawTexture(backgroundMenu, 0, 0, Color.White);
+
             if (!inputInitialized)
             {
                 inputText = gameManager.userMaxAttributesInput.ToString();
@@ -260,14 +279,52 @@ namespace GuessWho
 
         public void DrawCreator(GameManager gameManager)
         {
+            DrawTexture(backgroundMenu, 0, 0, Color.White);
             string title = "Your characters";
             DrawTitle(gameManager, title);
             DrawBackToMenuButton(gameManager);
+
+            float scale = 0.5f;
+            float texWidth = addCharacter.Width * scale;
+            float texHeight = addCharacter.Height * scale;
+            Vector2 position = new Vector2(
+                GetScreenWidth() / 2 - texWidth / 2,
+                GetScreenHeight() / 2 - texHeight / 2
+            );
+
+            DrawTextureEx(addCharacter, position, 0.0f, scale, Color.White);
+
+            // Dimensions du bouton
+            int buttonWidth = 500;
+            int buttonHeight = 500;
+
+            // Calcul de la position centrale
+            Rectangle buttonBounds = new Rectangle(
+                GetScreenWidth() / 2 - buttonWidth / 2,
+                GetScreenHeight() / 2 - buttonHeight / 2,
+                buttonWidth,
+                buttonHeight
+            );
+
+            // Détection de la souris
+            Vector2 mousePosition = GetMousePosition();
+            bool isHovering = CheckCollisionPointRec(mousePosition, buttonBounds);
+            bool isClicked = isHovering && IsMouseButtonPressed(MouseButton.Left);
+
+            // Affichage du bouton
+            Color buttonColor = new Color(255, 255, 255, 0);
+            DrawRectangleRec(buttonBounds, buttonColor);
+
+            if(isClicked )
+            {
+                Console.WriteLine("Click");
+            }
         }
 
 
         public void DrawOptions(GameManager gameManager)
         {
+            DrawTexture(backgroundMenu, 0, 0, Color.White);
             DrawBackToMenuButton(gameManager);
             string title = "Screen configuration";
             DrawTitle(gameManager, title);
@@ -447,7 +504,7 @@ namespace GuessWho
             );
         }
 
-        public void DrawBackground(GameManager gamemanager)
+        public void TextureLoader(GameManager gamemanager)
         {
             GameState state = gamemanager.CurrentState;
 
@@ -458,13 +515,6 @@ namespace GuessWho
                     case GameState.Menu:
                         backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
                         guessWhoTitle = LoadModel("assets/model3D/title/GuessWho3DTitle.glb");
-
-                        camera = new Camera3D(
-                            new Vector3(0.0f, 2.5f, 5.0f),
-                            new Vector3(0.0f, 1.5f, 0.0f),
-                            new Vector3(0.0f, 1.0f, 0.0f),
-                            45.0f,
-                            CameraProjection.Perspective);
                         break;
 
                     case GameState.Generation:
@@ -473,6 +523,7 @@ namespace GuessWho
                     
                     case GameState.Creating:
                         backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
+                        addCharacter = LoadTexture("assets/icons/addCharacter.png");
                         break;
 
                     case GameState.Options:
@@ -495,43 +546,6 @@ namespace GuessWho
                 }
 
                 previousState = state;
-            }
-
-            switch (state)
-            {
-                case GameState.Menu:
-                    DrawTexture(backgroundMenu, 0, 0, Color.White);
-
-                    BeginMode3D(camera);
-                    DrawModel(guessWhoTitle, new Vector3(0.0f, 2.5f, 3f), 2.0f, Color.White);
-                    EndMode3D();
-                    break;
-
-                case GameState.Generation:
-                    DrawTexture(backgroundMenu, 0, 0, Color.White);
-                    break;
-
-                case GameState.Creating:
-                    DrawTexture(backgroundMenu, 0, 0, Color.White);
-                    break;
-
-                case GameState.Options:
-                    DrawTexture(backgroundMenu, 0, 0, Color.White);
-                    break;
-
-                case GameState.InGame:
-
-                    if(!gamemanager.StateSelectingPortrait)
-                    {
-                        DrawTexture(backgroundInGame, 0 ,0, Color.White);
-                    }
-                    else
-                    {
-                        DrawTexture(backgroundInGameSelecting, 0, 0, Color.White);
-                    }
-                    
-                    break;
-               
             }
         }
         void DrawTitle(GameManager gameManager, string textPlayer1, string? textPlayer2 = null, int yPosition = 30, int fontSize = 30, Color? color = null)

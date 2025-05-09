@@ -63,7 +63,7 @@ namespace GuessWho
 
             return new Portrait
             {
-                Id = id,
+                Id = name + "_" + id,
                 Skin = GetRandomAsset("base"),
                 Clothes = clothesAsset,
                 Logo = logoAsset,

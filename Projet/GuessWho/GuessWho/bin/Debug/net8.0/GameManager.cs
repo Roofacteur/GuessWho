@@ -47,7 +47,7 @@ namespace GuessWho
                     gameStarted = false;
                     portraitsGenerated = false;
                     generatedExample = false;
-                    uIManager.DrawBackground(gamemanager);
+                    uIManager.TextureLoader(gamemanager);
                     uIManager.UpdateMenu(gamemanager);
                     uIManager.DrawMenu();
 
@@ -55,7 +55,7 @@ namespace GuessWho
 
                 case GameState.InGame:
 
-                    uIManager.DrawBackground(gamemanager);
+                    uIManager.TextureLoader(gamemanager);
 
                     if (StateSelectingPortrait)
                     {
@@ -79,13 +79,13 @@ namespace GuessWho
                     break;
 
                 case GameState.Options:
-                    uIManager.DrawBackground(gamemanager);
+                    uIManager.TextureLoader(gamemanager);
                     uIManager.DrawOptions(gamemanager);
                     break;
 
                 case GameState.Generation:
 
-                    uIManager.DrawBackground(gamemanager);
+                    uIManager.TextureLoader(gamemanager);
                     if (!generatedExample)
                     {
                         GenerateExample();
@@ -98,7 +98,7 @@ namespace GuessWho
                 case GameState.Creating:
 
                     InitializeCreator();
-                    uIManager.DrawBackground(gamemanager);
+                    uIManager.TextureLoader(gamemanager);
                     uIManager.DrawCreator(gamemanager);
 
                     break;
