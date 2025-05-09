@@ -244,11 +244,8 @@ C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\asse
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairSwoopRed.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairSwoopWhite.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthDefault.png
-C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthGrinning.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthSad.png
-C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthScream.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthSerious.png
-C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\mouthTongue.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\backgrounds\GameBackground.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\backgrounds\MenuBackground.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\logos\logoNone.png
@@ -301,7 +298,6 @@ C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\asse
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\logos\uncommon_logo (2).png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\logos\uncommon_logo (3).png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\logos\uncommon_logo (4).png
-C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\uncommon_mouthVomit.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\hair\legendary_hair (1).png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\hair\legendary_hair (2).png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\hair\legendary_hair (3).png
@@ -606,3 +602,8 @@ C:\Users\Inconnu\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\asse
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\backgrounds\GameSmallBackground.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\backgrounds\GameBackgroundInverted.png
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\backgrounds\GameSmallBackgroundInverted.png
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\rare_mouthScream.png
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\rare_mouthVomit.png
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\uncommon_mouthGrinning.png
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\uncommon_mouthTongue.png
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\portrait\mouth\uncommon_mouthWatering.png

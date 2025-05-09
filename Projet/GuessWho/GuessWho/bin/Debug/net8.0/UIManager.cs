@@ -64,7 +64,8 @@ namespace GuessWho
         public void DrawSelectingPortraits(GameManager gameManager)
         {
 
-            string turnText;
+            string hiddenPlayer;
+            string displayedPlayer;
 
             gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
             gameManager.player2.Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
@@ -86,19 +87,24 @@ namespace GuessWho
 
             if (gameManager.GetCurrentPlayer() == 1)
             {
-                turnText = $"Player {gameManager.GetCurrentPlayer()} is choosing a character !\n Player 2 don't you dare look...";
+                hiddenPlayer = $"Player {gameManager.GetCurrentPlayer()} is choosing a character !\nPlayer 2 don't you dare look...";
+                displayedPlayer = "Player 1 choose a character !\nPlayer 2 is gonna have to find it";
             }
             else
             {
-                turnText = $"Player {gameManager.GetCurrentPlayer()} is choosing a character !\n Player 1 don't you dare look...";
+                hiddenPlayer = $"Player {gameManager.GetCurrentPlayer()} is choosing a character !\nPlayer 1 don't you dare look...";
+                displayedPlayer = "Player 2 choose a character !\nPlayer 1 is gonna have to find it";
             }
 
-            DrawTitle(gameManager, turnText, 30, 30, Color.White, gameManager.GetCurrentPlayer());
+            DrawTitle(gameManager,
+              gameManager.GetCurrentPlayer() == 1 ? displayedPlayer : hiddenPlayer,
+              gameManager.GetCurrentPlayer() == 1 ? hiddenPlayer : displayedPlayer);
 
         }
 
         public void DrawGame(GameManager gameManager)
         {
+            DrawBackToMenuButton(gameManager);
 
             gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
             gameManager.player2.Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
@@ -134,9 +140,20 @@ namespace GuessWho
                 cols = 5;
             }
 
-            string turnText = $"Player {gameManager.GetCurrentPlayer()} is asking you a question !";
-            DrawTitle(gameManager, turnText, 30, 40, Color.White, gameManager.GetCurrentPlayer());
+            int currentPlayer = gameManager.GetCurrentPlayer();
+            int otherPlayer = currentPlayer == 1 ? 2 : 1;
+            string hiddenPlayer = $"Player {currentPlayer} is asking you a question !";
+            string displayedPlayer = $"Ask player {otherPlayer} a question !";
 
+            if(gameManager.GetCurrentPlayer() == 1)
+            {
+                DrawTitle(gameManager, displayedPlayer, hiddenPlayer);
+            }
+            else
+            {
+                DrawTitle(gameManager, hiddenPlayer, displayedPlayer);
+            }
+            
         }
 
         public void DrawGeneration(GameManager gameManager)
@@ -148,7 +165,7 @@ namespace GuessWho
             }
 
             string title = "Portrait generator";
-            DrawTitle(gameManager, title, 30, 30, Color.White, 1);
+            DrawTitle(gameManager, title);
 
             DrawText("Press R !", GetScreenWidth() / 2 + 300, GetScreenHeight() - 100, 40, Color.White);
 
@@ -244,7 +261,7 @@ namespace GuessWho
         public void DrawCreator(GameManager gameManager)
         {
             string title = "Your characters";
-            DrawTitle(gameManager, title, 30, 30, Color.White, 1);
+            DrawTitle(gameManager, title);
             DrawBackToMenuButton(gameManager);
         }
 
@@ -253,7 +270,7 @@ namespace GuessWho
         {
             DrawBackToMenuButton(gameManager);
             string title = "Screen configuration";
-            DrawTitle(gameManager, title, 30, 30, Color.White, 1);
+            DrawTitle(gameManager, title);
 
             int singleX = GetScreenWidth() / 4 - 100;
             int dualX = 3 * GetScreenWidth() / 4 - 100;
@@ -517,26 +534,34 @@ namespace GuessWho
                
             }
         }
-        void DrawTitle(GameManager gameManager, string text, int yPosition, int fontSize, Color color, int currentPlayer)
+        void DrawTitle(GameManager gameManager, string textPlayer1, string? textPlayer2 = null, int yPosition = 30, int fontSize = 30, Color? color = null)
         {
             int screenWidth = GetScreenWidth();
-            int textWidth = MeasureText(text, fontSize);
-            int positionX;
+            int halfScreenWidth = screenWidth / 2;
+            Color finalColor = color ?? Color.White;
 
-            if (gameManager.userHasDualScreen && gameManager.CurrentState == GameState.InGame)
+            if (string.IsNullOrEmpty(textPlayer2))
             {
-                int halfScreenWidth = screenWidth / 2;
-                positionX = currentPlayer != 1
-                    ? (halfScreenWidth - textWidth) / 2
-                    : halfScreenWidth + (halfScreenWidth - textWidth) / 2;
+                // Un seul texte à afficher, centré sur l'écran complet
+                int textWidth = MeasureText(textPlayer1, fontSize);
+                int positionX = (screenWidth - textWidth) / 2;
+                DrawText(textPlayer1, positionX, yPosition, fontSize, finalColor);
             }
             else
             {
-                positionX = (screenWidth - textWidth) / 2;
-            }
+                // Deux textes à afficher, un par moitié d'écran
+                int textWidthP1 = MeasureText(textPlayer1, fontSize);
+                int textWidthP2 = MeasureText(textPlayer2, fontSize);
 
-            DrawText(text, positionX, yPosition, fontSize, color);
+                int positionXP1 = (halfScreenWidth - textWidthP1) / 2;
+                int positionXP2 = halfScreenWidth + (halfScreenWidth - textWidthP2) / 2;
+
+                DrawText(textPlayer1, positionXP1, yPosition, fontSize, finalColor);
+                DrawText(textPlayer2, positionXP2, yPosition, fontSize, finalColor);
+            }
         }
+
+
         void HideBoard(GameManager gameManager)
         {
             int screenWidth = GetScreenWidth();

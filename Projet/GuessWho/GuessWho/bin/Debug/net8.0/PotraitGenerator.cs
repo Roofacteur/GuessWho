@@ -47,14 +47,19 @@ namespace GuessWho
         }
         private Portrait CreateRandomPortrait(string id)
         {
+            List<string> selectedNames = new List<string>();
             string clothesAsset = GetRandomAsset("clothes");
             string clothesFileName = Path.GetFileName(clothesAsset);
-            string logoAsset = clothesFileName.StartsWith("rare_") || clothesFileName.StartsWith("legendary_")
-                ? "assets\\portrait\\logos\\logoNone.png" : GetRandomAsset("logos");
 
+            string logoAsset = clothesFileName.StartsWith("rare_") || clothesFileName.StartsWith("legendary_")
+                ? "assets\\portrait\\logos\\logoNone.png"
+                : GetRandomAsset("logos");
 
             string genderAsset = GetRandomAsset("gender");
-            string gender = Path.GetFileName(genderAsset); 
+            string gender = Path.GetFileName(genderAsset);
+
+            string name = GetRandomName(gender, selectedNames);
+            selectedNames.Add(name);
 
             return new Portrait
             {
@@ -69,7 +74,7 @@ namespace GuessWho
                 Hair = GetRandomAsset("hair"),
                 Mouth = GetRandomAsset("mouth"),
                 Gender = genderAsset,
-                Name = GetRandomName(gender)
+                Name = name
             };
         }
 
@@ -117,7 +122,7 @@ namespace GuessWho
             return selectedFiles.Length > 0 ? selectedFiles[random.Next(selectedFiles.Length)] : allFiles[random.Next(allFiles.Length)];
         }
 
-        private static string GetRandomName(string gender)
+        public static string GetRandomName(string gender, List<string> alreadySelectedNames)
         {
             string genderFileName;
 
@@ -142,8 +147,18 @@ namespace GuessWho
                 throw new Exception($"Critical error: '{genderFileName}' must contain at least 48 unique names!");
             }
 
-            return names.OrderBy(str => Guid.NewGuid()).First();
+            var availableNames = names.Except(alreadySelectedNames).ToList();
+
+            if (availableNames.Count == 0)
+            {
+                throw new InvalidOperationException("No more unique names available to select.");
+            }
+
+            var random = new Random();
+            int index = random.Next(availableNames.Count);
+            return availableNames[index];
         }
+
 
         public static List<string> LoadNames(string filePath)
         {
@@ -164,7 +179,6 @@ namespace GuessWho
             }
         }
 
-        // Méthode générique pour filtrer les fichiers selon un prédicat donné
         private string[] FilterFiles(string[] allFiles, Func<string, bool> predicate)
         {
             List<string> selectedFiles = new List<string>();
