@@ -611,3 +611,7 @@ C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\asse
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\sfx\InGame.mp3
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\sfx\MainMenu.mp3
 C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\SoundManager.cs
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\icons\speaker.png
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\sfx\flick.mp3
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\sfx\InGame2.mp3
+C:\Users\leones1\Desktop\GuessWho\Projet\GuessWho\GuessWho\bin\Debug\net8.0\assets\sfx\restart.mp3

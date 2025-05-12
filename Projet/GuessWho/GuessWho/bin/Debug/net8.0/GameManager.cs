@@ -6,9 +6,9 @@ namespace GuessWho
 {
     public class GameManager
     {
-        private Music backgroundMusic;
+        public bool isMusicMuted = false;
 
-        bool gameStarted = false;
+        public bool gameStarted = false;
         public bool portraitsGenerated = false;
         public bool generatedExample = false;
         public bool userHasDualScreen = true;
@@ -33,7 +33,7 @@ namespace GuessWho
         public PortraitGenerator generator;
         public PortraitRenderer renderer = new PortraitRenderer();
         public UIManager uIManager;
-        public SoundManager soundsManager;
+        public SoundManager soundManager;
         public int currentPlayerTurn = 1;
         public int userMaxAttributesInput = 4;
         public int GetCurrentPlayer() => currentPlayerTurn;
@@ -50,21 +50,26 @@ namespace GuessWho
                     StateSelectingPortrait = true;
                     gameStarted = false;
                     portraitsGenerated = false;
-                    generatedExample = false;
                     // Interface
                     uIManager.TextureLoader(gamemanager);
                     uIManager.UpdateMenu(gamemanager);
-                    uIManager.DrawMenu();
-                    // 🔊 Musique
-                    soundsManager.SoundsLoader(this);
+                    // Musique
+                    if (!isMusicMuted)
+                        soundManager.SoundsLoader(this);
+                    else 
+                        soundManager.StopMusic();
+
                     break;
 
                 case GameState.InGame:
                     
                     // Interface
                     uIManager.TextureLoader(gamemanager);
-                    // 🔊 Musique
-                    soundsManager.SoundsLoader(this);
+                    // Musique
+                    if (!isMusicMuted)
+                        soundManager.SoundsLoader(this);
+                    else
+                        soundManager.StopMusic();
 
                     if (StateSelectingPortrait)
                     {
@@ -81,6 +86,7 @@ namespace GuessWho
                             ResetTurn();
                             gameStarted = true;
                         }
+                        soundManager.SoundsLoader(this);
                         uIManager.DrawGame(gamemanager);
                     }
 
@@ -91,34 +97,40 @@ namespace GuessWho
                     // Interface
                     uIManager.TextureLoader(gamemanager);
                     uIManager.DrawOptions(gamemanager);
-                    // 🔊 Musique
-                    soundsManager.SoundsLoader(this);
+                    // Musique
+                    if (!isMusicMuted)
+                        soundManager.SoundsLoader(this);
+                    break;
+
+                case GameState.Creating:
+
+                    generatedExample = false;
+                    // Interface
+                    uIManager.TextureLoader(gamemanager);
+                    uIManager.DrawCreator(gamemanager);
+                    // Musique
+                    if (!isMusicMuted)
+                        soundManager.SoundsLoader(this);
+                    else
+                        soundManager.StopMusic();
+
                     break;
 
                 case GameState.Generation:
 
                     // Interface
                     uIManager.TextureLoader(gamemanager);
-                    // 🔊 Musique
-                    soundsManager.SoundsLoader(this);
+                    // Musique
+                    if (!isMusicMuted)
+                        soundManager.SoundsLoader(this);
+                    else
+                        soundManager.StopMusic();
                     if (!generatedExample)
                     {
                         GenerateExample();
                         generatedExample = true;
                     }
                     uIManager.DrawGeneration(gamemanager);
-
-                    break;
-
-                case GameState.Creating:
-
-                    InitializeCreator();
-
-                    // Interface
-                    uIManager.TextureLoader(gamemanager);
-                    uIManager.DrawCreator(gamemanager);
-                    // 🔊 Musique
-                    soundsManager.SoundsLoader(this);
 
                     break;
 
@@ -137,7 +149,7 @@ namespace GuessWho
         public void Initialize()
         {
             uIManager = new UIManager();
-            soundsManager = new SoundManager();
+            soundManager = new SoundManager();
             currentPlayerTurn = 1;
             CurrentState = GameState.Menu;
         }

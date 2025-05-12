@@ -65,6 +65,9 @@
     <None Update="assets\icons\singlescreenicon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\icons\speaker.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\malenames.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -800,10 +803,19 @@
     <None Update="assets\portrait\mouth\uncommon_mouthWatering.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\sfx\flick.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\sfx\InGame.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\sfx\InGame2.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\sfx\MainMenu.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\sfx\restart.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="libs\Raylib-cs.dll">

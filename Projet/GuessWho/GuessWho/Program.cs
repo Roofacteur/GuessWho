@@ -19,21 +19,23 @@ public static class Program
 
     public static void Main()
     {
+        // Fenêtre initiale
         InitWindow(1870, 1000, "Guess who ?");
         InitAudioDevice();
+
+        //Centrer la fenêtre sur l'écran
         CenterWindow(1890, 1100, false);
         SetTargetFPS(60);
 
         GameManager gameManager = new GameManager();
-
         gameManager.Initialize();
+        //Enregistrement du dernier état
         GameState lastState = gameManager.CurrentState;
 
         while (!WindowShouldClose())
         {
             gameManager.Update(gameManager);
             BeginDrawing();
-
 
             if (gameManager.CurrentState != lastState)
             {
@@ -42,6 +44,7 @@ public static class Program
                 {
                     if (gameManager.CurrentState != GameState.InGame)
                     {
+                        // Dans les fenêtres hors jeu
                         InitWindow(1870, 1000, "Guess who ?");
                         CenterWindow(1890, 1100, false);
                         SetTargetFPS(60);
@@ -49,6 +52,7 @@ public static class Program
                     }
                     else
                     {
+                        // Dans le jeu
                         InitWindow(3740, 1000, "Guess who ?");
                         SetTargetFPS(60);
                         CenterWindow(3760, 1100, true);
@@ -56,6 +60,7 @@ public static class Program
                 }
                 else
                 {
+                    // Toutes les fenêtres
                     InitWindow(1870, 1000, "Guess who ?");
                     CenterWindow(1890, 1100, false);
                     SetTargetFPS(60);
@@ -66,26 +71,28 @@ public static class Program
             }
             else if (gameManager.CurrentState == GameState.Generation)
             {
+                // Entrée utilisateur
                 if (IsKeyPressed(KeyboardKey.R))
                     gameManager.generatedExample = false;
             }
-            else if (gameManager.CurrentState == GameState.InGame)
+            else if (gameManager.CurrentState == GameState.InGame && !gameManager.StateSelectingPortrait)
             {
-                if (IsKeyPressed(KeyboardKey.Space))
+                // Passer le tour
+                if (IsMouseButtonPressed(MouseButton.Right))
+                {
                     gameManager.NextTurn();
+                    PlaySound(gameManager.soundManager.flickSound);
+                }      
 
+                // Recommencer une partie et regénérer des portraits
                 if (IsKeyPressed(KeyboardKey.R))
                 {
                     gameManager.StateSelectingPortrait = true;
                     gameManager.portraitsGenerated = false;
                     gameManager.Generate();
+                    PlaySound(gameManager.soundManager.restartSound);
                 }
 
-            }
-            else if (gameManager.StateSelectingPortrait)
-            {
-                if (IsKeyPressed(KeyboardKey.Space))
-                    gameManager.NextTurn();
             }
 
             EndDrawing();
@@ -98,20 +105,22 @@ public static class Program
 
     static void CenterWindow(int windowWidth, int windowHeight, bool dualScreen = false)
     {
-        IntPtr hwnd = GetWindowHandle();
-        int screenWidth = GetMonitorWidth(0);
-        int screenHeight = GetMonitorHeight(0);
+        IntPtr hwnd = GetWindowHandle(); // Récupère le handle de la fenêtre
+        int screenWidth = GetMonitorWidth(0); // Largeur de l'écran principal
+        int screenHeight = GetMonitorHeight(0); // Hauteur de l'écran principal
 
         if (dualScreen)
         {
-            screenWidth += GetMonitorWidth(1); 
+            screenWidth += GetMonitorWidth(1); // Ajoute la largeur du second écran si dualScreen est activé
         }
 
-        int posX = (screenWidth - windowWidth) / 2;
-        int posY = (screenHeight - windowHeight) / 2;
+        int posX = (screenWidth - windowWidth) / 2; // Calcule la position X centrée
+        int posY = (screenHeight - windowHeight) / 2; // Calcule la position Y centrée
 
+        // Positionne la fenêtre au centre sans modifier sa taille ni son ordre Z
         SetWindowPos(hwnd, IntPtr.Zero, posX, posY, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
     }
+
 
 
 }
