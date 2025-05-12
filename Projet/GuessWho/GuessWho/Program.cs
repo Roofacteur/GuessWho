@@ -20,6 +20,7 @@ public static class Program
     public static void Main()
     {
         InitWindow(1870, 1000, "Guess who ?");
+        InitAudioDevice();
         CenterWindow(1890, 1100, false);
         SetTargetFPS(60);
 
@@ -33,7 +34,6 @@ public static class Program
             gameManager.Update(gameManager);
             BeginDrawing();
 
-            // Ouverture et fermeture de fenêtres
 
             if (gameManager.CurrentState != lastState)
             {
@@ -59,8 +59,7 @@ public static class Program
                     InitWindow(1870, 1000, "Guess who ?");
                     CenterWindow(1890, 1100, false);
                     SetTargetFPS(60);
-                }
-                
+                }             
 
                 SetTargetFPS(60);
                 lastState = gameManager.CurrentState;

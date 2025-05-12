@@ -421,7 +421,7 @@ namespace GuessWho
                 int baseY = (int)(zone.Y + startY + row * (size + spacing));
 
                 Rectangle rect = new(x, baseY, size, size);
-                bool isHovered = gameManager.GetCurrentPlayer() == playerId && CheckCollisionPointRec(GetMousePosition(), rect);
+                bool isHovered = gameManager.GetCurrentPlayer() == playerId && CheckCollisionPointRec(GetMousePosition(), rect) && gameManager.CurrentState == GameState.InGame;
 
                 float targetOffset = isHovered ? hoverTarget : 0f;
 

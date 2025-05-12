@@ -32,6 +32,9 @@
     <Compile Update="Program.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Update="SoundManager.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Update="UIManager.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -797,6 +800,12 @@
     <None Update="assets\portrait\mouth\uncommon_mouthWatering.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\sfx\InGame.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\sfx\MainMenu.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="libs\Raylib-cs.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -804,6 +813,12 @@
 
   <ItemGroup>
     <PackageReference Include="Raylib-cs" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Raylib-cs">
+      <HintPath>libs\Raylib-cs.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
