@@ -71,16 +71,17 @@ public static class Program
             }
             else if (gameManager.CurrentState == GameState.Generation)
             {
-                // Entrée utilisateur
+                // Regénérer des portraits d'exemple
                 if (IsKeyPressed(KeyboardKey.R))
                     gameManager.generatedExample = false;
             }
-            else if (gameManager.CurrentState == GameState.InGame && !gameManager.StateSelectingPortrait)
+            else if (gameManager.CurrentState == GameState.InGame)
             {
                 // Passer le tour
                 if (IsMouseButtonPressed(MouseButton.Right))
                 {
                     gameManager.NextTurn();
+                    gameManager.uIManager.MoveMouse(gameManager);
                     PlaySound(gameManager.soundManager.flickSound);
                 }      
 
@@ -120,7 +121,5 @@ public static class Program
         // Positionne la fenêtre au centre sans modifier sa taille ni son ordre Z
         SetWindowPos(hwnd, IntPtr.Zero, posX, posY, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
     }
-
-
 
 }

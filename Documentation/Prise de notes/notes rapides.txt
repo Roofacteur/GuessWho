@@ -35,3 +35,9 @@ Clothes qui se met en background ??? wtf alors que c'est pas le répertoire il n
 ================Vendredi 05.05.2025=====================
 
 Navigation entre les fenêtres compliquées, textures perdues, fond noir
+
+
+================Lundi 12.05.2025========================
+
+Idée d'avoir deux souris, l'une ou l'autre se bloque selon le tour du joueur, idée abandonnée
+mise en place trop risquée dans le temps imparti.

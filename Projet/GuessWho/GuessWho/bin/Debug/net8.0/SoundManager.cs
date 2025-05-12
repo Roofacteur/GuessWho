@@ -10,7 +10,8 @@ public class SoundManager
     public Sound flickSound = new Sound();
     public Sound restartSound = new Sound();
     public bool isMusicPlaying = false;
-    public int Volume = 60;
+    public int MusicVolume = 60;
+    public int SfxVolume = 60;
     private string currentMusicPath = "";
 
     public void SoundsLoader(GameManager gamemanager)
@@ -24,11 +25,11 @@ public class SoundManager
         {
             case GameState.InGame:
                 newMusicPath = "assets/sfx/InGame2.mp3";
-                flickSound = LoadSound(flickSoundPath);
-                restartSound = LoadSound(restartSoundPath);
                 break;
             case GameState.Menu:
             case GameState.Options:
+                newMusicPath = "assets/sfx/MainMenu.mp3";
+                break;
             case GameState.Generation:
             case GameState.Creating:
             case GameState.Victory:
@@ -50,8 +51,14 @@ public class SoundManager
         }
 
         backgroundMusic = LoadMusicStream(newMusicPath);
-        SetMusicVolume(backgroundMusic, Volume / 100.0f);
+        flickSound = LoadSound(flickSoundPath);
+        restartSound = LoadSound(restartSoundPath);
+
+        SetMusicVolume(backgroundMusic, MusicVolume / 100.0f);
         PlayMusicStream(backgroundMusic);
+
+        UpdateSFX();
+
         isMusicPlaying = true;
         currentMusicPath = newMusicPath;
         previousState = state;
@@ -62,7 +69,7 @@ public class SoundManager
         if (isMusicPlaying)
         {
             UpdateMusicStream(backgroundMusic);
-            SetMusicVolume(backgroundMusic, Volume / 100.0f);
+            SetMusicVolume(backgroundMusic, MusicVolume / 100.0f);
         }
     }
 
@@ -75,5 +82,10 @@ public class SoundManager
             isMusicPlaying = false;
             currentMusicPath = "";
         }
+    }
+    public void UpdateSFX()
+    {
+        SetSoundVolume(flickSound, SfxVolume / 100.0f);
+        SetSoundVolume(restartSound, SfxVolume / 100.0f);
     }
 }

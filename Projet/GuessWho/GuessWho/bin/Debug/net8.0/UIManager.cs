@@ -65,27 +65,19 @@ namespace GuessWho
 
             for (int i = 0; i < menuLabels.Length; i++)
             {
-                // Récupérer la position et la taille du bouton
                 Rectangle btn = GetButtonRect(i);
 
-                // Vérifier si le curseur est au-dessus du bouton
                 bool hover = CheckCollisionPointRec(GetMousePosition(), btn);
 
-                // Définir la couleur de survol du bouton (transparente ou semi-transparente)
                 Color color = hover ? new Color(255, 255, 255, 128) : new Color(255, 255, 255, 0);
 
-                // Dessiner le rectangle du bouton
                 DrawRectangleRec(btn, color);
+                DrawRectangleLinesEx(btn, 2, Color.White);  
 
-                // Dessiner un contour blanc autour du bouton
-                DrawRectangleLinesEx(btn, 2, Color.White);  // 2 pour l'épaisseur du contour
-
-                // Calculer la taille du texte et sa position
                 int fontSize = 30;
                 Vector2 textSize = MeasureTextEx(GetFontDefault(), menuLabels[i], fontSize, 1);
                 Vector2 textPos = new Vector2(btn.X + (btn.Width - textSize.X) / 2, btn.Y + (btn.Height - textSize.Y) / 2);
 
-                // Dessiner le texte centré sur le bouton
                 DrawText(menuLabels[i], (int)textPos.X, (int)textPos.Y, fontSize, Color.White);
             }
 
@@ -316,7 +308,6 @@ namespace GuessWho
                 GetScreenHeight() / 2 - texHeight / 2
             );
 
-            // Détection de la souris
             Vector2 mousePosition = GetMousePosition();
 
             // Calcul des bounds du bouton principal
@@ -432,7 +423,7 @@ namespace GuessWho
             int spacing = 10;
             int numBars = 5;
 
-            DrawText("Background music", volumeBarX, volumeBarY - 40, 30, Color.White);
+            DrawText("Background music volume", volumeBarX, volumeBarY - 40, 30, Color.White);
 
             for (int i = 0; i < numBars; i++)
             {
@@ -442,11 +433,11 @@ namespace GuessWho
                 // Check if mouse is over the rectangle
                 if (CheckCollisionPointRec(mousePos, barRect) && IsMouseButtonPressed(MouseButton.Left))
                 {
-                    gameManager.soundManager.Volume = (i + 1) * 20;
+                    gameManager.soundManager.MusicVolume = (i + 1) * 20;
                 }
 
                 // Determine bar color
-                if (gameManager.soundManager.Volume >= (i + 1) * 20)
+                if (gameManager.soundManager.MusicVolume >= (i + 1) * 20)
                 {
                     DrawRectangle(x, volumeBarY, barWidth, barHeight, Color.White);
                 }
@@ -455,6 +446,34 @@ namespace GuessWho
                     DrawRectangle(x, volumeBarY, barWidth, barHeight, Color.Gray);
                 }
             }
+
+            int effectsBarY = volumeBarY + barHeight + 60; // espacement en dessous de la première barre
+            DrawText("Sound effects volume", volumeBarX, effectsBarY - 40, 30, Color.White);
+
+            for (int i = 0; i < numBars; i++)
+            {
+                int x = volumeBarX + i * (barWidth + spacing);
+                Rectangle barRect = new Rectangle(x, effectsBarY, barWidth, barHeight);
+
+                if (CheckCollisionPointRec(mousePos, barRect) && IsMouseButtonPressed(MouseButton.Left))
+                {
+                    gameManager.soundManager.SfxVolume = (i + 1) * 20;
+                    gameManager.soundManager.UpdateSFX();
+                    PlaySound(gameManager.soundManager.flickSound);
+                    
+                }
+
+                if (gameManager.soundManager.SfxVolume >= (i + 1) * 20)
+                {
+                    DrawRectangle(x, effectsBarY, barWidth, barHeight, Color.White);
+                }
+                else
+                {
+                    DrawRectangle(x, effectsBarY, barWidth, barHeight, Color.Gray);
+                }
+            }
+
+            DrawSpeaker(gameManager);
         }
 
         public void DrawPortraitGrid(
@@ -517,17 +536,30 @@ namespace GuessWho
                     {
                         gameManager.SelectedPortrait(gameManager.player1, portraits[i].Clone());
                         gameManager.NextTurn();
+                        MoveMouse(gameManager);
                     }
                     else if (gameManager.player2.TargetPortrait == null && gameManager.GetCurrentPlayer() == 2)
                     {
                         gameManager.SelectedPortrait(gameManager.player2, portraits[i].Clone());
                         gameManager.NextTurn();
+                        MoveMouse(gameManager);
                     }
                     
                 }
 
                 renderer.DrawPortrait(portraits[i], x, y, size);
                 
+            }
+        }
+        public void MoveMouse(GameManager gameManager)
+        {
+            if (gameManager.GetCurrentPlayer() == 1)
+            {
+                SetMousePosition(200, 500);
+            }
+            else
+            {
+                SetMousePosition(GetScreenWidth() / 2 + 200, 500);
             }
         }
 
@@ -580,21 +612,32 @@ namespace GuessWho
 
         void DrawSpeaker(GameManager gameManager)
         {
-
             float scale = 0.5f;
-            int speakerX = GetScreenWidth() - 100;
-            int speakerY = 30;
+            int speakerX, speakerY;
             Vector2 mousePos = GetMousePosition();
+
+            // Vérifier l'état du jeu et ajuster la position du haut-parleur
+            if (gameManager.CurrentState == GameState.Options)
+            {
+                // Positionner le haut-parleur en bas à gauche
+                speakerX = 200;
+                speakerY = GetScreenHeight() - 370;
+            }
+            else
+            {
+                // Positionnement par défaut (en haut à droite)
+                speakerX = GetScreenWidth() - 100;
+                speakerY = 30;
+            }
 
             int speakerWidth = (int)(speakerIcon.Width * scale);
             int speakerHeight = (int)(speakerIcon.Height * scale);
 
-            Vector2 start1 = new Vector2 (speakerX, speakerY );
+            Vector2 start1 = new Vector2(speakerX, speakerY);
             Vector2 end1 = new Vector2(speakerX + speakerWidth, speakerY + speakerHeight);
 
             Vector2 start2 = new Vector2(speakerX, speakerY + speakerHeight);
             Vector2 end2 = new Vector2(speakerX + speakerWidth, speakerY);
-
 
             Rectangle speakerRect = new Rectangle(speakerX, speakerY, speakerWidth, speakerHeight);
 
@@ -611,6 +654,7 @@ namespace GuessWho
                 gameManager.isMusicMuted = !gameManager.isMusicMuted;
             }
         }
+
 
         void DrawTitle(GameManager gameManager, string textPlayer1, string? textPlayer2 = null, int yPosition = 30, int fontSize = 30, Color? color = null)
         {
@@ -651,6 +695,7 @@ namespace GuessWho
 
             DrawRectangle((int)hidden.X, (int)hidden.Y, (int)hidden.Width, (int)hidden.Height, transparentBlack);
         }
+
         public void TextureLoader(GameManager gamemanager)
         {
             GameState state = gamemanager.CurrentState;
