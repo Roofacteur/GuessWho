@@ -1,4 +1,3 @@
-
 - Générer aléatoirement 48 portraits sur deux plateaux, SANS SOSIES !
 	Algorithme
 
