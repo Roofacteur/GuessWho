@@ -131,14 +131,15 @@ namespace GuessWho
         {
 
             DrawTexture(backgroundInGame, 0, 0, Color.White);
-            DrawBackToMenuButton(gameManager, GameState.Menu);
-
+            
             gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
             gameManager.player2.Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
 
             DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, cols, BasePortraitSize, 1, gameManager);
             DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, cols, BasePortraitSize, 2, gameManager);
             HideBoard(gameManager);
+
+            DrawBackToMenuButton(gameManager, GameState.Menu);
             DrawSpeaker(gameManager);
 
             if (gameManager.userHasDualScreen)
@@ -613,19 +614,31 @@ namespace GuessWho
         void DrawSpeaker(GameManager gameManager)
         {
             float scale = 0.5f;
-            int speakerX, speakerY;
+            int speakerX;
+            int speakerY;
+
             Vector2 mousePos = GetMousePosition();
 
-            // Vérifier l'état du jeu et ajuster la position du haut-parleur
             if (gameManager.CurrentState == GameState.Options)
             {
-                // Positionner le haut-parleur en bas à gauche
                 speakerX = 200;
                 speakerY = GetScreenHeight() - 370;
             }
+            else if (gameManager.userHasDualScreen && gameManager.CurrentState == GameState.InGame)
+            {              
+                if(gameManager.GetCurrentPlayer() == 1)
+                {
+                    speakerX = GetScreenWidth() / 2 - 100;
+                    speakerY = 30;
+                }
+                else
+                {
+                    speakerX = GetScreenWidth() - 100;
+                    speakerY = 30;
+                }             
+            }
             else
             {
-                // Positionnement par défaut (en haut à droite)
                 speakerX = GetScreenWidth() - 100;
                 speakerY = 30;
             }
