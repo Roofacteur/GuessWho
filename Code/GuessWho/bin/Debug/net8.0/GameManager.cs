@@ -7,6 +7,7 @@ namespace GuessWho
     public class GameManager
     {
         public bool isMusicMuted = false;
+        public bool isSfxMuted = false;
 
         public bool gameStarted = false;
         public bool portraitsGenerated = false;
@@ -58,6 +59,11 @@ namespace GuessWho
                         soundManager.SoundsLoader(this);
                     else 
                         soundManager.StopMusic();
+                    // Effets sonores
+                    if(!isSfxMuted)
+                        soundManager.SoundsLoader(this);
+                    else
+                        soundManager.StopSFX();
 
                     break;
 
@@ -70,6 +76,11 @@ namespace GuessWho
                         soundManager.SoundsLoader(this);
                     else
                         soundManager.StopMusic();
+                    // Effets sonores
+                    if (!isSfxMuted)
+                        soundManager.SoundsLoader(this);
+                    else
+                        soundManager.StopSFX();
 
                     if (StateSelectingPortrait)
                     {
@@ -100,6 +111,14 @@ namespace GuessWho
                     // Musique
                     if (!isMusicMuted)
                         soundManager.SoundsLoader(this);
+                    else
+                        soundManager.StopMusic();
+                    // Effets sonores
+                    if (!isSfxMuted)
+                        soundManager.SoundsLoader(this);
+                    else
+                        soundManager.StopSFX();
+
                     break;
 
                 case GameState.Creating:
@@ -113,6 +132,11 @@ namespace GuessWho
                         soundManager.SoundsLoader(this);
                     else
                         soundManager.StopMusic();
+                    // Effets sonores
+                    if (!isSfxMuted)
+                        soundManager.SoundsLoader(this);
+                    else
+                        soundManager.StopSFX();
 
                     break;
 
@@ -125,6 +149,12 @@ namespace GuessWho
                         soundManager.SoundsLoader(this);
                     else
                         soundManager.StopMusic();
+                    // Effets sonores
+                    if (!isSfxMuted)
+                        soundManager.SoundsLoader(this);
+                    else
+                        soundManager.StopSFX();
+
                     if (!generatedExample)
                     {
                         GenerateExample();

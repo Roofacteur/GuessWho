@@ -18,6 +18,7 @@ namespace GuessWho
         static Texture2D screenIcon;
         static Texture2D addCharacter;
         static Texture2D speakerIcon;
+        static Texture2D sfxIcon;
         static int BasePortraitSize;
         static int cols;
 
@@ -43,6 +44,7 @@ namespace GuessWho
                         if (i == 1) gameManager.CurrentState = GameState.Creating;
                         if (i == 2) gameManager.CurrentState = GameState.Options;
                         if (i == 3) Environment.Exit(0);
+                        PlaySound(gameManager.soundManager.flickSound);
                     }
                 }
             }
@@ -58,7 +60,7 @@ namespace GuessWho
                 CameraProjection.Perspective);
 
             DrawTexture(backgroundMenu, 0, 0, Color.White);
-            DrawSpeaker(gameManager);
+            DrawSoundButtons(gameManager);
             BeginMode3D(camera);
             DrawModel(guessWhoTitle, new Vector3(0.0f, 2.5f, 3f), 2.0f, Color.White);
             EndMode3D();
@@ -123,7 +125,7 @@ namespace GuessWho
               gameManager.GetCurrentPlayer() == 1 ? displayedPlayer : hiddenPlayer,
               gameManager.GetCurrentPlayer() == 1 ? hiddenPlayer : displayedPlayer);
 
-            DrawSpeaker(gameManager);
+            DrawSoundButtons(gameManager);
 
         }
 
@@ -140,7 +142,7 @@ namespace GuessWho
             HideBoard(gameManager);
 
             DrawBackToMenuButton(gameManager, GameState.Menu);
-            DrawSpeaker(gameManager);
+            DrawSoundButtons(gameManager);
 
             if (gameManager.userHasDualScreen)
             {
@@ -183,7 +185,6 @@ namespace GuessWho
             }
             
         }
-
         public void DrawGeneration(GameManager gameManager)
         {
             DrawTexture(backgroundMenu, 0, 0, Color.White);
@@ -333,25 +334,21 @@ namespace GuessWho
             bool isHoveringGen = CheckCollisionPointRec(mousePosition, genButtonBounds);
             bool isClickedGen = isHoveringGen && IsMouseButtonPressed(MouseButton.Left);
 
-            // Dessin
             DrawTexture(backgroundMenu, 0, 0, Color.White);
             DrawTitle(gameManager, title);
             DrawBackToMenuButton(gameManager, GameState.Menu);
             DrawTextureEx(addCharacter, position, 0.0f, scale, Color.White);
             DrawRectangleRec(buttonBounds, new Color(255, 255, 255, 0));
 
-            // Interaction avec le bouton principal
             if (isClicked)
             {
                 Console.WriteLine("Click");
             }
 
-            // Affichage du bouton "Génération"
             Color genButtonColor = isHoveringGen ? new Color(255, 255, 255, 128) : new Color(255, 255, 255, 0);
             DrawRectangleRec(genButtonBounds, genButtonColor);
             DrawText(genButtonText, textX, textY, fontSize, Color.White);
 
-            // Changement d'état si "Génération" est cliqué
             if (isClickedGen)
             {
                 gameManager.CurrentState = GameState.Generation;
@@ -384,6 +381,7 @@ namespace GuessWho
                 if (IsMouseButtonPressed(MouseButton.Left))
                 {
                     gameManager.userHasDualScreen = false;
+                    PlaySound(gameManager.soundManager.flickSound);
                 }
             }
             if (CheckCollisionPointRec(mousePos, dualRect))
@@ -392,6 +390,7 @@ namespace GuessWho
                 if (IsMouseButtonPressed(MouseButton.Left))
                 {
                     gameManager.userHasDualScreen = true;
+                    PlaySound(gameManager.soundManager.flickSound);
                 }
             }
 
@@ -431,16 +430,21 @@ namespace GuessWho
                 int x = volumeBarX + i * (barWidth + spacing);
                 Rectangle barRect = new Rectangle(x, volumeBarY, barWidth, barHeight);
 
-                // Check if mouse is over the rectangle
                 if (CheckCollisionPointRec(mousePos, barRect) && IsMouseButtonPressed(MouseButton.Left))
                 {
                     gameManager.soundManager.MusicVolume = (i + 1) * 20;
                 }
 
-                // Determine bar color
                 if (gameManager.soundManager.MusicVolume >= (i + 1) * 20)
                 {
-                    DrawRectangle(x, volumeBarY, barWidth, barHeight, Color.White);
+                    if (gameManager.isMusicMuted)
+                    {
+                        DrawRectangle(x, volumeBarY, barWidth, barHeight, Color.Gray);
+                    }
+                    else
+                    {
+                        DrawRectangle(x, volumeBarY, barWidth, barHeight, Color.White);
+                    }
                 }
                 else
                 {
@@ -466,7 +470,14 @@ namespace GuessWho
 
                 if (gameManager.soundManager.SfxVolume >= (i + 1) * 20)
                 {
-                    DrawRectangle(x, effectsBarY, barWidth, barHeight, Color.White);
+                    if (gameManager.isSfxMuted)
+                    {
+                        DrawRectangle(x, effectsBarY, barWidth, barHeight, Color.Gray);
+                    }
+                    else
+                    {
+                        DrawRectangle(x, effectsBarY, barWidth, barHeight, Color.White);
+                    }
                 }
                 else
                 {
@@ -474,7 +485,7 @@ namespace GuessWho
                 }
             }
 
-            DrawSpeaker(gameManager);
+            DrawSoundButtons(gameManager);
         }
 
         public void DrawPortraitGrid(
@@ -582,6 +593,7 @@ namespace GuessWho
                 if (IsMouseButtonPressed(MouseButton.Left))
                 {
                     gameManager.CurrentState = lastState;
+                    PlaySound(gameManager.soundManager.flickSound);
                 }
             }
                 
@@ -611,11 +623,13 @@ namespace GuessWho
             );
         }
 
-        void DrawSpeaker(GameManager gameManager)
+        void DrawSoundButtons(GameManager gameManager)
         {
             float scale = 0.5f;
             int speakerX;
             int speakerY;
+            int sfxX;
+            int sfxY;
 
             Vector2 mousePos = GetMousePosition();
 
@@ -623,6 +637,9 @@ namespace GuessWho
             {
                 speakerX = 200;
                 speakerY = GetScreenHeight() - 370;
+
+                sfxX = 200;
+                sfxY = GetScreenHeight() - 270;
             }
             else if (gameManager.userHasDualScreen && gameManager.CurrentState == GameState.InGame)
             {              
@@ -630,41 +647,69 @@ namespace GuessWho
                 {
                     speakerX = GetScreenWidth() / 2 - 100;
                     speakerY = 30;
+
+                    sfxX = GetScreenWidth() / 2 - 100;
+                    sfxY = 110;
                 }
                 else
                 {
                     speakerX = GetScreenWidth() - 100;
                     speakerY = 30;
+
+                    sfxX = GetScreenWidth() - 100;
+                    sfxY = 110;
                 }             
             }
             else
             {
                 speakerX = GetScreenWidth() - 100;
                 speakerY = 30;
+
+                sfxX = GetScreenWidth() - 100;
+                sfxY = 110;
             }
 
             int speakerWidth = (int)(speakerIcon.Width * scale);
             int speakerHeight = (int)(speakerIcon.Height * scale);
 
-            Vector2 start1 = new Vector2(speakerX, speakerY);
-            Vector2 end1 = new Vector2(speakerX + speakerWidth, speakerY + speakerHeight);
+            int sfxWidth = (int)(sfxIcon.Height * scale);
+            int sfxHeight = (int)(sfxIcon.Height * scale);
 
-            Vector2 start2 = new Vector2(speakerX, speakerY + speakerHeight);
-            Vector2 end2 = new Vector2(speakerX + speakerWidth, speakerY);
-
+            Vector2 speakerStart1 = new Vector2(speakerX, speakerY);
+            Vector2 speakerEnd1 = new Vector2(speakerX + speakerWidth, speakerY + speakerHeight);
+            Vector2 speakerStart2 = new Vector2(speakerX, speakerY + speakerHeight);
+            Vector2 speakerEnd2 = new Vector2(speakerX + speakerWidth, speakerY);
             Rectangle speakerRect = new Rectangle(speakerX, speakerY, speakerWidth, speakerHeight);
 
+            Vector2 sfxStart1 = new Vector2(sfxX, sfxY);
+            Vector2 sfxEnd1 = new Vector2(sfxX + sfxWidth, sfxY + sfxHeight);
+            Vector2 sfxStart2 = new Vector2(sfxX, sfxY + sfxHeight);
+            Vector2 sfxEnd2 = new Vector2(sfxX + sfxWidth, sfxY);
+            Rectangle sfxRect = new Rectangle(sfxX, sfxY, sfxWidth, sfxHeight);
+
             DrawTextureEx(speakerIcon, new Vector2(speakerX, speakerY), 0.0f, scale, Color.White);
+            DrawTextureEx(sfxIcon, new Vector2(sfxX, sfxY), 0.0f, scale, Color.White);
 
             if (gameManager.isMusicMuted)
             {
-                DrawLineEx(start1, end1, 3.0f, Color.Red);
-                DrawLineEx(start2, end2, 3.0f, Color.Red);
+                DrawLineEx(speakerStart1, speakerEnd1, 3.0f, Color.Red);
+                DrawLineEx(speakerStart2, speakerEnd2, 3.0f, Color.Red);
+            }
+
+            if (gameManager.isSfxMuted)
+            {
+                DrawLineEx(sfxStart1, sfxEnd1, 3.0f, Color.Red);
+                DrawLineEx(sfxStart2, sfxEnd2, 3.0f, Color.Red);
             }
 
             if (CheckCollisionPointRec(mousePos, speakerRect) && IsMouseButtonPressed(MouseButton.Left))
             {
                 gameManager.isMusicMuted = !gameManager.isMusicMuted;
+            }
+            
+            if (CheckCollisionPointRec(mousePos, sfxRect) && IsMouseButtonPressed(MouseButton.Left))
+            {
+                gameManager.isSfxMuted = !gameManager.isSfxMuted;
             }
         }
 
@@ -721,6 +766,7 @@ namespace GuessWho
                         backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
                         guessWhoTitle = LoadModel("assets/model3D/title/GuessWho3DTitle.glb");
                         speakerIcon = LoadTexture("assets/icons/speaker.png");
+                        sfxIcon = LoadTexture("assets/icons/sfx.png");
                         break;
 
                     case GameState.Generation:
@@ -736,23 +782,24 @@ namespace GuessWho
                         backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
                         screenIcon = LoadTexture("assets/icons/singlescreenicon.png");
                         speakerIcon = LoadTexture("assets/icons/speaker.png");
+                        sfxIcon = LoadTexture("assets/icons/sfx.png");
                         break;
 
                     case GameState.InGame:
                         if (gamemanager.userHasDualScreen)
                         {
                             backgroundInGameSelecting = LoadTexture("assets/backgrounds/GameBackground.png");
-                            backgroundInGame = LoadTexture("assets/backgrounds/GameBackgroundInverted.png");
-                            screenIcon = LoadTexture("assets/icons/singlescreenicon.png");
-                            speakerIcon = LoadTexture("assets/icons/speaker.png");
+                            backgroundInGame = LoadTexture("assets/backgrounds/GameBackgroundInverted.png");      
                         }
                         else
                         {
                             backgroundInGameSelecting = LoadTexture("assets/backgrounds/GameSmallBackground.png");
                             backgroundInGame = LoadTexture("assets/backgrounds/GameSmallBackgroundInverted.png");
-                            screenIcon = LoadTexture("assets/icons/singlescreenicon.png");
-                            speakerIcon = LoadTexture("assets/icons/speaker.png");
                         }
+
+                        screenIcon = LoadTexture("assets/icons/singlescreenicon.png");
+                        speakerIcon = LoadTexture("assets/icons/speaker.png");
+                        sfxIcon = LoadTexture("assets/icons/sfx.png");
                         break;
                 }
 

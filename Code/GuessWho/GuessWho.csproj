@@ -62,6 +62,9 @@
     <None Update="assets\icons\addCharacter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\icons\sfx.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\icons\singlescreenicon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

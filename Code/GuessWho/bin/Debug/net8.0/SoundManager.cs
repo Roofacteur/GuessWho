@@ -10,8 +10,8 @@ public class SoundManager
     public Sound flickSound = new Sound();
     public Sound restartSound = new Sound();
     public bool isMusicPlaying = false;
-    public int MusicVolume = 60;
-    public int SfxVolume = 60;
+    public int MusicVolume = 40;
+    public int SfxVolume = 40;
     private string currentMusicPath = "";
 
     public void SoundsLoader(GameManager gamemanager)
@@ -87,5 +87,10 @@ public class SoundManager
     {
         SetSoundVolume(flickSound, SfxVolume / 100.0f);
         SetSoundVolume(restartSound, SfxVolume / 100.0f);
+    }
+    public void StopSFX()
+    {
+        StopSound(flickSound);
+        StopSound(restartSound);
     }
 }
