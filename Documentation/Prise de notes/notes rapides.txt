@@ -41,3 +41,8 @@ Navigation entre les fenêtres compliquées, textures perdues, fond noir
 
 Idée d'avoir deux souris, l'une ou l'autre se bloque selon le tour du joueur, idée abandonnée
 mise en place trop risquée dans le temps imparti.
+
+
+=================Mercredi 14.05.2025======================
+
+Création d'un portraitCreator, plus assez de temps
