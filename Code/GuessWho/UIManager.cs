@@ -9,7 +9,7 @@ namespace GuessWho
 {
     public class UIManager
     {
-        private string[] menuLabels = { "PLAY", "CHARACTERS", "OPTIONS", "QUIT" };
+        private string[] menuLabels = { "PLAY", "RULES", "CHARACTERS", "OPTIONS", "QUIT" };
         private GameState previousState = GameState.None;
         private Model guessWhoTitle;
         static Texture2D backgroundMenu;
@@ -19,8 +19,12 @@ namespace GuessWho
         static Texture2D addCharacter;
         static Texture2D speakerIcon;
         static Texture2D sfxIcon;
+        Color trueYellow = new Color(255, 196, 0);
         static int BasePortraitSize;
         static int cols;
+
+        private int page = 1;
+        private readonly int lastPage = 3;
 
         private bool inputInitialized = false;
         bool inputActive = false;
@@ -41,9 +45,10 @@ namespace GuessWho
                     if (CheckCollisionPointRec(mouse, GetButtonRect(i)))
                     {
                         if (i == 0) gameManager.CurrentState = GameState.InGame;
-                        if (i == 1) gameManager.CurrentState = GameState.Creating;
-                        if (i == 2) gameManager.CurrentState = GameState.Options;
-                        if (i == 3) Environment.Exit(0);
+                        if (i == 1) gameManager.CurrentState = GameState.Rules;
+                        if (i == 2) gameManager.CurrentState = GameState.Creating;
+                        if (i == 3) gameManager.CurrentState = GameState.Options;
+                        if (i == 4) Environment.Exit(0);
                         PlaySound(gameManager.soundManager.flickSound);
                     }
                 }
@@ -71,16 +76,15 @@ namespace GuessWho
 
                 bool hover = CheckCollisionPointRec(GetMousePosition(), btn);
 
-                Color color = hover ? new Color(255, 255, 255, 128) : new Color(255, 255, 255, 0);
+                Color color = hover ? trueYellow : Color.White;
 
-                DrawRectangleRec(btn, color);
-                DrawRectangleLinesEx(btn, 2, Color.White);  
+                DrawRectangleLinesEx(btn, 2, color);  
 
                 int fontSize = 30;
                 Vector2 textSize = MeasureTextEx(GetFontDefault(), menuLabels[i], fontSize, 1);
                 Vector2 textPos = new Vector2(btn.X + (btn.Width - textSize.X) / 2, btn.Y + (btn.Height - textSize.Y) / 2);
 
-                DrawText(menuLabels[i], (int)textPos.X, (int)textPos.Y, fontSize, Color.White);
+                DrawText(menuLabels[i], (int)textPos.X, (int)textPos.Y, fontSize, color);
             }
 
 
@@ -289,6 +293,46 @@ namespace GuessWho
             DrawBackToMenuButton(gameManager, GameState.Creating);
         }
 
+        public void DrawRules(GameManager gameManager)
+        {
+            int screenWidth = GetScreenWidth();
+            int screenHeight = GetScreenHeight();
+
+            Rectangle rightArrow = new Rectangle(screenWidth / 2 + 50, screenHeight - 100, 50, 50);
+            Rectangle leftArrow = new Rectangle(screenWidth / 2 - 50, screenHeight - 100, 50, 50);
+
+            DrawTexture(backgroundMenu, 0, 0, Color.White);
+            DrawBackToMenuButton(gameManager, GameState.Menu);
+
+            Vector2 mouse = GetMousePosition();
+
+            bool isHoverRight = CheckCollisionPointRec(mouse, rightArrow);
+            Color rightColor = (page == lastPage) ? Color.Gray : (isHoverRight ? trueYellow : Color.White);
+            DrawText("->", (int)rightArrow.X, (int)rightArrow.Y, 50, rightColor);
+
+            if (isHoverRight && IsMouseButtonPressed(MouseButton.Left) && page < lastPage)
+            {
+                page++;
+            }
+
+            bool isHoverLeft = CheckCollisionPointRec(mouse, leftArrow);
+            Color leftColor = (page == 1) ? Color.Gray : (isHoverLeft ? trueYellow : Color.White);
+            DrawText("<-", (int)leftArrow.X, (int)leftArrow.Y, 50, leftColor);
+
+            if (isHoverLeft && IsMouseButtonPressed(MouseButton.Left) && page > 1)
+            {
+                page--;
+            }
+
+
+            if(page == 1)
+            {
+                string pg1 = "Stage 1 : Selecting your portrait";
+                int textWidth = MeasureText(pg1, 30);
+                DrawText(pg1, screenWidth/2 - textWidth/2, 100, 30, Color.White);
+            }
+        }
+
         public void DrawCreator(GameManager gameManager)
         {
             // Définition des constantes
@@ -328,6 +372,7 @@ namespace GuessWho
                 genButtonWidth,
                 genButtonHeight
             );
+
             int textWidth = MeasureText(genButtonText, fontSize);
             int textX = (int)genButtonBounds.X + (int)(genButtonBounds.Width - textWidth) / 2;
             int textY = (int)genButtonBounds.Y + (int)(genButtonBounds.Height - fontSize) / 2;
@@ -345,9 +390,9 @@ namespace GuessWho
                 Console.WriteLine("Click");
             }
 
-            Color genButtonColor = isHoveringGen ? new Color(255, 255, 255, 128) : new Color(255, 255, 255, 0);
-            DrawRectangleRec(genButtonBounds, genButtonColor);
-            DrawText(genButtonText, textX, textY, fontSize, Color.White);
+            Color genButtonColor = isHoveringGen ? trueYellow : Color.White;
+
+            DrawText(genButtonText, textX, textY, fontSize, genButtonColor);
 
             if (isClickedGen)
             {
@@ -373,29 +418,33 @@ namespace GuessWho
             Rectangle singleRect = new Rectangle(singleX, textY, textWidth, textHeight);
             Rectangle dualRect = new Rectangle(dualX, textY, textWidth, textHeight);
 
-            Color hoverColor = new Color(255, 255, 255, 128);
 
             if (CheckCollisionPointRec(mousePos, singleRect))
             {
-                DrawRectangle((int)singleRect.X, (int)singleRect.Y, (int)singleRect.Width, (int)singleRect.Height, hoverColor);
+                DrawText("Single screen", singleX, textY, 30, trueYellow);
                 if (IsMouseButtonPressed(MouseButton.Left))
                 {
                     gameManager.userHasDualScreen = false;
                     PlaySound(gameManager.soundManager.flickSound);
                 }
             }
+            else
+            {
+                DrawText("Single screen", singleX, textY, 30, Color.White);
+            }
             if (CheckCollisionPointRec(mousePos, dualRect))
             {
-                DrawRectangle((int)dualRect.X, (int)dualRect.Y, (int)dualRect.Width, (int)dualRect.Height, hoverColor);
+                DrawText("Dualscreen", dualX, textY, 30, trueYellow);
                 if (IsMouseButtonPressed(MouseButton.Left))
                 {
                     gameManager.userHasDualScreen = true;
                     PlaySound(gameManager.soundManager.flickSound);
                 }
             }
-
-            DrawText("Single screen", singleX, textY, 30, Color.White);
-            DrawText("Dualscreen", dualX, textY, 30, Color.White);
+            else
+            {
+                DrawText("Dualscreen", dualX, textY, 30, Color.White);
+            }
 
             int screenWidth = GetScreenWidth();
             int iconWidth = 300;
@@ -582,21 +631,22 @@ namespace GuessWho
             int btnWidth = 70;
             int btnHeight = 65;
 
-            DrawRectangleLines(btnX, btnY, btnWidth, btnHeight, Color.White);
+            bool hover = CheckCollisionPointRec(GetMousePosition(), new Rectangle(btnX, btnY, btnWidth, btnHeight));
 
-            DrawText("<-", btnX + 10, btnY, 60, Color.White);
+            Color color = hover ? trueYellow : Color.White;
 
-            if (CheckCollisionPointRec(GetMousePosition(), new Rectangle(btnX, btnY, btnWidth, btnHeight)))
+            if (hover)
             {
-                DrawRectangle(btnX, btnY, btnWidth, btnHeight, new Color(255, 255, 255, 64));
-
                 if (IsMouseButtonPressed(MouseButton.Left))
                 {
                     gameManager.CurrentState = lastState;
                     PlaySound(gameManager.soundManager.flickSound);
                 }
             }
-                
+
+            DrawRectangleLines(btnX, btnY, btnWidth, btnHeight, color);
+            DrawText("<-", btnX + 10, btnY, 60, color);
+
         }
 
         public void DrawEndScreen(GameState state, int winner)
@@ -788,6 +838,10 @@ namespace GuessWho
                         break;
 
                     case GameState.Generation:
+                        backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
+                        break;
+
+                    case GameState.Rules:
                         backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
                         break;
 

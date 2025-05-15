@@ -1268,3 +1268,5 @@ C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Debug\net8.0\refint\GuessWho
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Debug\net8.0\GuessWho.pdb
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Debug\net8.0\GuessWho.genruntimeconfig.cache
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Debug\net8.0\ref\GuessWho.dll
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\icons\GuessWhoLogo.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\icons\GuessWhoLogo_590x580.png

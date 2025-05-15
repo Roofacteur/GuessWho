@@ -90,9 +90,9 @@ namespace GuessWho
 
                 case GameState.Rules:
 
-                    uIManager.TextureLoader(gamemanager);
+                    LoadUIAndSounds(gamemanager);
+                    uIManager.DrawRules(gamemanager);
                     break;
-
 
                 case GameState.Creating:
 

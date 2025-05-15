@@ -3,6 +3,7 @@ using Raylib_cs;
 using static GuessWho.GameManager;
 using static Raylib_cs.Raylib;
 using System.Runtime.InteropServices;
+using System.Numerics;
 
 public static class Program
 {
@@ -19,57 +20,30 @@ public static class Program
 
     public static void Main()
     {
+        Vector2 windowSizes = new Vector2(1870, 1000);
+        Vector2 windowSizesInGame = new Vector2(3740, 1000);
+
         // Fenêtre initiale
         InitWindow(1870, 1000, "Guess who ?");
+        SetWindowIcon(LoadImage("assets/icons/GuessWhoLogo.png"));
         InitAudioDevice();
-
-        //Centrer la fenêtre sur l'écran
-        CenterWindow(1890, 1100, false);
         SetTargetFPS(60);
+
+        // Centrer la fenêtre sur l'écran
+        CenterWindow(1890, 1100, false);
 
         GameManager gameManager = new GameManager();
         gameManager.Initialize();
-        //Enregistrement du dernier état
+        // Enregistrement du dernier état
         GameState lastState = gameManager.CurrentState;
 
         while (!WindowShouldClose())
         {
             gameManager.Update(gameManager);
             BeginDrawing();
+            UpdateWindowSize(gameManager, windowSizes, windowSizesInGame, ref lastState);
 
-            if (gameManager.CurrentState != lastState)
-            {
-                CloseWindow();
-                if(gameManager.userHasDualScreen)
-                {
-                    if (gameManager.CurrentState != GameState.InGame)
-                    {
-                        // Dans les fenêtres hors jeu
-                        InitWindow(1870, 1000, "Guess who ?");
-                        CenterWindow(1890, 1100, false);
-                        SetTargetFPS(60);
-
-                    }
-                    else
-                    {
-                        // Dans le jeu
-                        InitWindow(3740, 1000, "Guess who ?");
-                        SetTargetFPS(60);
-                        CenterWindow(3760, 1100, true);
-                    }
-                }
-                else
-                {
-                    // Toutes les fenêtres
-                    InitWindow(1870, 1000, "Guess who ?");
-                    CenterWindow(1890, 1100, false);
-                    SetTargetFPS(60);
-                }             
-
-                SetTargetFPS(60);
-                lastState = gameManager.CurrentState;
-            }
-            else if (gameManager.CurrentState == GameState.Generation)
+            if (gameManager.CurrentState == GameState.Generation)
             {
                 // Regénérer des portraits d'exemple
                 if (IsKeyPressed(KeyboardKey.R))
@@ -99,26 +73,62 @@ public static class Program
             EndDrawing();
         }
 
+        // Déchargement des textures
         gameManager.renderer.UnloadAll();
         gameManager.uIManager.UnloadAll();
         CloseWindow();
     }
+    static void UpdateWindowSize(GameManager gameManager, Vector2 windowSizes, Vector2 windowSizesInGame, ref GameState lastState)
+    {
+        if (gameManager.CurrentState != lastState)
+        {
+            if (gameManager.userHasDualScreen)
+            {
+                CloseWindow();
+                if (gameManager.CurrentState != GameState.InGame)
+                {
+                    // Dans les fenêtres hors jeu
+                    InitWindow((int)windowSizes.X, (int)windowSizes.Y, "Guess who ?");
+                    SetWindowIcon(LoadImage("assets/icons/GuessWhoLogo.png"));
+                    SetTargetFPS(60);
+                    CenterWindow(1890, 1100, false);
 
+                }
+                else
+                {
+                    // Dans le jeu
+                    InitWindow((int)windowSizesInGame.X, (int)windowSizesInGame.Y, "Guess who ?");
+                    SetWindowIcon(LoadImage("assets/icons/GuessWhoLogo.png"));
+                    SetTargetFPS(60);
+                    CenterWindow(3760, 1100, true);
+                }
+            }
+            else
+            {
+                // Toutes les fenêtres
+                InitWindow((int)windowSizes.X, (int)windowSizes.Y, "Guess who ?");
+                SetWindowIcon(LoadImage("assets/icons/GuessWhoLogo.png"));
+                SetTargetFPS(60);
+                CenterWindow(1890, 1100, false);
+            }
+
+            lastState = gameManager.CurrentState;
+        }
+    }
     static void CenterWindow(int windowWidth, int windowHeight, bool dualScreen = false)
     {
-        IntPtr hwnd = GetWindowHandle(); // Récupère le handle de la fenêtre
-        int screenWidth = GetMonitorWidth(0); // Largeur de l'écran principal
-        int screenHeight = GetMonitorHeight(0); // Hauteur de l'écran principal
+        IntPtr hwnd = GetWindowHandle(); 
+        int screenWidth = GetMonitorWidth(0); 
+        int screenHeight = GetMonitorHeight(0);
 
         if (dualScreen)
         {
-            screenWidth += GetMonitorWidth(1); // Ajoute la largeur du second écran si dualScreen est activé
+            screenWidth += GetMonitorWidth(1);
         }
 
-        int posX = (screenWidth - windowWidth) / 2; // Calcule la position X centrée
-        int posY = (screenHeight - windowHeight) / 2; // Calcule la position Y centrée
+        int posX = (screenWidth - windowWidth) / 2; 
+        int posY = (screenHeight - windowHeight) / 2;
 
-        // Positionne la fenêtre au centre sans modifier sa taille ni son ordre Z
         SetWindowPos(hwnd, IntPtr.Zero, posX, posY, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
     }
 
