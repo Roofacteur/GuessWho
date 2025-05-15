@@ -630,44 +630,62 @@ namespace GuessWho
             int speakerY;
             int sfxX;
             int sfxY;
+            int screenWidth = GetScreenWidth();
+            int screenHeight = GetScreenHeight();
 
             Vector2 mousePos = GetMousePosition();
 
             if (gameManager.CurrentState == GameState.Options)
             {
                 speakerX = 200;
-                speakerY = GetScreenHeight() - 370;
+                speakerY = screenHeight - 370;
 
                 sfxX = 200;
-                sfxY = GetScreenHeight() - 270;
+                sfxY = screenHeight - 270;
             }
-            else if (gameManager.userHasDualScreen && gameManager.CurrentState == GameState.InGame)
-            {              
-                if(gameManager.GetCurrentPlayer() == 1)
+            else if (gameManager.CurrentState == GameState.Menu)
+            {
+                speakerX = screenWidth - 100;
+                speakerY = 30;
+
+                sfxX = screenWidth - 100;
+                sfxY = 110;
+            }
+            else
+            {
+                bool isInGame = gameManager.CurrentState == GameState.InGame;
+                bool isDualScreen = isInGame && gameManager.userHasDualScreen;
+                bool isPlayerOne = gameManager.GetCurrentPlayer() == 1;
+
+                if (isDualScreen)
                 {
-                    speakerX = GetScreenWidth() / 2 - 100;
+                    speakerX = isPlayerOne ? screenWidth / 2 - 100 : screenWidth - 100;
                     speakerY = 30;
 
-                    sfxX = GetScreenWidth() / 2 - 100;
+                    sfxX = speakerX;
                     sfxY = 110;
                 }
                 else
                 {
-                    speakerX = GetScreenWidth() - 100;
-                    speakerY = 30;
+                    if (isPlayerOne)
+                    {
+                        speakerX = screenWidth / 2 - 100;
+                        speakerY = 30;
 
-                    sfxX = GetScreenWidth() - 100;
-                    sfxY = 110;
-                }             
-            }
-            else
-            {
-                speakerX = GetScreenWidth() - 100;
-                speakerY = 30;
+                        sfxX = isInGame ? screenWidth / 2 - 180 : screenWidth - 100;
+                        sfxY = 30;
+                    }
+                    else
+                    {
+                        speakerX = screenWidth - 100;
+                        speakerY = 30;
 
-                sfxX = GetScreenWidth() - 100;
-                sfxY = 110;
+                        sfxX = isInGame ? screenWidth - 180 : screenWidth - 100;
+                        sfxY = isInGame ? 30 : 110;
+                    }
+                }
             }
+
 
             int speakerWidth = (int)(speakerIcon.Width * scale);
             int speakerHeight = (int)(speakerIcon.Height * scale);
@@ -692,14 +710,14 @@ namespace GuessWho
 
             if (gameManager.isMusicMuted)
             {
-                DrawLineEx(speakerStart1, speakerEnd1, 3.0f, Color.Red);
-                DrawLineEx(speakerStart2, speakerEnd2, 3.0f, Color.Red);
+                DrawLineEx(speakerStart1, speakerEnd1, 3.0f, Color.White);
+                DrawLineEx(speakerStart2, speakerEnd2, 3.0f, Color.White);
             }
 
             if (gameManager.isSfxMuted)
             {
-                DrawLineEx(sfxStart1, sfxEnd1, 3.0f, Color.Red);
-                DrawLineEx(sfxStart2, sfxEnd2, 3.0f, Color.Red);
+                DrawLineEx(sfxStart1, sfxEnd1, 3.0f, Color.White);
+                DrawLineEx(sfxStart2, sfxEnd2, 3.0f, Color.White);
             }
 
             if (CheckCollisionPointRec(mousePos, speakerRect) && IsMouseButtonPressed(MouseButton.Left))
