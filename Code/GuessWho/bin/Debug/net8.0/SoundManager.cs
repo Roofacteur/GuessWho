@@ -30,6 +30,9 @@ public class SoundManager
             case GameState.Options:
                 newMusicPath = "assets/sfx/MainMenu.mp3";
                 break;
+            case GameState.Rules:
+                newMusicPath = "assets/sfx/MainMenu.mp3";
+                break;
             case GameState.Generation:
             case GameState.Creating:
             case GameState.Victory:

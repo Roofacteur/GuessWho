@@ -55,10 +55,14 @@ namespace GuessWho
                 : GetRandomAsset("logos");
 
             string genderAsset = GetRandomAsset("gender");
-            string gender = Path.GetFileName(genderAsset);
+            string gender = Path.GetFileNameWithoutExtension(genderAsset).ToLower();
 
             string name = GetRandomName(gender, selectedNames);
             selectedNames.Add(name);
+
+            string beardAsset = gender == "female"
+                ? "assets\\portrait\\beard\\beardNone.png"
+                : GetRandomAsset("beard");
 
             return new Portrait
             {
@@ -68,14 +72,15 @@ namespace GuessWho
                 Logo = logoAsset,
                 Eyebrows = GetRandomAsset("eyebrows"),
                 Eyes = GetRandomAsset("eyes"),
-                Beard = GetRandomAsset("beard"),
+                Beard = beardAsset,
                 Glasses = GetRandomAsset("glasses"),
-                Hair = GetRandomAsset("hair"),
+                Hair = GetRandomAsset("hair\\"+gender+"hair"),
                 Mouth = GetRandomAsset("mouth"),
                 Gender = genderAsset,
                 Name = name
             };
         }
+
 
         private string GetRandomAsset(string category)
         {
@@ -85,51 +90,47 @@ namespace GuessWho
             if (allFiles.Length == 0)
                 throw new FileNotFoundException($"Aucun fichier trouvé dans le répertoire : {directoryPath}");
 
-            // Définir les taux de rareté
-            // Plus le chiffre est proche de 1.0 plus il est rare
-            const double legendaryThreshold = 0.999;  // 0.1% chance pour "legendary"
-            const double rareThreshold = 0.80;       // 20% chance pour "rare"
-            const double uncommonThreshold = 0.50;   // 50% chance pour "uncommon"
-
             double rarityRoll = random.NextDouble();
-
             string[] selectedFiles;
 
-            if (rarityRoll < uncommonThreshold) // Entre 0.00 et 0.50
+            if (rarityRoll < 0.5) // 50% commun
             {
-                // 50 % de chances — fichiers "communs"
-                selectedFiles = FilterFiles(allFiles, file => !file.Contains("uncommon", StringComparison.OrdinalIgnoreCase) &&
-                                                            !file.Contains("rare", StringComparison.OrdinalIgnoreCase) &&
-                                                            !file.Contains("legendary", StringComparison.OrdinalIgnoreCase));
+                selectedFiles = FilterFiles(allFiles, file =>
+                    !file.Contains("uncommon", StringComparison.OrdinalIgnoreCase) &&
+                    !file.Contains("rare", StringComparison.OrdinalIgnoreCase) &&
+                    !file.Contains("legendary", StringComparison.OrdinalIgnoreCase));
             }
-            else if (rarityRoll < rareThreshold) // Entre 0.50 et 0.80
+            else if (rarityRoll < 0.8) // 30% uncommon
             {
-                // 20 % de chances — fichiers "rare"
-                selectedFiles = FilterFiles(allFiles, file => file.Contains("uncommon", StringComparison.OrdinalIgnoreCase));
+                selectedFiles = FilterFiles(allFiles, file =>
+                    file.Contains("uncommon", StringComparison.OrdinalIgnoreCase));
             }
-            else if (rarityRoll < legendaryThreshold) // Entre 0.80 et 0.99
+            else if (rarityRoll < 0.99999) // 19.999% rare
             {
-                // 20 % de chances — fichiers "rare"
-                selectedFiles = FilterFiles(allFiles, file => file.Contains("rare", StringComparison.OrdinalIgnoreCase));
+                selectedFiles = FilterFiles(allFiles, file =>
+                    file.Contains("rare", StringComparison.OrdinalIgnoreCase));
             }
-            else // Entre 0.99 et 1.00
+            else // 0.001% legendary
             {
-                // 0.1 % de chances — fichiers "legendary"
-                selectedFiles = FilterFiles(allFiles, file => file.Contains("legendary", StringComparison.OrdinalIgnoreCase));
+                selectedFiles = FilterFiles(allFiles, file =>
+                    file.Contains("legendary", StringComparison.OrdinalIgnoreCase));
             }
 
-            return selectedFiles.Length > 0 ? selectedFiles[random.Next(selectedFiles.Length)] : allFiles[random.Next(allFiles.Length)];
+            return selectedFiles.Length > 0
+                ? selectedFiles[random.Next(selectedFiles.Length)]
+                : allFiles[random.Next(allFiles.Length)];
         }
+
 
         public static string GetRandomName(string gender, List<string> alreadySelectedNames)
         {
             string genderFileName;
 
-            if (gender == "female.png")
+            if (gender == "female")
             {
                 genderFileName = "femalenames.txt";
             }
-            else if (gender == "male.png")
+            else if (gender == "male")
             {
                 genderFileName = "malenames.txt";
             }

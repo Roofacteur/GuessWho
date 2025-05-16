@@ -1169,63 +1169,6 @@ C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\glasses\uncommon_glasses (1).png
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\glasses\uncommon_glasses (2).png
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\glasses\uncommon_glasses (3).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairBobBlack.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairBobBlonde.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairBobBrown.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairBobCurledBlack.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairBobCurledBlonde.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairBobCurledBrown.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairBobCurledGray.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairBobCurledRed.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairBobCurledWhite.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairBobGray.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairBobRed.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairBobWhite.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairFluffyBlack.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairFluffyBlond.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairFluffyBrown.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairFluffyGray.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairFluffyRed.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairFluffyWhite.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairLongBlack.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairLongBlond.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairLongBrown.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairLongCurledBlack.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairLongCurledBlonde.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairLongCurledBrown.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairLongCurledGray.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairLongCurledRed.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairLongCurledWhite.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairLongGray.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairLongRed.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairLongWhite.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairNone.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairShortBlack.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairShortBlond.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairShortBrown.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairShortGray.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairShortRed.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairShortWhite.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairSwoopBlack.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairSwoopBlond.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairSwoopBrown.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairSwoopGray.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairSwoopRed.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\hairSwoopWhite.png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\legendary_hair (1).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\legendary_hair (2).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\legendary_hair (3).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\rare_hair (1).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\rare_hair (2).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\rare_hair (3).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\rare_hair (4).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\rare_hair (5).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\uncommon_hair (1).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\uncommon_hair (2).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\uncommon_hair (3).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\uncommon_hair (4).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\uncommon_hair (5).png
-C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\uncommon_hair (6).png
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\logos\legendary_logo.png
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\logos\logoNone.png
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\logos\uncommon_logo (1).png
@@ -1270,3 +1213,113 @@ C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Debug\net8.0\GuessWho.genrun
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Debug\net8.0\ref\GuessWho.dll
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\icons\GuessWhoLogo.png
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\icons\GuessWhoLogo_590x580.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\base\legendary_baseGhost.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairBobBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairBobBlonde.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairBobBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairBobCurledBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairBobCurledBlonde.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairBobCurledBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairBobCurledGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairBobCurledRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairBobCurledWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairBobGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairBobRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairBobWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairFluffyBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairFluffyBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairFluffyBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairFluffyGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairFluffyRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairFluffyWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairLongBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairLongBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairLongBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairLongCurledBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairLongCurledBlonde.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairLongCurledBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairLongCurledGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairLongCurledRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairLongCurledWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairLongGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairLongRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairLongWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairShortBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairShortBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairShortBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairShortGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairShortRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairShortWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairSwoopBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairSwoopBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairSwoopBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairSwoopGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairSwoopRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\hairSwoopWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\legendary_hair (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\legendary_hair (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\legendary_hair (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\rare_hair (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\rare_hair (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\rare_hair (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\rare_hair (4).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\femalehair\rare_hair (5).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairBobBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairBobBlonde.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairBobBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairBobCurledBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairBobCurledBlonde.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairBobCurledBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairBobCurledGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairBobCurledRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairBobCurledWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairBobGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairBobRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairBobWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairFluffyBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairFluffyBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairFluffyBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairFluffyGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairFluffyRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairFluffyWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairLongBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairLongBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairLongBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairLongCurledBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairLongCurledBlonde.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairLongCurledBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairLongCurledGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairLongCurledRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairLongCurledWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairLongGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairLongRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairLongWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairNone.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairShortBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairShortBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairShortBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairShortGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairShortRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairShortWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairSwoopBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairSwoopBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairSwoopBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairSwoopGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairSwoopRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\hairSwoopWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\legendary_hair (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\legendary_hair (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\legendary_hair (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\rare_hair (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\rare_hair (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\rare_hair (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\rare_hair (4).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\rare_hair (5).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\uncommon_hair (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\uncommon_hair (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\uncommon_hair (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\uncommon_hair (4).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\uncommon_hair (5).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\uncommon_hair (6).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\icons\rules1.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\icons\rules2.png

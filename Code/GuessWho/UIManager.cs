@@ -19,6 +19,8 @@ namespace GuessWho
         static Texture2D addCharacter;
         static Texture2D speakerIcon;
         static Texture2D sfxIcon;
+        static Texture2D rules1Icon;
+        static Texture2D rules2Icon;
         Color trueYellow = new Color(255, 196, 0);
         static int BasePortraitSize;
         static int cols;
@@ -327,9 +329,24 @@ namespace GuessWho
 
             if(page == 1)
             {
-                string pg1 = "Stage 1 : Selecting your portrait";
+
+                string pg1 = "Stages";
                 int textWidth = MeasureText(pg1, 30);
-                DrawText(pg1, screenWidth/2 - textWidth/2, 100, 30, Color.White);
+                DrawText(pg1, screenWidth / 2 - textWidth / 2, 100, 30, Color.White);
+                DrawTexture(rules2Icon, 0, 0, Color.White);       
+            }
+            else if(page == 2)
+            {
+                string pg2 = "Commands";
+                int textWidth = MeasureText(pg2, 30);
+                DrawText(pg2, screenWidth / 2 - textWidth / 2, 100, 30, Color.White);
+                DrawTexture(rules1Icon, 0, 0, Color.White);
+            }
+            else if(page == 3)
+            {
+                string pg3 = "In-game rules";
+                int textWidth = MeasureText(pg3, 30);
+                DrawText(pg3, screenWidth / 2 - textWidth / 2, 100, 30, Color.White);
             }
         }
 
@@ -843,6 +860,8 @@ namespace GuessWho
 
                     case GameState.Rules:
                         backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
+                        rules1Icon = LoadTexture("assets/icons/rules1.png");
+                        rules2Icon = LoadTexture("assets/icons/rules2.png");
                         break;
 
                     case GameState.Creating:
