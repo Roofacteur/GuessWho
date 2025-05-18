@@ -82,9 +82,10 @@ public static class Program
     {
         if (gameManager.CurrentState != lastState)
         {
+            CloseWindow();
             if (gameManager.userHasDualScreen)
             {
-                CloseWindow();
+                
                 if (gameManager.CurrentState != GameState.InGame)
                 {
                     // Dans les fenêtres hors jeu
