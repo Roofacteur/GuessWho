@@ -110,7 +110,7 @@ namespace GuessWho
                 selectedFiles = FilterFiles(allFiles, file =>
                     file.Contains("rare", StringComparison.OrdinalIgnoreCase));
             }
-            else // 0.001% legendary
+            else // 1% legendary
             {
                 selectedFiles = FilterFiles(allFiles, file =>
                     file.Contains("legendary", StringComparison.OrdinalIgnoreCase));

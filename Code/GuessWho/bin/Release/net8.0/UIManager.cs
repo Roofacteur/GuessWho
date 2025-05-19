@@ -9,7 +9,7 @@ namespace GuessWho
 {
     public class UIManager
     {
-        private string[] menuLabels = { "PLAY", "RULES", "CHARACTERS", "OPTIONS", "QUIT" };
+        private string[] menuLabels = { "PLAY", "RULES", "CHARACTERS", "SETTINGS", "QUIT" };
         private GameState previousState = GameState.None;
         private Model guessWhoTitle;
         static Texture2D backgroundMenu;
@@ -21,8 +21,10 @@ namespace GuessWho
         static Texture2D sfxIcon;
         static Texture2D rules1Icon;
         static Texture2D rules2Icon;
+        static Texture2D rules3Icon;
         Color trueYellow = new Color(255, 196, 0);
         static int BasePortraitSize;
+        static int ExamplePortraitSize = 760;
         static int cols;
 
         private int page = 1;
@@ -49,7 +51,7 @@ namespace GuessWho
                         if (i == 0) gameManager.CurrentState = GameState.InGame;
                         if (i == 1) gameManager.CurrentState = GameState.Rules;
                         if (i == 2) gameManager.CurrentState = GameState.Creating;
-                        if (i == 3) gameManager.CurrentState = GameState.Options;
+                        if (i == 3) gameManager.CurrentState = GameState.Settings;
                         if (i == 4) Environment.Exit(0);
                         PlaySound(gameManager.soundManager.flickSound);
                     }
@@ -290,7 +292,7 @@ namespace GuessWho
                 GetScreenWidth() / 2,
                 GetScreenHeight() / 2
             );
-            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, 6, BasePortraitSize * 2, 1, gameManager);
+            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, 6, ExamplePortraitSize, 1, gameManager);
 
             DrawBackToMenuButton(gameManager, GameState.Creating);
         }
@@ -347,6 +349,7 @@ namespace GuessWho
                 string pg3 = "In-game rules";
                 int textWidth = MeasureText(pg3, 30);
                 DrawText(pg3, screenWidth / 2 - textWidth / 2, 100, 30, Color.White);
+                DrawTexture(rules3Icon, 0, 0, Color.White);
             }
         }
 
@@ -422,19 +425,27 @@ namespace GuessWho
         {
             DrawTexture(backgroundMenu, 0, 0, Color.White);
             DrawBackToMenuButton(gameManager, GameState.Menu);
-            string title = "Options";
+            string title = "SETTINGS";
             DrawTitle(gameManager, title);
 
-            int singleX = GetScreenWidth() / 4 - 100;
-            int dualX = 3 * GetScreenWidth() / 4 - 100;
-            int textY = 150;
+            int screenWidth = GetScreenWidth();
+            int iconWidth = 300;
+            int screenConfigTitleY = 130;
+            int singleX = screenWidth / 4 - 100;
+            int dualX = 3 * screenWidth / 4 - 100;
+            int textY = 280; 
             int textWidth = 230;
             int textHeight = 40;
+
 
             Vector2 mousePos = GetMousePosition();
             Rectangle singleRect = new Rectangle(singleX, textY, textWidth, textHeight);
             Rectangle dualRect = new Rectangle(dualX, textY, textWidth, textHeight);
 
+            DrawText("Screen configuration", screenWidth / 2 - MeasureText("Screen configuration", 30) / 2, 130, 30, Color.White);
+            int lineMargin = 120;
+            int lineY = screenConfigTitleY + 40;
+            DrawRectangle(lineMargin, lineY, screenWidth - 2 * lineMargin, 2, Color.White);
 
             if (CheckCollisionPointRec(mousePos, singleRect))
             {
@@ -463,27 +474,31 @@ namespace GuessWho
                 DrawText("Dualscreen", dualX, textY, 30, Color.White);
             }
 
-            int screenWidth = GetScreenWidth();
-            int iconWidth = 300;
+            int iconY = textY + 50; 
 
             int singleIconX = screenWidth / 4 - iconWidth / 2;
-            DrawTexture(screenIcon, singleIconX, 200, Color.White);
+            DrawTexture(screenIcon, singleIconX, iconY, Color.White);
 
             int dualStartX = screenWidth / 2 + (screenWidth / 2 - iconWidth * 2) / 2;
-            DrawTexture(screenIcon, dualStartX, 200, Color.White);
-            DrawTexture(screenIcon, dualStartX + iconWidth, 200, Color.White);
+            DrawTexture(screenIcon, dualStartX, iconY, Color.White);
+            DrawTexture(screenIcon, dualStartX + iconWidth, iconY, Color.White);
+
 
             if (gameManager.userHasDualScreen)
             {
-                DrawText("Selected", dualX, 120, 30, Color.Green);
+                DrawText("Selected", dualX, textY - 30, 30, Color.Green);
             }
             else
             {
-                DrawText("Selected", singleX, 120, 30, Color.Green);
+                DrawText("Selected", singleX, textY - 30, 30, Color.Green);
             }
 
-            int volumeBarX = GetScreenWidth() / 6;
-            int volumeBarY = 650;
+            int soundConfigY = iconY + iconWidth + 20;
+            DrawText("Sound configuration", screenWidth / 2 - MeasureText("Sound configuration", 30) / 2, soundConfigY, 30, Color.White);
+            DrawRectangle(lineMargin, lineY * 4 + 12, screenWidth - 2 * lineMargin, 2, Color.White);
+
+            int volumeBarY = soundConfigY + 100;
+            int volumeBarX = screenWidth / 6;
             int barWidth = 50;
             int barHeight = 40;
             int spacing = 10;
@@ -503,14 +518,7 @@ namespace GuessWho
 
                 if (gameManager.soundManager.MusicVolume >= (i + 1) * 20)
                 {
-                    if (gameManager.isMusicMuted)
-                    {
-                        DrawRectangle(x, volumeBarY, barWidth, barHeight, Color.Gray);
-                    }
-                    else
-                    {
-                        DrawRectangle(x, volumeBarY, barWidth, barHeight, Color.White);
-                    }
+                    DrawRectangle(x, volumeBarY, barWidth, barHeight, gameManager.isMusicMuted ? Color.Gray : Color.White);
                 }
                 else
                 {
@@ -518,7 +526,7 @@ namespace GuessWho
                 }
             }
 
-            int effectsBarY = volumeBarY + barHeight + 60; // espacement en dessous de la première barre
+            int effectsBarY = volumeBarY + barHeight + 60;
             DrawText("Sound effects volume", volumeBarX, effectsBarY - 40, 30, Color.White);
 
             for (int i = 0; i < numBars; i++)
@@ -531,19 +539,11 @@ namespace GuessWho
                     gameManager.soundManager.SfxVolume = (i + 1) * 20;
                     gameManager.soundManager.UpdateSFX();
                     PlaySound(gameManager.soundManager.flickSound);
-                    
                 }
 
                 if (gameManager.soundManager.SfxVolume >= (i + 1) * 20)
                 {
-                    if (gameManager.isSfxMuted)
-                    {
-                        DrawRectangle(x, effectsBarY, barWidth, barHeight, Color.Gray);
-                    }
-                    else
-                    {
-                        DrawRectangle(x, effectsBarY, barWidth, barHeight, Color.White);
-                    }
+                    DrawRectangle(x, effectsBarY, barWidth, barHeight, gameManager.isSfxMuted ? Color.Gray : Color.White);
                 }
                 else
                 {
@@ -553,6 +553,7 @@ namespace GuessWho
 
             DrawSoundButtons(gameManager);
         }
+
 
         public void DrawPortraitGrid(
             Portrait[] portraits,
@@ -702,13 +703,13 @@ namespace GuessWho
 
             Vector2 mousePos = GetMousePosition();
 
-            if (gameManager.CurrentState == GameState.Options)
+            if (gameManager.CurrentState == GameState.Settings)
             {
                 speakerX = 200;
-                speakerY = screenHeight - 370;
+                speakerY = screenHeight - 270;
 
                 sfxX = 200;
-                sfxY = screenHeight - 270;
+                sfxY = screenHeight - 170;
             }
             else if (gameManager.CurrentState == GameState.Menu)
             {
@@ -862,6 +863,7 @@ namespace GuessWho
                         backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
                         rules1Icon = LoadTexture("assets/icons/rules1.png");
                         rules2Icon = LoadTexture("assets/icons/rules2.png");
+                        rules3Icon = LoadTexture("assets/icons/rules3.png");
                         break;
 
                     case GameState.Creating:
@@ -869,7 +871,7 @@ namespace GuessWho
                         addCharacter = LoadTexture("assets/icons/addCharacter.png");
                         break;
 
-                    case GameState.Options:
+                    case GameState.Settings:
                         backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
                         screenIcon = LoadTexture("assets/icons/singlescreenicon.png");
                         speakerIcon = LoadTexture("assets/icons/speaker.png");

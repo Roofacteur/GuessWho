@@ -27,7 +27,7 @@ public class SoundManager
                 newMusicPath = "assets/sfx/InGame2.mp3";
                 break;
             case GameState.Menu:
-            case GameState.Options:
+            case GameState.Settings:
                 newMusicPath = "assets/sfx/MainMenu.mp3";
                 break;
             case GameState.Rules:

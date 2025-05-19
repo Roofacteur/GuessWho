@@ -74,6 +74,9 @@
     <None Update="assets\icons\rules2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\icons\rules3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\icons\sfx.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -392,7 +395,13 @@
     <None Update="assets\portrait\eyebrows\eyebrowsDefaultBrown.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\portrait\eyebrows\eyebrowsDefaultGray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\portrait\eyebrows\eyebrowsDefaultRed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\portrait\eyebrows\eyebrowsDefaultWhite.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="assets\portrait\eyebrows\eyebrowsNone.png">

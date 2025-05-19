@@ -20,7 +20,7 @@ namespace GuessWho
             Menu,
             Rules,
             Generation,
-            Options,
+            Settings,
             Creating,
             InGame,
             Guessing,
@@ -81,7 +81,7 @@ namespace GuessWho
 
                     break;
 
-                case GameState.Options:
+                case GameState.Settings:
 
                     LoadUIAndSounds(gamemanager);
                     uIManager.DrawOptions(gamemanager);

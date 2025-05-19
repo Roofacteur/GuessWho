@@ -271,3 +271,279 @@ C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\refint\GuessW
 C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\GuessWho.pdb
 C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\GuessWho.genruntimeconfig.cache
 C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\ref\GuessWho.dll
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\GuessWho.exe
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\Board.cs
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\GameManager.cs
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\Player.cs
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\Portrait.cs
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\PortraitCreator.cs
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\PotraitGenerator.cs
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\PotraitRenderer.cs
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\Program.cs
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\SoundManager.cs
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\UIManager.cs
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\backgrounds\GameBackground.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\backgrounds\GameBackgroundInverted.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\backgrounds\GameSmallBackground.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\backgrounds\GameSmallBackgroundInverted.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\backgrounds\MenuBackground.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\femalenames.txt
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\icons\addCharacter.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\icons\GuessWhoLogo.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\icons\GuessWhoLogo_590x580.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\icons\rules1.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\icons\rules2.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\icons\sfx.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\icons\singlescreenicon.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\icons\speaker.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\malenames.txt
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\model3D\title\GuessWho3DTitle.glb
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\base\baseBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\base\basePale.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\base\baseTanned.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\base\baseWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\base\legendary_baseGhost.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\noBeard.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (10).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (11).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (12).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (13).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (14).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (15).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (16).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (18).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (19).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (20).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (21).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (22).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (23).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (24).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (25).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (4).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (5).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (6).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (7).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (8).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\beard\uncommon_Beard (9).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\legendary_Armor (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\legendary_Armor (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\legendary_Armor.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\rare_shirt (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\rare_shirt.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtBlue.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtCrewNeckBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtCrewNeckGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtGreen.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtHoodieBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtHoodieBlue.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtHoodieGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtHoodieGreen.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtHoodieRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtHoodieYellow.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtTankBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtTankBlue.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtTankGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtTankGreen.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtTankRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtTankWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtTankYellow.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtYellow.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyebrows\eyebrowsDefaultBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyebrows\eyebrowsDefaultBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyebrows\eyebrowsDefaultBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyebrows\eyebrowsDefaultRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyebrows\eyebrowsNone.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesAngryBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesAngryBlue.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesAngryBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesAngryGreen.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesClosed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesDead.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesDefault.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesExcitedBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesExcitedBlue.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesExcitedBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesExcitedGreen.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesHearts.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesSurprisedBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesSurprisedBlue.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesSurprisedBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesSurprisedGreen.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesTiredBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesTiredBlue.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesTiredBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesTiredGreen.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesTwitchingBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesTwitchingBlue.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesTwitchingBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesTwitchingGreen.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyes\eyesWink.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\gender\female.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\gender\male.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\glasses\glassesNone.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\glasses\legendary_glasses (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\glasses\legendary_glasses (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\glasses\rare_glasses (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\glasses\rare_glasses (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\glasses\rare_glasses (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\glasses\uncommon_glasses (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\glasses\uncommon_glasses (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\glasses\uncommon_glasses (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairBobBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairBobBlonde.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairBobBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairBobCurledBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairBobCurledBlonde.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairBobCurledBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairBobCurledGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairBobCurledRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairBobCurledWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairBobGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairBobRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairBobWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairFluffyBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairFluffyBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairFluffyBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairFluffyGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairFluffyRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairFluffyWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairLongBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairLongBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairLongBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairLongCurledBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairLongCurledBlonde.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairLongCurledBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairLongCurledGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairLongCurledRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairLongCurledWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairLongGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairLongRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairLongWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairShortBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairShortBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairShortBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairShortGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairShortRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairShortWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairSwoopBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairSwoopBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairSwoopBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairSwoopGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairSwoopRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\hairSwoopWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\legendary_hair (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\legendary_hair (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\legendary_hair (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\rare_hair (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\rare_hair (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\rare_hair (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\rare_hair (4).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\femalehair\rare_hair (5).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairBobBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairBobBlonde.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairBobBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairBobCurledBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairBobCurledBlonde.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairBobCurledBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairBobCurledGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairBobCurledRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairBobCurledWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairBobGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairBobRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairBobWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairFluffyBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairFluffyBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairFluffyBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairFluffyGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairFluffyRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairFluffyWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairLongBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairLongBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairLongBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairLongCurledBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairLongCurledBlonde.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairLongCurledBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairLongCurledGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairLongCurledRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairLongCurledWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairLongGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairLongRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairLongWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairNone.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairShortBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairShortBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairShortBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairShortGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairShortRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairShortWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairSwoopBlack.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairSwoopBlond.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairSwoopBrown.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairSwoopGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairSwoopRed.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\hairSwoopWhite.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\legendary_hair (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\legendary_hair (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\legendary_hair (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\rare_hair (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\rare_hair (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\rare_hair (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\rare_hair (4).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\rare_hair (5).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\uncommon_hair (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\uncommon_hair (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\uncommon_hair (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\uncommon_hair (4).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\uncommon_hair (5).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\hair\malehair\uncommon_hair (6).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\logos\legendary_logo.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\logos\logoNone.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\logos\uncommon_logo (1).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\logos\uncommon_logo (2).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\logos\uncommon_logo (3).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\logos\uncommon_logo (4).png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\mouth\mouthDefault.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\mouth\mouthSad.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\mouth\mouthSerious.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\mouth\rare_mouthScream.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\mouth\rare_mouthVomit.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\mouth\uncommon_mouthGrinning.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\mouth\uncommon_mouthTongue.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\mouth\uncommon_mouthWatering.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\sfx\flick.mp3
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\sfx\InGame.mp3
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\sfx\InGame2.mp3
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\sfx\MainMenu.mp3
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\sfx\restart.mp3
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\libs\Raylib-cs.dll
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\GuessWho.deps.json
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\GuessWho.runtimeconfig.json
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\GuessWho.dll
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\GuessWho.pdb
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\Raylib-cs.dll
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\runtimes\linux-x64\native\libraylib.so
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\runtimes\osx-arm64\native\libraylib.dylib
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\runtimes\osx-x64\native\libraylib.dylib
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\runtimes\win-x64\native\raylib.dll
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\runtimes\win-x86\native\raylib.dll
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\GuessWho.csproj.AssemblyReference.cache
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\GuessWho.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\GuessWho.AssemblyInfoInputs.cache
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\GuessWho.AssemblyInfo.cs
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\GuessWho.csproj.CoreCompileInputs.cache
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\GuessWho.sourcelink.json
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\GuessWho.csproj.Up2Date
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\GuessWho.dll
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\refint\GuessWho.dll
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\GuessWho.pdb
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\GuessWho.genruntimeconfig.cache
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\ref\GuessWho.dll
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\icons\rules3.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyebrows\eyebrowsDefaultGray.png
+C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyebrows\eyebrowsDefaultWhite.png
