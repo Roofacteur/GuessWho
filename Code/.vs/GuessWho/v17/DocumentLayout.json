@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\potraitgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\code\\guesswho\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\code\\guesswho\\portrait.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\portrait.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -31,10 +35,6 @@
       "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\soundmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\code\\guesswho\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\leones1\\desktop\\guesswho\\code\\guesswho\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -50,7 +50,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Portrait.cs",
               "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Code\\GuessWho\\Portrait.cs",
               "RelativeDocumentMoniker": "GuessWho\\Portrait.cs",
@@ -58,12 +58,11 @@
               "RelativeToolTip": "GuessWho\\Portrait.cs",
               "ViewState": "AQIAAB8AAAAAAAAAAAAgwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T21:28:32.95Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-18T21:28:32.95Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Board.cs",
               "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Code\\GuessWho\\Board.cs",
               "RelativeDocumentMoniker": "GuessWho\\Board.cs",
@@ -75,7 +74,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "PotraitRenderer.cs",
               "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Code\\GuessWho\\PotraitRenderer.cs",
               "RelativeDocumentMoniker": "GuessWho\\PotraitRenderer.cs",
@@ -87,19 +86,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Code\\GuessWho\\Player.cs",
               "RelativeDocumentMoniker": "GuessWho\\Player.cs",
               "ToolTip": "C:\\Users\\leones1\\Desktop\\GuessWho\\Code\\GuessWho\\Player.cs",
               "RelativeToolTip": "GuessWho\\Player.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T21:08:50.593Z"
+              "WhenOpened": "2025-05-18T21:08:50.593Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "SoundManager.cs",
               "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Code\\GuessWho\\SoundManager.cs",
               "RelativeDocumentMoniker": "GuessWho\\SoundManager.cs",
@@ -111,7 +111,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "GameManager.cs",
               "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Code\\GuessWho\\GameManager.cs",
               "RelativeDocumentMoniker": "GuessWho\\GameManager.cs",
@@ -123,7 +123,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "UIManager.cs",
               "DocumentMoniker": "C:\\Users\\leones1\\Desktop\\GuessWho\\Code\\GuessWho\\UIManager.cs",
               "RelativeDocumentMoniker": "GuessWho\\UIManager.cs",
@@ -131,8 +131,7 @@
               "RelativeToolTip": "GuessWho\\UIManager.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T12:30:44.201Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T12:30:44.201Z"
             },
             {
               "$type": "Document",
@@ -142,7 +141,7 @@
               "RelativeDocumentMoniker": "GuessWho\\PotraitGenerator.cs",
               "ToolTip": "C:\\Users\\leones1\\Desktop\\GuessWho\\Code\\GuessWho\\PotraitGenerator.cs",
               "RelativeToolTip": "GuessWho\\PotraitGenerator.cs",
-              "ViewState": "AQIAADEAAAAAAAAAAAAgwBgAAAARAAAA",
+              "ViewState": "AQIAAGIAAAAAAAAAAAAAAHkAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-16T11:31:51.435Z",
               "EditorCaption": ""
