@@ -154,7 +154,6 @@ namespace GuessWho
 
         }
 
-
         public static string GetRandomName(string gender, List<string> alreadySelectedNames)
         {
             string genderFileName;

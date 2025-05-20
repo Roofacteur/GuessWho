@@ -141,7 +141,7 @@ namespace GuessWho
         {
 
             DrawTexture(backgroundInGame, 0, 0, Color.White);
-            
+
             gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
             gameManager.player2.Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
 

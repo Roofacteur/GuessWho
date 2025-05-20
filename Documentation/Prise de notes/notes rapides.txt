@@ -40,7 +40,7 @@ Navigation entre les fenêtres compliquées, textures perdues, fond noir
 ================Lundi 12.05.2025========================
 
 Idée d'avoir deux souris, l'une ou l'autre se bloque selon le tour du joueur, idée abandonnée
-mise en place trop risquée dans le temps imparti.
+mise en place trop risquée dans le temps imparti. Utilisation de l'API de Windows je crois. Trop compliqué
 
 
 =================Mercredi 14.05.2025======================

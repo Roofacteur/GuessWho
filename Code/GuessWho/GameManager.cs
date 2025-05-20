@@ -8,7 +8,6 @@ namespace GuessWho
     {
         public bool isMusicMuted = false;
         public bool isSfxMuted = false;
-
         public bool gameStarted = false;
         public bool portraitsGenerated = false;
         public bool generatedExample = false;
