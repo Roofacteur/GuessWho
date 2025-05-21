@@ -2,41 +2,53 @@
 using static Raylib_cs.Raylib;
 using System.Numerics;
 using static GuessWho.GameManager;
-using System.ComponentModel;
-
 
 namespace GuessWho
 {
+    /// <summary>
+    /// Gère toute l'interface utilisateur graphique du jeu, incluant les menus, écrans de jeu,
+    /// affichage des portraits, titres, boutons de son, et transitions visuelles selon l'état du jeu.
+    /// </summary>
     public class UIManager
     {
-        private string[] menuLabels = { "PLAY", "RULES", "CHARACTERS", "SETTINGS", "QUIT" };
-        private GameState previousState = GameState.None;
-        private Texture2D guessWhoTitle;
-        static Texture2D backgroundMenu;
-        static Texture2D backgroundInGame;
-        static Texture2D backgroundInGameSelecting;
-        static Texture2D screenIcon;
-        static Texture2D addCharacter;
-        static Texture2D speakerIcon;
-        static Texture2D sfxIcon;
-        static Texture2D rules1Icon;
-        static Texture2D rules2Icon;
-        static Texture2D rules3Icon;
-        Color trueYellow = new Color(255, 196, 0);
-        static int BasePortraitSize;
-        static int ExamplePortraitSize = 760;
-        static int cols;
+        // === Ressources graphiques ===
+        private static Texture2D backgroundMenu;
+        private static Texture2D backgroundInGame;
+        private static Texture2D backgroundInGameSelecting;
+        private static Texture2D guessWhoTitle;
+        private static Texture2D screenIcon;
+        private static Texture2D addCharacter;
+        private static Texture2D speakerIcon;
+        private static Texture2D sfxIcon;
+        private static Texture2D rules1Icon;
+        private static Texture2D rules2Icon;
+        private static Texture2D rules3Icon;
 
+        // === Couleurs et typographies ===
+        private readonly Color trueYellow = new(255, 196, 0);
+        private readonly string[] menuLabels = { "PLAY", "RULES", "CHARACTERS", "SETTINGS", "QUIT" };
+
+        // === Variables de mise en page ===
+        private static int BasePortraitSize;
+        private static int ExamplePortraitSize = 760;
+        private static int cols;
+
+        // === État de navigation ===
+        private GameState previousState = GameState.None;
         private int page = 1;
         private readonly int lastPage = 3;
 
+        // === Zone d’entrée textuelle ===
         private bool inputInitialized = false;
-        bool inputActive = false;
-        string inputText = "";
-        Rectangle inputBox = new Rectangle(320, 210, 50, 40);
+        private bool inputActive = false;
+        private string inputText = "";
+        private Rectangle inputBox = new(320, 210, 50, 40);
 
-        Camera3D camera;
+        private Camera3D camera;
 
+        /// <summary>
+        /// Met à jour le menu principal. Détecte les clics sur les boutons et change l'état du jeu en conséquence.
+        /// </summary>
         public void UpdateMenu(GameManager gameManager)
         {
             Vector2 mouse = GetMousePosition();
@@ -44,26 +56,28 @@ namespace GuessWho
 
             if (IsMouseButtonPressed(MouseButton.Left))
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < menuLabels.Length; i++)
                 {
                     if (CheckCollisionPointRec(mouse, GetButtonRect(i)))
                     {
-                        if (i == 0)
+                        switch (i)
                         {
-                            gameManager.CurrentState = GameState.InGame;
-                            PlaySound(gameManager.soundManager.flickSound);
+                            case 0: gameManager.CurrentState = GameState.InGame; break;
+                            case 1: gameManager.CurrentState = GameState.Rules; break;
+                            case 2: gameManager.CurrentState = GameState.Creating; break;
+                            case 3: gameManager.CurrentState = GameState.Settings; break;
+                            case 4: Environment.Exit(0); break;
                         }
-                        if (i == 1) gameManager.CurrentState = GameState.Rules;
-                        if (i == 2) gameManager.CurrentState = GameState.Creating;
-                        if (i == 3) gameManager.CurrentState = GameState.Settings;
-                        if (i == 4) Environment.Exit(0);
                     }
                 }
             }
         }
+
+        /// <summary>
+        /// Affiche les éléments visuels du menu principal (fond, titre, boutons).
+        /// </summary>
         public void DrawMenu(GameManager gameManager)
         {
-           
             DrawTexture(backgroundMenu, 0, 0, Color.White);
             DrawSoundButtons(gameManager);
             DrawTexture(guessWhoTitle, 0, 0, Color.White);
@@ -71,69 +85,60 @@ namespace GuessWho
             for (int i = 0; i < menuLabels.Length; i++)
             {
                 Rectangle btn = GetButtonRect(i);
-
                 bool hover = CheckCollisionPointRec(GetMousePosition(), btn);
-
                 Color color = hover ? trueYellow : Color.White;
 
-                DrawRectangleLinesEx(btn, 2, color);  
+                DrawRectangleLinesEx(btn, 2, color);
 
                 int fontSize = 30;
                 Vector2 textSize = MeasureTextEx(GetFontDefault(), menuLabels[i], fontSize, 1);
-                Vector2 textPos = new Vector2(btn.X + (btn.Width - textSize.X) / 2, btn.Y + (btn.Height - textSize.Y) / 2);
+                Vector2 textPos = new(btn.X + (btn.Width - textSize.X) / 2, btn.Y + (btn.Height - textSize.Y) / 2);
 
                 DrawText(menuLabels[i], (int)textPos.X, (int)textPos.Y, fontSize, color);
             }
-
-
         }
+
+        /// <summary>
+        /// Affiche l'écran de sélection des portraits, un pour chaque joueur.
+        /// </summary>
         public void DrawSelectingPortraits(GameManager gameManager)
         {
             DrawTexture(backgroundInGameSelecting, 0, 0, Color.White);
 
-            string hiddenPlayer;
-            string displayedPlayer;
-
             gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
             gameManager.player2.Zone = new Rectangle(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight());
 
-
-            if (gameManager.userHasDualScreen)
-            {
-                cols = 6;
-            }
-            else
-            {
-                cols = 5;
-            }
+            cols = gameManager.userHasDualScreen ? 6 : 5;
 
             DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, cols, BasePortraitSize, 1, gameManager);
             DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, cols, BasePortraitSize, 2, gameManager);
 
             HideBoard(gameManager);
 
+            string hiddenPlayer, displayedPlayer;
             if (gameManager.GetCurrentPlayer() == 1)
             {
-                hiddenPlayer = $"Player {gameManager.GetCurrentPlayer()} is choosing a character !\nPlayer 2 don't you dare look...";
-                displayedPlayer = "Player 1 choose a character !\nPlayer 2 is gonna have to find it";
+                hiddenPlayer = "Player 1 is choosing a character!\nPlayer 2, don't peek!";
+                displayedPlayer = "Player 1, choose a character!\nPlayer 2 will guess it.";
             }
             else
             {
-                hiddenPlayer = $"Player {gameManager.GetCurrentPlayer()} is choosing a character !\nPlayer 1 don't you dare look...";
-                displayedPlayer = "Player 2 choose a character !\nPlayer 1 is gonna have to find it";
+                hiddenPlayer = "Player 2 is choosing a character!\nPlayer 1, don't peek!";
+                displayedPlayer = "Player 2, choose a character!\nPlayer 1 will guess it.";
             }
 
             DrawTitle(gameManager,
-              gameManager.GetCurrentPlayer() == 1 ? displayedPlayer : hiddenPlayer,
-              gameManager.GetCurrentPlayer() == 1 ? hiddenPlayer : displayedPlayer);
+                gameManager.GetCurrentPlayer() == 1 ? displayedPlayer : hiddenPlayer,
+                gameManager.GetCurrentPlayer() == 1 ? hiddenPlayer : displayedPlayer);
 
             DrawSoundButtons(gameManager);
-
         }
 
+        /// <summary>
+        /// Affiche l'écran principal de jeu où les joueurs posent des questions et éliminent des portraits.
+        /// </summary>
         public void DrawGame(GameManager gameManager)
         {
-
             DrawTexture(backgroundInGame, 0, 0, Color.White);
 
             gameManager.player1.Zone = new Rectangle(0, 0, GetScreenWidth() / 2, GetScreenHeight());
@@ -141,76 +146,74 @@ namespace GuessWho
 
             DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, cols, BasePortraitSize, 1, gameManager);
             DrawPortraitGrid(gameManager.player2.Board.Portraits, gameManager.renderer, gameManager.player2.Zone, 100, cols, BasePortraitSize, 2, gameManager);
-            HideBoard(gameManager);
 
+            HideBoard(gameManager);
             DrawBackToMenuButton(gameManager, GameState.Menu);
             DrawSoundButtons(gameManager);
 
+            cols = gameManager.userHasDualScreen ? 6 : 5;
+
             if (gameManager.userHasDualScreen)
             {
-                cols = 6;
-
-                int reference = BasePortraitSize / 2;
-                int namePositionY = reference / 4 + reference;
-                int targetPortraitPositionY = reference / 4;
+                int refSize = BasePortraitSize / 2;
+                int namePosY = refSize / 4 + refSize;
+                int portraitPosY = refSize / 4;
 
                 if (gameManager.GetCurrentPlayer() == 1)
                 {
-                    DrawText(gameManager.player2.TargetPortrait.Name, GetScreenWidth() - reference - reference / 3, namePositionY, 20, Color.White);
-                    gameManager.renderer.DrawPortrait(gameManager.player2.TargetPortrait, GetScreenWidth() - reference - reference / 3, targetPortraitPositionY, reference);
-
+                    DrawText(gameManager.player2.TargetPortrait.Name, GetScreenWidth() - refSize - refSize / 3, namePosY, 20, Color.White);
+                    gameManager.renderer.DrawPortrait(gameManager.player2.TargetPortrait, GetScreenWidth() - refSize - refSize / 3, portraitPosY, refSize);
                 }
                 else
                 {
-                    DrawText(gameManager.player1.TargetPortrait.Name, GetScreenWidth() / 2 - reference - reference / 3, namePositionY, 20, Color.White);
-                    gameManager.renderer.DrawPortrait(gameManager.player1.TargetPortrait, GetScreenWidth() / 2 - reference - reference / 3, targetPortraitPositionY, reference);
+                    DrawText(gameManager.player1.TargetPortrait.Name, GetScreenWidth() / 2 - refSize - refSize / 3, namePosY, 20, Color.White);
+                    gameManager.renderer.DrawPortrait(gameManager.player1.TargetPortrait, GetScreenWidth() / 2 - refSize - refSize / 3, portraitPosY, refSize);
                 }
-
-            }
-            else
-            {
-                cols = 5;
             }
 
             int currentPlayer = gameManager.GetCurrentPlayer();
             int otherPlayer = currentPlayer == 1 ? 2 : 1;
-            string hiddenPlayer = $"Player {currentPlayer} is asking you a question !";
-            string displayedPlayer = $"Ask player {otherPlayer} a question !";
 
-            if(gameManager.GetCurrentPlayer() == 1)
-            {
+            string hiddenPlayer = $"Player {currentPlayer} is asking a question!";
+            string displayedPlayer = $"Ask player {otherPlayer} a question!";
+
+            if (currentPlayer == 1)
                 DrawTitle(gameManager, displayedPlayer, hiddenPlayer);
-            }
             else
-            {
                 DrawTitle(gameManager, hiddenPlayer, displayedPlayer);
-            }
-            
         }
+
+        /// <summary>
+        /// Affiche l'écran de génération de portraits.
+        /// Permet à l'utilisateur de définir un paramètre de similarité génétique (1 à 10)
+        /// et affiche la grille des portraits générés.
+        /// </summary>
         public void DrawGeneration(GameManager gameManager)
         {
             DrawTexture(backgroundMenu, 0, 0, Color.White);
 
+            // Initialisation unique de la valeur de l'input si non encore faite
             if (!inputInitialized)
             {
                 inputText = gameManager.userMaxAttributesInput.ToString();
                 inputInitialized = true;
             }
 
-            string title = "PORTRAIT GENERATOR";
-            DrawTitle(gameManager, title);
-
+            DrawTitle(gameManager, "PORTRAIT GENERATOR");
             DrawText("Press R !", GetScreenWidth() / 2 + 300, GetScreenHeight() - 100, 40, Color.White);
 
+            // Affichage du champ de saisie pour la limite de gènes similaires
             DrawText("Max similar genes in DNA :", 50, 220, 20, Color.White);
             DrawRectangleRec(inputBox, inputActive ? Color.SkyBlue : Color.LightGray);
             DrawRectangleLinesEx(inputBox, 1, Color.Black);
             DrawText(inputText, (int)inputBox.X + 5, (int)inputBox.Y + 5, 35, Color.Black);
 
-            if (CheckCollisionPointRec(GetMousePosition(), inputBox) && IsMouseButtonPressed(MouseButton.Left))
+            Vector2 mousePos = GetMousePosition();
+
+            // Activation ou désactivation du champ de saisie selon clic souris
+            if (CheckCollisionPointRec(mousePos, inputBox) && IsMouseButtonPressed(MouseButton.Left))
             {
                 inputActive = true;
-
                 if (string.IsNullOrEmpty(inputText))
                 {
                     inputText = gameManager.userMaxAttributesInput.ToString();
@@ -219,32 +222,16 @@ namespace GuessWho
             else if (IsMouseButtonPressed(MouseButton.Left))
             {
                 inputActive = false;
-                if (int.TryParse(inputText, out int newValue))
-                {
-                    if (newValue > 1 && newValue <= 10)
-                    {
-                        gameManager.userMaxAttributesInput = newValue;
-                    }
-                    else
-                    {
-                        gameManager.userMaxAttributesInput = 4;
-                        inputText = "4";
-                    }
-                }
-                else
-                {
-                    gameManager.userMaxAttributesInput = 4;
-                    inputText = "4";
-                }
-                inputActive = false;
+                UpdateUserMaxAttributes(gameManager);
             }
 
+            // Gestion de la saisie clavier dans le champ actif
             if (inputActive)
             {
                 int key = GetCharPressed();
                 while (key > 0)
                 {
-                    if ((key >= 48 && key <= 57) && inputText.Length < 2)
+                    if (char.IsDigit((char)key) && inputText.Length < 2)
                     {
                         inputText += (char)key;
                     }
@@ -253,223 +240,206 @@ namespace GuessWho
 
                 if (IsKeyPressed(KeyboardKey.Backspace) && inputText.Length > 0)
                 {
-                    inputText = inputText.Substring(0, inputText.Length - 1);
+                    inputText = inputText[..^1]; // Supprime le dernier caractère
                 }
 
-                if (IsKeyPressed(KeyboardKey.Enter) && inputText.Length > 0)
+                if (IsKeyPressed(KeyboardKey.Enter))
                 {
-                    if (int.TryParse(inputText, out int newValue))
-                    {
-                        if (newValue > 1 && newValue <= 10)
-                        {
-                            gameManager.userMaxAttributesInput = newValue;
-                        }
-                        else
-                        {
-                            gameManager.userMaxAttributesInput = 4;
-                            inputText = "4";
-                        }
-                    }
-                    else
-                    {
-                        gameManager.userMaxAttributesInput = 4;
-                        inputText = "4";
-                    }
+                    UpdateUserMaxAttributes(gameManager);
                     inputActive = false;
                 }
-
             }
 
+            // Zone d'affichage des portraits
             gameManager.player1.Zone = new Rectangle(
                 GetScreenWidth() - 200,
                 GetScreenHeight() / 6,
                 GetScreenWidth() / 2,
                 GetScreenHeight() / 2
             );
-            DrawPortraitGrid(gameManager.player1.Board.Portraits, gameManager.renderer, gameManager.player1.Zone, 100, 6, ExamplePortraitSize, 1, gameManager);
+
+            DrawPortraitGrid(
+                gameManager.player1.Board.Portraits,
+                gameManager.renderer,
+                gameManager.player1.Zone,
+                100,
+                6,
+                ExamplePortraitSize,
+                1,
+                gameManager
+            );
 
             DrawBackToMenuButton(gameManager, GameState.Creating);
         }
 
+        /// <summary>
+        /// Met à jour la valeur de similarité des gènes selon l'entrée utilisateur.
+        /// </summary>
+        private void UpdateUserMaxAttributes(GameManager gameManager)
+        {
+            if (int.TryParse(inputText, out int value) && value > 1 && value <= 10)
+            {
+                gameManager.userMaxAttributesInput = value;
+            }
+            else
+            {
+                gameManager.userMaxAttributesInput = 4;
+                inputText = "4";
+            }
+        }
+
+        /// <summary>
+        /// Affiche l'écran des règles avec navigation entre les pages.
+        /// </summary>
         public void DrawRules(GameManager gameManager)
         {
             int screenWidth = GetScreenWidth();
             int screenHeight = GetScreenHeight();
-
-            Rectangle rightArrow = new Rectangle(screenWidth / 2 + 50, screenHeight - 100, 50, 50);
-            Rectangle leftArrow = new Rectangle(screenWidth / 2 - 50, screenHeight - 100, 50, 50);
 
             DrawTexture(backgroundMenu, 0, 0, Color.White);
             DrawBackToMenuButton(gameManager, GameState.Menu);
 
             Vector2 mouse = GetMousePosition();
 
-            bool isHoverRight = CheckCollisionPointRec(mouse, rightArrow);
-            Color rightColor = (page == lastPage) ? Color.Gray : (isHoverRight ? trueYellow : Color.White);
-            DrawText("->", (int)rightArrow.X, (int)rightArrow.Y, 50, rightColor);
+            Rectangle rightArrow = new(screenWidth / 2 + 50, screenHeight - 100, 50, 50);
+            Rectangle leftArrow = new(screenWidth / 2 - 50, screenHeight - 100, 50, 50);
 
-            if (isHoverRight && IsMouseButtonPressed(MouseButton.Left) && page < lastPage)
+            // Flèche droite
+            bool hoverRight = CheckCollisionPointRec(mouse, rightArrow);
+            Color colorRight = (page == lastPage) ? Color.Gray : (hoverRight ? trueYellow : Color.White);
+            DrawText("->", (int)rightArrow.X, (int)rightArrow.Y, 50, colorRight);
+            if (hoverRight && IsMouseButtonPressed(MouseButton.Left) && page < lastPage) page++;
+
+            // Flèche gauche
+            bool hoverLeft = CheckCollisionPointRec(mouse, leftArrow);
+            Color colorLeft = (page == 1) ? Color.Gray : (hoverLeft ? trueYellow : Color.White);
+            DrawText("<-", (int)leftArrow.X, (int)leftArrow.Y, 50, colorLeft);
+            if (hoverLeft && IsMouseButtonPressed(MouseButton.Left) && page > 1) page--;
+
+            // Affichage du contenu selon la page active
+            switch (page)
             {
-                page++;
-            }
-
-            bool isHoverLeft = CheckCollisionPointRec(mouse, leftArrow);
-            Color leftColor = (page == 1) ? Color.Gray : (isHoverLeft ? trueYellow : Color.White);
-            DrawText("<-", (int)leftArrow.X, (int)leftArrow.Y, 50, leftColor);
-
-            if (isHoverLeft && IsMouseButtonPressed(MouseButton.Left) && page > 1)
-            {
-                page--;
-            }
-
-
-            if(page == 1)
-            {
-
-                string pg1 = "Stages";
-                int textWidth = MeasureText(pg1, 30);
-                DrawText(pg1, screenWidth / 2 - textWidth / 2, 100, 30, Color.White);
-                DrawTexture(rules2Icon, 0, 0, Color.White);       
-            }
-            else if(page == 2)
-            {
-                string pg2 = "Commands";
-                int textWidth = MeasureText(pg2, 30);
-                DrawText(pg2, screenWidth / 2 - textWidth / 2, 100, 30, Color.White);
-                DrawTexture(rules1Icon, 0, 0, Color.White);
-            }
-            else if(page == 3)
-            {
-                string pg3 = "In-game rules";
-                int textWidth = MeasureText(pg3, 30);
-                DrawText(pg3, screenWidth / 2 - textWidth / 2, 100, 30, Color.White);
-                DrawTexture(rules3Icon, 0, 0, Color.White);
+                case 1:
+                    DrawCenteredText("Stages", 30, Color.White);
+                    DrawTexture(rules2Icon, 0, 0, Color.White);
+                    break;
+                case 2:
+                    DrawCenteredText("Commands", 30, Color.White);
+                    DrawTexture(rules1Icon, 0, 0, Color.White);
+                    break;
+                case 3:
+                    DrawCenteredText("In-game rules", 30, Color.White);
+                    DrawTexture(rules3Icon, 0, 0, Color.White);
+                    break;
             }
         }
 
+        /// <summary>
+        /// Affiche un texte centré horizontalement à l'écran.
+        /// </summary>
+        private void DrawCenteredText(string text, int fontSize, Color color)
+        {
+            int screenWidth = GetScreenWidth();
+            int textWidth = MeasureText(text, fontSize);
+            DrawText(text, screenWidth / 2 - textWidth / 2, 100, fontSize, color);
+        }
+
+        /// <summary>
+        /// Affiche l'écran de création de personnage.
+        /// Permet d’accéder à la génération de portraits.
+        /// </summary>
         public void DrawCreator(GameManager gameManager)
         {
-            // Définition des constantes
             const string title = "YOUR CHARACTERS";
             const string genButtonText = "GENERATION";
-            const int genButtonWidth = 200;
-            const int genButtonHeight = 50;
-            const int buttonWidth = 500;
-            const int buttonHeight = 500;
-            const int margin = 20;
+            const int buttonWidth = 500, buttonHeight = 500;
+            const int genButtonWidth = 200, genButtonHeight = 50;
+            const int margin = 20, fontSize = 20;
             const float scale = 0.5f;
-            const int fontSize = 20;
-
-            // Dimensions et position de l'image
-            float texWidth = addCharacter.Width * scale;
-            float texHeight = addCharacter.Height * scale;
-            Vector2 position = new Vector2(
-                GetScreenWidth() / 2 - texWidth / 2,
-                GetScreenHeight() / 2 - texHeight / 2
-            );
-
-            Vector2 mousePosition = GetMousePosition();
-
-            // Calcul des bounds du bouton principal
-            Rectangle buttonBounds = new Rectangle(
-                GetScreenWidth() / 2 - buttonWidth / 2,
-                GetScreenHeight() / 2 - buttonHeight / 2,
-                buttonWidth, buttonHeight
-            );
-            bool isHovering = CheckCollisionPointRec(mousePosition, buttonBounds);
-            bool isClicked = isHovering && IsMouseButtonPressed(MouseButton.Left);
-
-            // Bounds et interaction du bouton "Génération"
-            Rectangle genButtonBounds = new Rectangle(
-                margin,
-                GetScreenHeight() - genButtonHeight - margin,
-                genButtonWidth,
-                genButtonHeight
-            );
-
-            int textWidth = MeasureText(genButtonText, fontSize);
-            int textX = (int)genButtonBounds.X + (int)(genButtonBounds.Width - textWidth) / 2;
-            int textY = (int)genButtonBounds.Y + (int)(genButtonBounds.Height - fontSize) / 2;
-            bool isHoveringGen = CheckCollisionPointRec(mousePosition, genButtonBounds);
-            bool isClickedGen = isHoveringGen && IsMouseButtonPressed(MouseButton.Left);
 
             DrawTexture(backgroundMenu, 0, 0, Color.White);
             DrawTitle(gameManager, title);
             DrawBackToMenuButton(gameManager, GameState.Menu);
-            DrawTextureEx(addCharacter, position, 0.0f, scale, Color.White);
-            DrawRectangleRec(buttonBounds, new Color(255, 255, 255, 0));
 
-            if (isClicked)
-            {
-                Console.WriteLine("Click");
-            }
+            Vector2 mouse = GetMousePosition();
 
-            Color genButtonColor = isHoveringGen ? trueYellow : Color.White;
+            // Affichage du bouton d'ajout de personnage
+            float texW = addCharacter.Width * scale;
+            float texH = addCharacter.Height * scale;
+            Vector2 position = new(GetScreenWidth() / 2 - texW / 2, GetScreenHeight() / 2 - texH / 2);
+            DrawTextureEx(addCharacter, position, 0f, scale, Color.White);
 
-            DrawText(genButtonText, textX, textY, fontSize, genButtonColor);
+            Rectangle addButtonBounds = new(GetScreenWidth() / 2 - buttonWidth / 2, GetScreenHeight() / 2 - buttonHeight / 2, buttonWidth, buttonHeight);
+            bool addHover = CheckCollisionPointRec(mouse, addButtonBounds);
+            if (addHover && IsMouseButtonPressed(MouseButton.Left)) Console.WriteLine("Click");
+            DrawRectangleRec(addButtonBounds, new Color(255, 255, 255, 0));
 
-            if (isClickedGen)
+            // Affichage du bouton "Génération"
+            Rectangle genButtonBounds = new(margin, GetScreenHeight() - genButtonHeight - margin, genButtonWidth, genButtonHeight);
+            int textWidth = MeasureText(genButtonText, fontSize);
+            int textX = (int)genButtonBounds.X + (genButtonWidth - textWidth) / 2;
+            int textY = (int)genButtonBounds.Y + (genButtonHeight - fontSize) / 2;
+            bool genHover = CheckCollisionPointRec(mouse, genButtonBounds);
+            Color genColor = genHover ? trueYellow : Color.White;
+            DrawText(genButtonText, textX, textY, fontSize, genColor);
+
+            if (genHover && IsMouseButtonPressed(MouseButton.Left))
             {
                 gameManager.CurrentState = GameState.Generation;
             }
         }
 
 
+        #region OPTIONS MENU
+
+        /// <summary>
+        /// Affiche l'écran des options du jeu, permettant de configurer l'affichage (écran simple ou double) 
+        /// ainsi que le volume de la musique et des effets sonores.
+        /// </summary>
+        /// <param name="gameManager">Référence au GameManager pour accéder aux états et aux ressources sonores.</param>
         public void DrawOptions(GameManager gameManager)
         {
+            // === Affichage général ===
             DrawTexture(backgroundMenu, 0, 0, Color.White);
             DrawBackToMenuButton(gameManager, GameState.Menu);
-            string title = "SETTINGS";
-            DrawTitle(gameManager, title);
+            DrawTitle(gameManager, "SETTINGS");
 
             int screenWidth = GetScreenWidth();
-            int iconWidth = 300;
-            int screenConfigTitleY = 130;
-            int singleX = screenWidth / 4 - 100;
-            int dualX = 3 * screenWidth / 4 - 100;
-            int textY = 280; 
+            Vector2 mousePos = GetMousePosition();
+
+            #region CONFIGURATION ÉCRAN
+
+            int titleY = 130;
+            int lineY = titleY + 40;
+            int textY = 280;
             int textWidth = 230;
             int textHeight = 40;
+            int iconWidth = 300;
+            int iconY = textY + 50;
 
+            int singleX = screenWidth / 4 - 100;
+            int dualX = 3 * screenWidth / 4 - 100;
 
-            Vector2 mousePos = GetMousePosition();
             Rectangle singleRect = new Rectangle(singleX, textY, textWidth, textHeight);
             Rectangle dualRect = new Rectangle(dualX, textY, textWidth, textHeight);
 
-            DrawText("Screen configuration", screenWidth / 2 - MeasureText("Screen configuration", 30) / 2, 130, 30, Color.White);
-            int lineMargin = 120;
-            int lineY = screenConfigTitleY + 40;
-            DrawRectangle(lineMargin, lineY, screenWidth - 2 * lineMargin, 2, Color.White);
+            DrawText("Screen configuration", screenWidth / 2 - MeasureText("Screen configuration", 30) / 2, titleY, 30, Color.White);
+            DrawRectangle(120, lineY, screenWidth - 240, 2, Color.White);
 
-            if (CheckCollisionPointRec(mousePos, singleRect))
+            // Boutons de configuration écran
+            DrawScreenOption(singleRect, "Single screen", singleX, textY, mousePos, () =>
             {
-                DrawText("Single screen", singleX, textY, 30, trueYellow);
-                if (IsMouseButtonPressed(MouseButton.Left))
-                {
-                    gameManager.userHasDualScreen = false;
-                    PlaySound(gameManager.soundManager.flickSound);
-                }
-            }
-            else
-            {
-                DrawText("Single screen", singleX, textY, 30, Color.White);
-            }
-            if (CheckCollisionPointRec(mousePos, dualRect))
-            {
-                DrawText("Dualscreen", dualX, textY, 30, trueYellow);
-                if (IsMouseButtonPressed(MouseButton.Left))
-                {
-                    gameManager.userHasDualScreen = true;
-                    PlaySound(gameManager.soundManager.flickSound);
-                }
-            }
-            else
-            {
-                DrawText("Dualscreen", dualX, textY, 30, Color.White);
-            }
+                gameManager.userHasDualScreen = false;
+                PlaySound(gameManager.soundManager.flickSound);
+            }, !gameManager.userHasDualScreen);
 
-            int iconY = textY + 50; 
+            DrawScreenOption(dualRect, "Dualscreen", dualX, textY, mousePos, () =>
+            {
+                gameManager.userHasDualScreen = true;
+                PlaySound(gameManager.soundManager.flickSound);
+            }, gameManager.userHasDualScreen);
 
+            // Icônes de visualisation
             int singleIconX = screenWidth / 4 - iconWidth / 2;
             DrawTexture(screenIcon, singleIconX, iconY, Color.White);
 
@@ -477,78 +447,81 @@ namespace GuessWho
             DrawTexture(screenIcon, dualStartX, iconY, Color.White);
             DrawTexture(screenIcon, dualStartX + iconWidth, iconY, Color.White);
 
+            #endregion
 
-            if (gameManager.userHasDualScreen)
-            {
-                DrawText("Selected", dualX, textY - 30, 30, Color.Green);
-            }
-            else
-            {
-                DrawText("Selected", singleX, textY - 30, 30, Color.Green);
-            }
+            #region CONFIGURATION SON
 
             int soundConfigY = iconY + iconWidth + 20;
             DrawText("Sound configuration", screenWidth / 2 - MeasureText("Sound configuration", 30) / 2, soundConfigY, 30, Color.White);
-            DrawRectangle(lineMargin, lineY * 4 + 12, screenWidth - 2 * lineMargin, 2, Color.White);
+            DrawRectangle(120, lineY * 4 + 12, screenWidth - 240, 2, Color.White);
 
             int volumeBarY = soundConfigY + 100;
             int volumeBarX = screenWidth / 6;
-            int barWidth = 50;
-            int barHeight = 40;
-            int spacing = 10;
-            int numBars = 5;
 
-            DrawText("Background music volume", volumeBarX, volumeBarY - 40, 30, Color.White);
-
-            for (int i = 0; i < numBars; i++)
+            DrawVolumeBars("Background music volume", volumeBarX, volumeBarY, gameManager.soundManager.MusicVolume, gameManager.isMusicMuted, (value) =>
             {
-                int x = volumeBarX + i * (barWidth + spacing);
-                Rectangle barRect = new Rectangle(x, volumeBarY, barWidth, barHeight);
+                gameManager.soundManager.MusicVolume = value;
+            });
 
-                if (CheckCollisionPointRec(mousePos, barRect) && IsMouseButtonPressed(MouseButton.Left))
-                {
-                    gameManager.soundManager.MusicVolume = (i + 1) * 20;
-                }
-
-                if (gameManager.soundManager.MusicVolume >= (i + 1) * 20)
-                {
-                    DrawRectangle(x, volumeBarY, barWidth, barHeight, gameManager.isMusicMuted ? Color.Gray : Color.White);
-                }
-                else
-                {
-                    DrawRectangle(x, volumeBarY, barWidth, barHeight, Color.Gray);
-                }
-            }
-
-            int effectsBarY = volumeBarY + barHeight + 60;
-            DrawText("Sound effects volume", volumeBarX, effectsBarY - 40, 30, Color.White);
-
-            for (int i = 0; i < numBars; i++)
+            int effectsBarY = volumeBarY + 100;
+            DrawVolumeBars("Sound effects volume", volumeBarX, effectsBarY, gameManager.soundManager.SfxVolume, gameManager.isSfxMuted, (value) =>
             {
-                int x = volumeBarX + i * (barWidth + spacing);
-                Rectangle barRect = new Rectangle(x, effectsBarY, barWidth, barHeight);
+                gameManager.soundManager.SfxVolume = value;
+                gameManager.soundManager.UpdateSFX();
+                PlaySound(gameManager.soundManager.flickSound);
+            });
 
-                if (CheckCollisionPointRec(mousePos, barRect) && IsMouseButtonPressed(MouseButton.Left))
-                {
-                    gameManager.soundManager.SfxVolume = (i + 1) * 20;
-                    gameManager.soundManager.UpdateSFX();
-                    PlaySound(gameManager.soundManager.flickSound);
-                }
-
-                if (gameManager.soundManager.SfxVolume >= (i + 1) * 20)
-                {
-                    DrawRectangle(x, effectsBarY, barWidth, barHeight, gameManager.isSfxMuted ? Color.Gray : Color.White);
-                }
-                else
-                {
-                    DrawRectangle(x, effectsBarY, barWidth, barHeight, Color.Gray);
-                }
-            }
+            #endregion
 
             DrawSoundButtons(gameManager);
         }
 
+        /// <summary>
+        /// Gère l’affichage et l’interaction d’une option écran (single/dual).
+        /// </summary>
+        private void DrawScreenOption(Rectangle rect, string label, int x, int y, Vector2 mousePos, Action onClick, bool isSelected)
+        {
+            bool isHovered = CheckCollisionPointRec(mousePos, rect);
+            Color textColor = isHovered ? trueYellow : Color.White;
 
+            DrawText(label, x, y, 30, textColor);
+
+            if (isHovered && IsMouseButtonPressed(MouseButton.Left))
+                onClick?.Invoke();
+
+            if (isSelected)
+                DrawText("Selected", x, y - 30, 30, Color.Green);
+        }
+
+        /// <summary>
+        /// Affiche une ligne de barres interactives pour configurer un volume.
+        /// </summary>
+        private void DrawVolumeBars(string label, int startX, int y, int currentVolume, bool isMuted, Action<int> onVolumeChange)
+        {
+            const int barWidth = 50, barHeight = 40, spacing = 10, numBars = 5;
+
+            DrawText(label, startX, y - 40, 30, Color.White);
+
+            Vector2 mousePos = GetMousePosition();
+
+            for (int i = 0; i < numBars; i++)
+            {
+                int x = startX + i * (barWidth + spacing);
+                Rectangle rect = new(x, y, barWidth, barHeight);
+
+                if (CheckCollisionPointRec(mousePos, rect) && IsMouseButtonPressed(MouseButton.Left))
+                    onVolumeChange((i + 1) * 20);
+
+                Color fill = currentVolume >= (i + 1) * 20 ? (isMuted ? Color.Gray : Color.White) : Color.Gray;
+                DrawRectangle(x, y, barWidth, barHeight, fill);
+            }
+            #endregion
+        }
+        #region GRILLE DE PORTRAITS
+
+        /// <summary>
+        /// Affiche une grille de portraits sélectionnables ou éliminables avec effets visuels.
+        /// </summary>
         public void DrawPortraitGrid(
             Portrait[] portraits,
             PortraitRenderer renderer,
@@ -559,121 +532,119 @@ namespace GuessWho
             int playerId,
             GameManager gameManager)
         {
-
             int size = originalSize / 2;
             int spacing = 20;
             int gridWidth = cols * (size + spacing);
             int startX = (int)(zone.X + (zone.Width / 2) - (gridWidth / 2));
 
-            const float hoverTarget = -8f;
-            const float hoverSpeed = 10f;
+            // Configuration taille portrait selon type d'écran
+            BasePortraitSize = gameManager.userHasDualScreen ? 380 : 300;
 
-
-            if (gameManager.userHasDualScreen) 
-            {
-                BasePortraitSize = 380;
-            }
-            else
-            {
-                BasePortraitSize = 300;
-            }
+            Vector2 mousePos = GetMousePosition();
 
             for (int i = 0; i < portraits.Length; i++)
             {
                 int row = i / cols;
                 int col = i % cols;
                 int x = startX + col * (size + spacing);
-
                 int baseY = (int)(zone.Y + startY + row * (size + spacing));
 
                 Rectangle rect = new(x, baseY, size, size);
-                bool isHovered = gameManager.GetCurrentPlayer() == playerId && CheckCollisionPointRec(GetMousePosition(), rect) && gameManager.CurrentState == GameState.InGame;
+                bool isHovered = gameManager.GetCurrentPlayer() == playerId &&
+                                 CheckCollisionPointRec(mousePos, rect) &&
+                                 gameManager.CurrentState == GameState.InGame;
 
-                float targetOffset = isHovered ? hoverTarget : 0f;
-
-                portraits[i].HoverOffset = Raymath.Lerp(portraits[i].HoverOffset, targetOffset, hoverSpeed * GetFrameTime());
+                float targetOffset = isHovered ? -8f : 0f;
+                portraits[i].HoverOffset = Raymath.Lerp(portraits[i].HoverOffset, targetOffset, 10f * GetFrameTime());
 
                 int y = (int)(baseY + portraits[i].HoverOffset);
 
                 if (!string.IsNullOrEmpty(portraits[i].Name))
                     DrawText(portraits[i].Name, x, y + size + 5, 25, Color.White);
 
-                if (isHovered && IsMouseButtonPressed(MouseButton.Left) && gameManager.StateSelectingPortrait == false)
+                if (isHovered && IsMouseButtonPressed(MouseButton.Left))
                 {
-                    portraits[i].IsEliminated = !portraits[i].IsEliminated;
-                }
-
-                if (isHovered && IsMouseButtonPressed(MouseButton.Left) && gameManager.StateSelectingPortrait)
-                {
-                    if(gameManager.player1.TargetPortrait == null && gameManager.GetCurrentPlayer() == 1)
+                    if (!gameManager.StateSelectingPortrait)
                     {
-                        gameManager.SelectedPortrait(gameManager.player1, portraits[i].Clone());
-                        gameManager.NextTurn();
-                        MoveMouse(gameManager);
+                        portraits[i].IsEliminated = !portraits[i].IsEliminated;
                     }
-                    else if (gameManager.player2.TargetPortrait == null && gameManager.GetCurrentPlayer() == 2)
+                    else
                     {
-                        gameManager.SelectedPortrait(gameManager.player2, portraits[i].Clone());
-                        gameManager.NextTurn();
-                        MoveMouse(gameManager);
+                        HandlePortraitSelection(gameManager, playerId, portraits[i]);
                     }
-                    
                 }
 
                 renderer.DrawPortrait(portraits[i], x, y, size);
-                
             }
         }
+
+        /// <summary>
+        /// Gère la sélection d’un portrait pour un joueur donné.
+        /// </summary>
+        private void HandlePortraitSelection(GameManager gameManager, int playerId, Portrait selectedPortrait)
+        {
+            if (playerId == 1 && gameManager.player1.TargetPortrait == null)
+            {
+                gameManager.SelectedPortrait(gameManager.player1, selectedPortrait.Clone());
+                gameManager.NextTurn();
+                MoveMouse(gameManager);
+            }
+            else if (playerId == 2 && gameManager.player2.TargetPortrait == null)
+            {
+                gameManager.SelectedPortrait(gameManager.player2, selectedPortrait.Clone());
+                gameManager.NextTurn();
+                MoveMouse(gameManager);
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Déplace la souris à la position initiale selon le joueur courant.
+        /// </summary>
         public void MoveMouse(GameManager gameManager)
         {
             if (gameManager.GetCurrentPlayer() == 1)
-            {
                 SetMousePosition(200, 500);
-            }
             else
-            {
                 SetMousePosition(GetScreenWidth() / 2 + 200, 500);
-            }
         }
 
+        /// <summary>
+        /// Affiche un bouton pour revenir au menu précédent.
+        /// </summary>
         public void DrawBackToMenuButton(GameManager gameManager, GameState lastState)
         {
-            int btnX = 10;
-            int btnY = 5;
-            int btnWidth = 70;
-            int btnHeight = 65;
-
+            int btnX = 10, btnY = 5, btnWidth = 70, btnHeight = 65;
             bool hover = CheckCollisionPointRec(GetMousePosition(), new Rectangle(btnX, btnY, btnWidth, btnHeight));
-
             Color color = hover ? trueYellow : Color.White;
 
-            if (hover)
+            if (hover && IsMouseButtonPressed(MouseButton.Left))
             {
-                if (IsMouseButtonPressed(MouseButton.Left))
-                {
-                    gameManager.CurrentState = lastState;
-                    PlaySound(gameManager.soundManager.flickSound);
-                }
+                gameManager.CurrentState = lastState;
+                PlaySound(gameManager.soundManager.flickSound);
             }
 
             DrawRectangleLines(btnX, btnY, btnWidth, btnHeight, color);
             DrawText("<-", btnX + 10, btnY, 60, color);
-
         }
 
+        /// <summary>
+        /// Affiche l’écran de fin avec le joueur gagnant.
+        /// </summary>
         public void DrawEndScreen(GameState state, int winner)
         {
             DrawRectangle(0, 0, 1280, 720, Color.Green);
             DrawText($"Player {winner} wins !", 400, 300, 40, Color.Black);
             DrawText("Press R to restart", 360, 360, 20, Color.Black);
-
         }
 
+        /// <summary>
+        /// Retourne le rectangle du bouton de menu à une position donnée (par index).
+        /// </summary>
         private Rectangle GetButtonRect(int index)
         {
-            float width = 300;
-            float height = 60;
-            float spacing = 20;
+            float width = 300, height = 60, spacing = 20;
             float totalHeight = (height + spacing) * 3 - spacing;
             float startY = (GetScreenHeight() - totalHeight) / 2 + 70;
 
@@ -685,116 +656,91 @@ namespace GuessWho
             );
         }
 
-        void DrawSoundButtons(GameManager gameManager)
+        /// <summary>
+        /// Affiche les boutons de contrôle sonore (musique et SFX).
+        /// Gère également leur activation/désactivation.
+        /// </summary>
+        private void DrawSoundButtons(GameManager gameManager)
         {
             float scale = 0.5f;
-            int speakerX;
-            int speakerY;
-            int sfxX;
-            int sfxY;
-            int screenWidth = GetScreenWidth();
-            int screenHeight = GetScreenHeight();
-
+            int screenWidth = GetScreenWidth(), screenHeight = GetScreenHeight();
             Vector2 mousePos = GetMousePosition();
 
+            int speakerX, speakerY, sfxX, sfxY;
+
+            // Positionnement selon l'état du jeu
             if (gameManager.CurrentState == GameState.Settings)
             {
-                speakerX = 200;
-                speakerY = screenHeight - 270;
-
-                sfxX = 200;
-                sfxY = screenHeight - 170;
+                speakerX = 200; speakerY = screenHeight - 270;
+                sfxX = 200; sfxY = screenHeight - 170;
             }
             else if (gameManager.CurrentState == GameState.Menu)
             {
-                speakerX = screenWidth - 100;
-                speakerY = 30;
-
-                sfxX = screenWidth - 100;
-                sfxY = 110;
+                speakerX = screenWidth - 100; speakerY = 30;
+                sfxX = screenWidth - 100; sfxY = 110;
             }
             else
             {
                 bool isInGame = gameManager.CurrentState == GameState.InGame;
-                bool isDualScreen = isInGame && gameManager.userHasDualScreen;
-                bool isPlayerOne = gameManager.GetCurrentPlayer() == 1;
+                bool isDual = isInGame && gameManager.userHasDualScreen;
+                bool isP1 = gameManager.GetCurrentPlayer() == 1;
 
-                if (isDualScreen)
+                if (isDual)
                 {
-                    speakerX = isPlayerOne ? screenWidth / 2 - 100 : screenWidth - 100;
+                    speakerX = isP1 ? screenWidth / 2 - 100 : screenWidth - 100;
                     speakerY = 30;
-
                     sfxX = speakerX;
                     sfxY = 110;
                 }
                 else
                 {
-                    if (isPlayerOne)
-                    {
-                        speakerX = screenWidth / 2 - 100;
-                        speakerY = 30;
+                    speakerX = isP1 ? screenWidth / 2 - 100 : screenWidth - 100;
+                    speakerY = 30;
 
-                        sfxX = isInGame ? screenWidth / 2 - 180 : screenWidth - 100;
-                        sfxY = 30;
-                    }
-                    else
-                    {
-                        speakerX = screenWidth - 100;
-                        speakerY = 30;
-
-                        sfxX = isInGame ? screenWidth - 180 : screenWidth - 100;
-                        sfxY = isInGame ? 30 : 110;
-                    }
+                    sfxX = isInGame
+                        ? (isP1 ? screenWidth / 2 - 180 : screenWidth - 180)
+                        : screenWidth - 100;
+                    sfxY = 30;
                 }
             }
 
-
+            // Dimensions des icônes
             int speakerWidth = (int)(speakerIcon.Width * scale);
             int speakerHeight = (int)(speakerIcon.Height * scale);
-
-            int sfxWidth = (int)(sfxIcon.Height * scale);
+            int sfxWidth = (int)(sfxIcon.Width * scale);
             int sfxHeight = (int)(sfxIcon.Height * scale);
 
-            Vector2 speakerStart1 = new Vector2(speakerX, speakerY);
-            Vector2 speakerEnd1 = new Vector2(speakerX + speakerWidth, speakerY + speakerHeight);
-            Vector2 speakerStart2 = new Vector2(speakerX, speakerY + speakerHeight);
-            Vector2 speakerEnd2 = new Vector2(speakerX + speakerWidth, speakerY);
             Rectangle speakerRect = new Rectangle(speakerX, speakerY, speakerWidth, speakerHeight);
-
-            Vector2 sfxStart1 = new Vector2(sfxX, sfxY);
-            Vector2 sfxEnd1 = new Vector2(sfxX + sfxWidth, sfxY + sfxHeight);
-            Vector2 sfxStart2 = new Vector2(sfxX, sfxY + sfxHeight);
-            Vector2 sfxEnd2 = new Vector2(sfxX + sfxWidth, sfxY);
             Rectangle sfxRect = new Rectangle(sfxX, sfxY, sfxWidth, sfxHeight);
 
             DrawTextureEx(speakerIcon, new Vector2(speakerX, speakerY), 0.0f, scale, Color.White);
             DrawTextureEx(sfxIcon, new Vector2(sfxX, sfxY), 0.0f, scale, Color.White);
 
+            // Affichage des lignes barrées si le son est désactivé
             if (gameManager.isMusicMuted)
             {
-                DrawLineEx(speakerStart1, speakerEnd1, 3.0f, Color.White);
-                DrawLineEx(speakerStart2, speakerEnd2, 3.0f, Color.White);
+                DrawLineEx(new Vector2(speakerX, speakerY), new Vector2(speakerX + speakerWidth, speakerY + speakerHeight), 3.0f, Color.White);
+                DrawLineEx(new Vector2(speakerX, speakerY + speakerHeight), new Vector2(speakerX + speakerWidth, speakerY), 3.0f, Color.White);
             }
 
             if (gameManager.isSfxMuted)
             {
-                DrawLineEx(sfxStart1, sfxEnd1, 3.0f, Color.White);
-                DrawLineEx(sfxStart2, sfxEnd2, 3.0f, Color.White);
+                DrawLineEx(new Vector2(sfxX, sfxY), new Vector2(sfxX + sfxWidth, sfxY + sfxHeight), 3.0f, Color.White);
+                DrawLineEx(new Vector2(sfxX, sfxY + sfxHeight), new Vector2(sfxX + sfxWidth, sfxY), 3.0f, Color.White);
             }
 
+            // Interactions utilisateur
             if (CheckCollisionPointRec(mousePos, speakerRect) && IsMouseButtonPressed(MouseButton.Left))
-            {
                 gameManager.isMusicMuted = !gameManager.isMusicMuted;
-            }
-            
+
             if (CheckCollisionPointRec(mousePos, sfxRect) && IsMouseButtonPressed(MouseButton.Left))
-            {
                 gameManager.isSfxMuted = !gameManager.isSfxMuted;
-            }
         }
 
-
-        void DrawTitle(GameManager gameManager, string textPlayer1, string? textPlayer2 = null, int yPosition = 30, int fontSize = 30, Color? color = null)
+        /// <summary>
+        /// Affiche un titre centré (1 ou 2 joueurs selon les paramètres).
+        /// </summary>
+        private void DrawTitle(GameManager gameManager, string textPlayer1, string? textPlayer2 = null, int yPosition = 30, int fontSize = 30, Color? color = null)
         {
             int screenWidth = GetScreenWidth();
             int halfScreenWidth = screenWidth / 2;
@@ -803,125 +749,103 @@ namespace GuessWho
             if (string.IsNullOrEmpty(textPlayer2))
             {
                 int textWidth = MeasureText(textPlayer1, fontSize);
-                int positionX = (screenWidth - textWidth) / 2;
-                DrawText(textPlayer1, positionX, yPosition, fontSize, finalColor);
+                DrawText(textPlayer1, (screenWidth - textWidth) / 2, yPosition, fontSize, finalColor);
             }
             else
             {
                 int textWidthP1 = MeasureText(textPlayer1, fontSize);
                 int textWidthP2 = MeasureText(textPlayer2, fontSize);
 
-                int positionXP1 = (halfScreenWidth - textWidthP1) / 2;
-                int positionXP2 = halfScreenWidth + (halfScreenWidth - textWidthP2) / 2;
-
-                DrawText(textPlayer1, positionXP1, yPosition, fontSize, finalColor);
-                DrawText(textPlayer2, positionXP2, yPosition, fontSize, finalColor);
+                DrawText(textPlayer1, (halfScreenWidth - textWidthP1) / 2, yPosition, fontSize, finalColor);
+                DrawText(textPlayer2, halfScreenWidth + (halfScreenWidth - textWidthP2) / 2, yPosition, fontSize, finalColor);
             }
         }
 
-
-        void HideBoard(GameManager gameManager)
+        /// <summary>
+        /// Cache le plateau adverse selon le joueur courant.
+        /// </summary>
+        private void HideBoard(GameManager gameManager)
         {
             int screenWidth = GetScreenWidth();
             int screenHeight = GetScreenHeight();
 
-            Rectangle hidden = (gameManager.GetCurrentPlayer() == 1)
+            Rectangle hidden = gameManager.GetCurrentPlayer() == 1
                 ? new Rectangle(screenWidth / 2, 0, screenWidth / 2, screenHeight)
                 : new Rectangle(0, 0, screenWidth / 2, screenHeight);
 
             Color transparentBlack = new Color(0, 0, 0, 128);
-
             DrawRectangle((int)hidden.X, (int)hidden.Y, (int)hidden.Width, (int)hidden.Height, transparentBlack);
         }
 
+        /// <summary>
+        /// Charge les textures nécessaires en fonction de l’état du jeu.
+        /// </summary>
         public void TextureLoader(GameManager gamemanager)
         {
             GameState state = gamemanager.CurrentState;
 
-            if (state != previousState)
+            if (state == previousState) return;
+
+            backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
+
+            switch (state)
             {
-                switch (state)
-                {
-                    case GameState.Menu:
-                        backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
-                        guessWhoTitle = LoadTexture("assets/icons/GuessWhoTitle.png");
-                        speakerIcon = LoadTexture("assets/icons/speaker.png");
-                        sfxIcon = LoadTexture("assets/icons/sfx.png");
-                        break;
+                case GameState.Menu:
+                    guessWhoTitle = LoadTexture("assets/icons/GuessWhoTitle.png");
+                    speakerIcon = LoadTexture("assets/icons/speaker.png");
+                    sfxIcon = LoadTexture("assets/icons/sfx.png");
+                    break;
 
-                    case GameState.Generation:
-                        backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
-                        break;
+                case GameState.Generation:
+                    break;
 
-                    case GameState.Rules:
-                        backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
-                        rules1Icon = LoadTexture("assets/icons/rules1.png");
-                        rules2Icon = LoadTexture("assets/icons/rules2.png");
-                        rules3Icon = LoadTexture("assets/icons/rules3.png");
-                        break;
+                case GameState.Rules:
+                    rules1Icon = LoadTexture("assets/icons/rules1.png");
+                    rules2Icon = LoadTexture("assets/icons/rules2.png");
+                    rules3Icon = LoadTexture("assets/icons/rules3.png");
+                    break;
 
-                    case GameState.Creating:
-                        backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
-                        addCharacter = LoadTexture("assets/icons/addCharacter.png");
-                        break;
+                case GameState.Creating:
+                    addCharacter = LoadTexture("assets/icons/addCharacter.png");
+                    break;
 
-                    case GameState.Settings:
-                        backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
-                        screenIcon = LoadTexture("assets/icons/singlescreenicon.png");
-                        speakerIcon = LoadTexture("assets/icons/speaker.png");
-                        sfxIcon = LoadTexture("assets/icons/sfx.png");
-                        break;
+                case GameState.Settings:
+                    screenIcon = LoadTexture("assets/icons/singlescreenicon.png");
+                    speakerIcon = LoadTexture("assets/icons/speaker.png");
+                    sfxIcon = LoadTexture("assets/icons/sfx.png");
+                    break;
 
-                    case GameState.InGame:
-                        if (gamemanager.userHasDualScreen)
-                        {
-                            backgroundInGameSelecting = LoadTexture("assets/backgrounds/GameBackground.png");
-                            backgroundInGame = LoadTexture("assets/backgrounds/GameBackgroundInverted.png");      
-                        }
-                        else
-                        {
-                            backgroundInGameSelecting = LoadTexture("assets/backgrounds/GameSmallBackground.png");
-                            backgroundInGame = LoadTexture("assets/backgrounds/GameSmallBackgroundInverted.png");
-                        }
-
-                        screenIcon = LoadTexture("assets/icons/singlescreenicon.png");
-                        speakerIcon = LoadTexture("assets/icons/speaker.png");
-                        sfxIcon = LoadTexture("assets/icons/sfx.png");
-                        break;
-                }
-
-                previousState = state;
+                case GameState.InGame:
+                    bool isDual = gamemanager.userHasDualScreen;
+                    backgroundInGameSelecting = LoadTexture(isDual ? "assets/backgrounds/GameBackground.png" : "assets/backgrounds/GameSmallBackground.png");
+                    backgroundInGame = LoadTexture(isDual ? "assets/backgrounds/GameBackgroundInverted.png" : "assets/backgrounds/GameSmallBackgroundInverted.png");
+                    screenIcon = LoadTexture("assets/icons/singlescreenicon.png");
+                    speakerIcon = LoadTexture("assets/icons/speaker.png");
+                    sfxIcon = LoadTexture("assets/icons/sfx.png");
+                    break;
             }
+
+            previousState = state;
         }
 
+        /// <summary>
+        /// Décharge toutes les textures chargées pour libérer la mémoire.
+        /// </summary>
         public void UnloadAll()
         {
-            if (backgroundMenu.Id != 0)
+            void Unload(ref Texture2D texture)
             {
-                UnloadTexture(backgroundMenu);
-                backgroundMenu = new Texture2D();
-            } 
-
-            if (backgroundInGame.Id != 0)
-            {
-                UnloadTexture(backgroundInGame);
-                backgroundInGame = new Texture2D();
-            }
-            
-            if (backgroundInGameSelecting.Id != 0)
-            {
-                UnloadTexture(backgroundInGameSelecting);
-                backgroundInGameSelecting = new Texture2D();
+                if (texture.Id > 0)
+                {
+                    UnloadTexture(texture);
+                    texture = new Texture2D();
+                }
             }
 
-            if (guessWhoTitle.Id > 0)
-            {
-                UnloadTexture(guessWhoTitle);
-                guessWhoTitle = new Texture2D();
-            }
+            Unload(ref backgroundMenu);
+            Unload(ref backgroundInGame);
+            Unload(ref backgroundInGameSelecting);
+            Unload(ref guessWhoTitle);
         }
-
-
     }
-
 }

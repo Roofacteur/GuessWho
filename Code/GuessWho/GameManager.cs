@@ -1,17 +1,21 @@
 ﻿using Raylib_cs;
-using System.Drawing;
 using static Raylib_cs.Raylib;
 
 namespace GuessWho
 {
     public class GameManager
     {
+        #region Configuration et États globaux
+
         public bool isMusicMuted = false;
         public bool isSfxMuted = false;
         public bool gameStarted = false;
         public bool portraitsGenerated = false;
         public bool generatedExample = false;
         public bool userHasDualScreen = true;
+
+        public GameState CurrentState = GameState.None;
+        public bool StateSelectingPortrait = true;
 
         public enum GameState
         {
@@ -25,45 +29,87 @@ namespace GuessWho
             Guessing,
             Victory
         }
-        public GameState CurrentState;
-        public bool StateSelectingPortrait = true;
+
+        #endregion
+
+        #region Données de Jeu
+
         public Portrait[] allPortraits;
         public Player player1;
         public Player player2;
-        public PortraitCreator creator;
-        public PortraitGenerator generator;
-        public PortraitRenderer renderer = new PortraitRenderer();
-        public UIManager uIManager;
-        public SoundManager soundManager;
+
         public int currentPlayerTurn = 1;
         public int userMaxAttributesInput = 4;
+
+        #endregion
+
+        #region Gestionnaires
+
+        public PortraitCreator creator;
+        public PortraitGenerator generator;
+        public PortraitRenderer renderer = new();
+        public UIManager uIManager;
+        public SoundManager soundManager;
+
+        #endregion
+
+        #region Gestion des Tours
+
         public int GetCurrentPlayer() => currentPlayerTurn;
         public void NextTurn() => currentPlayerTurn = (currentPlayerTurn == 1) ? 2 : 1;
         public void ResetTurn() => currentPlayerTurn = 1;
 
-        public void Update(GameManager gamemanager)
+        #endregion
+
+        #region Initialisation
+
+        /// <summary>
+        /// Initialise les gestionnaires principaux et place l’état initial sur le menu.
+        /// </summary>
+        public void Initialize()
+        {
+            uIManager = new UIManager();
+            soundManager = new SoundManager();
+            ResetTurn();
+            CurrentState = GameState.Menu;
+        }
+
+        /// <summary>
+        /// Initialise l’environnement pour le créateur de portraits.
+        /// </summary>
+        public void InitializeCreator()
+        {
+            uIManager = new UIManager();
+            creator = new PortraitCreator();
+        }
+
+        #endregion
+
+        #region Boucle de jeu principale
+
+        /// <summary>
+        /// Met à jour le comportement du jeu selon l’état courant.
+        /// </summary>
+        public void Update(GameManager gameManager)
         {
             switch (CurrentState)
             {
                 case GameState.Menu:
-
-                    // Remettre les états à zéro
                     StateSelectingPortrait = true;
                     gameStarted = false;
                     portraitsGenerated = false;
-                    LoadUIAndSounds(gamemanager);
-                    uIManager.UpdateMenu(gamemanager);
+                    LoadUIAndSounds(gameManager);
+                    uIManager.UpdateMenu(gameManager);
                     break;
 
                 case GameState.InGame:
-
-                    LoadUIAndSounds(gamemanager);
+                    LoadUIAndSounds(gameManager);
 
                     if (StateSelectingPortrait)
                     {
                         Generate();
                         if (player1.TargetPortrait == null || player2.TargetPortrait == null)
-                            uIManager.DrawSelectingPortraits(gamemanager);
+                            uIManager.DrawSelectingPortraits(gameManager);
                         else
                             StateSelectingPortrait = false;
                     }
@@ -74,72 +120,58 @@ namespace GuessWho
                             ResetTurn();
                             gameStarted = true;
                         }
-                        soundManager.SoundsLoader(this);
-                        uIManager.DrawGame(gamemanager);
-                    }
 
+                        soundManager.SoundsLoader(this);
+                        uIManager.DrawGame(gameManager);
+                    }
                     break;
 
                 case GameState.Settings:
-
-                    LoadUIAndSounds(gamemanager);
-                    uIManager.DrawOptions(gamemanager);
-
+                    LoadUIAndSounds(gameManager);
+                    uIManager.DrawOptions(gameManager);
                     break;
 
                 case GameState.Rules:
-
-                    LoadUIAndSounds(gamemanager);
-                    uIManager.DrawRules(gamemanager);
+                    LoadUIAndSounds(gameManager);
+                    uIManager.DrawRules(gameManager);
                     break;
 
                 case GameState.Creating:
-
                     generatedExample = false;
-                    LoadUIAndSounds(gamemanager);
-                    uIManager.DrawCreator(gamemanager);
-
+                    LoadUIAndSounds(gameManager);
+                    uIManager.DrawCreator(gameManager);
                     break;
 
                 case GameState.Generation:
-
-                    LoadUIAndSounds(gamemanager);
+                    LoadUIAndSounds(gameManager);
                     if (!generatedExample)
                     {
                         GenerateExample();
                         generatedExample = true;
                     }
-                    uIManager.DrawGeneration(gamemanager);
-
+                    uIManager.DrawGeneration(gameManager);
                     break;
 
                 case GameState.Guessing:
-
+                    // État de devinette à implémenter
                     break;
 
                 case GameState.Victory:
-
                     uIManager.DrawEndScreen(CurrentState, currentPlayerTurn);
                     break;
             }
         }
 
-        public void Initialize()
-        {
-            uIManager = new UIManager();
-            soundManager = new SoundManager();
-            currentPlayerTurn = 1;
-            CurrentState = GameState.Menu;
-        }
+        #endregion
 
-        public void InitializeCreator()
+        #region Chargement des ressources
+
+        /// <summary>
+        /// Charge les textures et les sons en fonction des préférences utilisateur.
+        /// </summary>
+        private void LoadUIAndSounds(GameManager gameManager)
         {
-            uIManager = new UIManager();
-            creator = new PortraitCreator();
-        }
-        private void LoadUIAndSounds(GameManager gamemanager)
-        {
-            uIManager.TextureLoader(gamemanager);
+            uIManager.TextureLoader(gameManager);
 
             if (!isMusicMuted)
                 soundManager.SoundsLoader(this);
@@ -152,6 +184,13 @@ namespace GuessWho
                 soundManager.StopSFX();
         }
 
+        #endregion
+
+        #region Génération de portraits
+
+        /// <summary>
+        /// Génère les portraits de jeu pour les deux joueurs.
+        /// </summary>
         public void Generate()
         {
             if (!portraitsGenerated)
@@ -159,67 +198,75 @@ namespace GuessWho
                 renderer.UnloadAll();
                 renderer = new PortraitRenderer();
                 generator = new PortraitGenerator();
-
                 allPortraits = generator.GeneratePortraits(24, userMaxAttributesInput);
 
-                // Créer les deux joueur
                 player1 = new Player(allPortraits.Take(24).ToArray(), 1);
                 player2 = new Player(allPortraits.Skip(24).Take(24).ToArray(), 2);
 
-                // Afficher les portraits générés
-                foreach (Portrait p in allPortraits)
-                {
-                    renderer.LoadPotraitTextures(p);
-                }
+                foreach (Portrait portrait in allPortraits)
+                    renderer.LoadPortraitTextures(portrait);
 
                 portraitsGenerated = true;
             }
         }
 
+        /// <summary>
+        /// Génère deux portraits à titre d'exemple dans l’éditeur.
+        /// </summary>
         public void GenerateExample()
-        { 
+        {
             renderer = new PortraitRenderer();
             generator = new PortraitGenerator();
             allPortraits = generator.GeneratePortraits(2, userMaxAttributesInput);
 
             player1 = new Player(allPortraits.Take(2).ToArray(), 1);
 
-            foreach (Portrait p in allPortraits)
-            {
-                renderer.LoadPotraitTextures(p);
-            }
+            foreach (Portrait portrait in allPortraits)
+                renderer.LoadPortraitTextures(portrait);
         }
 
+        #endregion
+
+        #region Logique de jeu
+
+        /// <summary>
+        /// Vérifie si un joueur a deviné correctement le portrait de l’adversaire.
+        /// </summary>
         public void CheckVictory(Player guesser, Player opponent)
         {
-            // Vérifier si la supposition du joueur est correcte
             if (guesser.SelectedGuess == opponent.TargetPortrait)
-            {
                 CurrentState = GameState.Victory;
-            }
         }
 
+        /// <summary>
+        /// Assigne un portrait cible à un joueur.
+        /// </summary>
         public void SelectedPortrait(Player player, Portrait portrait)
         {
             player.TargetPortrait = portrait;
             portrait.isTarget = true;
         }
 
-        public void Reset(Player player1, Player player2)
+        /// <summary>
+        /// Réinitialise la partie avec les deux joueurs.
+        /// </summary>
+        public void Reset(Player p1, Player p2)
         {
-            player1.Reset();
-            player2.Reset();
+            p1.Reset();
+            p2.Reset();
             ResetTurn();
             StateSelectingPortrait = true;
             CurrentState = GameState.InGame;
         }
 
+        /// <summary>
+        /// Termine la partie et affiche l’écran de victoire.
+        /// </summary>
         public void EndGame(bool player1Won)
         {
             CurrentState = GameState.Victory;
         }
 
-
-
+        #endregion
     }
 }

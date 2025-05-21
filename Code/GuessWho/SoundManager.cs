@@ -5,49 +5,56 @@ using static GuessWho.GameManager;
 
 namespace GuessWho
 {
+    /// <summary>
+    /// Gère l'ensemble des ressources sonores du jeu : musiques et effets sonores.
+    /// </summary>
     public class SoundManager
     {
+        #region Champs Privés
+
         private GameState previousState = GameState.None;
         private Music backgroundMusic;
-        public Sound flickSound = new Sound();
-        public Sound restartSound = new Sound();
-        public bool isMusicPlaying = false;
-        public int MusicVolume = 40;
-        public int SfxVolume = 40;
         private string currentMusicPath = "";
+        private bool isMusicPlaying = false;
 
-        public void SoundsLoader(GameManager gamemanager)
+        #endregion
+
+        #region Propriétés Publiques
+
+        public Sound flickSound = new();
+        public Sound restartSound = new();
+        public int MusicVolume = 40; // Pourcentage (0-100)
+        public int SfxVolume = 40;   // Pourcentage (0-100)
+
+        #endregion
+
+        #region Chargement Dynamique
+
+        /// <summary>
+        /// Charge et joue la musique ou les effets en fonction de l'état du jeu.
+        /// Optimisé pour éviter les rechargements inutiles.
+        /// </summary>
+        public void SoundsLoader(GameManager gameManager)
         {
-            GameState state = gamemanager.CurrentState;
-            string newMusicPath = "";
-            string flickSoundPath = "assets/sfx/flick.mp3";
-            string restartSoundPath = "assets/sfx/restart.mp3";
+            GameState state = gameManager.CurrentState;
 
-            switch (state)
+            // Choix de la musique en fonction de l’état
+            string newMusicPath = state switch
             {
-                case GameState.InGame:
-                    newMusicPath = "assets/sfx/InGame2.mp3";
-                    break;
-                case GameState.Menu:
-                case GameState.Settings:
-                    newMusicPath = "assets/sfx/MainMenu.mp3";
-                    break;
-                case GameState.Rules:
-                    newMusicPath = "assets/sfx/MainMenu.mp3";
-                    break;
-                case GameState.Generation:
-                case GameState.Creating:
-                case GameState.Victory:
-                    newMusicPath = "assets/sfx/MainMenu.mp3";
-                    break;
-            }
+                GameState.InGame => "assets/sfx/InGame2.mp3",
+                GameState.Menu or GameState.Settings or GameState.Rules or GameState.Generation or GameState.Creating or GameState.Victory
+                    => "assets/sfx/MainMenu.mp3",
+                _ => currentMusicPath
+            };
 
+            // Si la musique est déjà en cours, mise à jour simple
             if (newMusicPath == currentMusicPath && IsMusicStreamPlaying(backgroundMusic))
             {
                 UpdateMusic();
                 return;
             }
 
+            // Nettoyage de la musique précédente
             if (isMusicPlaying)
             {
                 StopMusicStream(backgroundMusic);
@@ -55,29 +62,54 @@ namespace GuessWho
                 isMusicPlaying = false;
             }
 
+            // Chargement de la nouvelle musique et effets
             backgroundMusic = LoadMusicStream(newMusicPath);
-            flickSound = LoadSound(flickSoundPath);
-            restartSound = LoadSound(restartSoundPath);
+            flickSound = LoadSound("assets/sfx/flick.mp3");
+            restartSound = LoadSound("assets/sfx/restart.mp3");
 
-            SetMusicVolume(backgroundMusic, MusicVolume / 100.0f);
+            SetMusicVolume(backgroundMusic, MusicVolume / 100f);
             PlayMusicStream(backgroundMusic);
 
             UpdateSFX();
 
+            // Mise à jour des états internes
             isMusicPlaying = true;
             currentMusicPath = newMusicPath;
             previousState = state;
         }
 
+        #endregion
+
+        #region Mise à jour en temps réel
+
+        /// <summary>
+        /// Met à jour le flux musical en cours (appelé à chaque frame).
+        /// </summary>
         public void UpdateMusic()
         {
             if (isMusicPlaying)
             {
                 UpdateMusicStream(backgroundMusic);
-                SetMusicVolume(backgroundMusic, MusicVolume / 100.0f);
+                SetMusicVolume(backgroundMusic, MusicVolume / 100f);
             }
         }
 
+        /// <summary>
+        /// Met à jour le volume des effets sonores selon la configuration utilisateur.
+        /// </summary>
+        public void UpdateSFX()
+        {
+            SetSoundVolume(flickSound, SfxVolume / 100f);
+            SetSoundVolume(restartSound, SfxVolume / 100f);
+        }
+
+        #endregion
+
+        #region Arrêt & Libération
+
+        /// <summary>
+        /// Arrête la musique de fond et libère les ressources.
+        /// </summary>
         public void StopMusic()
         {
             if (isMusicPlaying)
@@ -88,16 +120,16 @@ namespace GuessWho
                 currentMusicPath = "";
             }
         }
-        public void UpdateSFX()
-        {
-            SetSoundVolume(flickSound, SfxVolume / 100.0f);
-            SetSoundVolume(restartSound, SfxVolume / 100.0f);
-        }
+
+        /// <summary>
+        /// Arrête les effets sonores actifs (utile lors des transitions ou coupures audio).
+        /// </summary>
         public void StopSFX()
         {
             StopSound(flickSound);
             StopSound(restartSound);
         }
+
+        #endregion
     }
 }
-

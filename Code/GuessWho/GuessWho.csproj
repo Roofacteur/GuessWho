@@ -371,6 +371,9 @@
     <None Update="assets\portrait\clothes\shirtTankYellow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\portrait\clothes\shirtWhite.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\portrait\clothes\shirtYellow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
