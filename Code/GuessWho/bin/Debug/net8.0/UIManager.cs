@@ -48,12 +48,15 @@ namespace GuessWho
                 {
                     if (CheckCollisionPointRec(mouse, GetButtonRect(i)))
                     {
-                        if (i == 0) gameManager.CurrentState = GameState.InGame;
+                        if (i == 0)
+                        {
+                            gameManager.CurrentState = GameState.InGame;
+                            PlaySound(gameManager.soundManager.flickSound);
+                        }
                         if (i == 1) gameManager.CurrentState = GameState.Rules;
                         if (i == 2) gameManager.CurrentState = GameState.Creating;
                         if (i == 3) gameManager.CurrentState = GameState.Settings;
                         if (i == 4) Environment.Exit(0);
-                        PlaySound(gameManager.soundManager.flickSound);
                     }
                 }
             }

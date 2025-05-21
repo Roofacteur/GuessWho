@@ -7,7 +7,7 @@ using System.Numerics;
 
 public static class Program
 {
-    // Déclarations de la WinAPI (Attention ne fonctionne que sur Windows) qui permettent de centrer les fenêtres sur l'écran
+    // Import WinAPI : repositionnement de fenêtre (Windows uniquement)
     [DllImport("user32.dll", SetLastError = true)]
     static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
@@ -22,23 +22,18 @@ public static class Program
         Vector2 windowSizes = new Vector2(1870, 1000);
         Vector2 windowSizesInGame = new Vector2(3740, 1000);
 
-        // Fenêtre initiale
         SetTraceLogLevel(TraceLogLevel.All);
         InitWindow(1870, 1000, "Guess who ?");
         SetWindowIcon(LoadImage("assets/icons/GuessWhoLogo.png"));
         InitAudioDevice();
         SetTargetFPS(60);
 
-        // Centrer la fenêtre sur l'écran avec notre position préférée
         CenterWindow(1890, 1100, false);
 
         GameManager gameManager = new GameManager();
         gameManager.Initialize();
-        // Enregistrement du dernier état
-        GameState lastState = gameManager.CurrentState;
 
-        // Re-centrer une fois de plus pour s'assurer que la position est correcte
-        // avant d'entrer dans la boucle principale
+        GameState lastState = gameManager.CurrentState;
         CenterWindow(1890, 1100, false);
 
         while (!WindowShouldClose())
@@ -46,10 +41,9 @@ public static class Program
             gameManager.Update(gameManager);
             BeginDrawing();
 
-            // Vérifier et mettre à jour la taille et la position de la fenêtre si nécessaire
             UpdateWindowSize(gameManager, windowSizes, windowSizesInGame, ref lastState);
 
-            // Forcer le repositionnement de la fenêtre au début des premières frames
+            // Recentre pendant les 5 premières frames
             int frameCounter = 0;
             if (frameCounter < 5)
             {
@@ -59,13 +53,13 @@ public static class Program
 
             if (gameManager.CurrentState == GameState.Generation)
             {
-                // Regénérer des portraits d'exemple
+                // Regénère les portraits d’exemple
                 if (IsKeyPressed(KeyboardKey.R))
                     gameManager.generatedExample = false;
             }
             else if (gameManager.CurrentState == GameState.InGame)
             {
-                // Passer le tour
+                // Passe au tour suivant
                 if (IsMouseButtonPressed(MouseButton.Right))
                 {
                     gameManager.NextTurn();
@@ -73,7 +67,7 @@ public static class Program
                     PlaySound(gameManager.soundManager.flickSound);
                 }
 
-                // Recommencer une partie et regénérer des portraits
+                // Redémarre une partie
                 if (IsKeyPressed(KeyboardKey.R))
                 {
                     gameManager.StateSelectingPortrait = true;
@@ -86,41 +80,32 @@ public static class Program
             EndDrawing();
         }
 
-        // Déchargement des textures
+        // Libère les ressources
         gameManager.renderer.UnloadAll();
         gameManager.uIManager.UnloadAll();
         CloseWindow();
     }
 
+    // Gère le redimensionnement dynamique de la fenêtre selon l'état du jeu
     static void UpdateWindowSize(GameManager gameManager, Vector2 windowSizes, Vector2 windowSizesInGame, ref GameState lastState)
     {
         if (gameManager.CurrentState != lastState)
         {
-            // Ne pas fermer la fenêtre, uniquement changer sa taille
             if (gameManager.userHasDualScreen)
             {
                 if (gameManager.CurrentState != GameState.InGame)
-                {
-                    // Dans les fenêtres hors jeu
                     SetWindowSize((int)windowSizes.X, (int)windowSizes.Y);
-                }
                 else
-                {
-                    // Dans le jeu
                     SetWindowSize((int)windowSizesInGame.X, (int)windowSizesInGame.Y);
-                }
             }
             else
             {
-                // Toutes les fenêtres
                 SetWindowSize((int)windowSizes.X, (int)windowSizes.Y);
             }
 
-            // Déterminer comment centrer la fenêtre
             bool useDualScreenCentering = gameManager.userHasDualScreen && gameManager.CurrentState == GameState.InGame;
 
-            // Recentrer la fenêtre après le redimensionnement
-            int width = useDualScreenCentering ? (int)windowSizesInGame.X  : (int)windowSizes.X;
+            int width = useDualScreenCentering ? (int)windowSizesInGame.X : (int)windowSizes.X;
             int height = (int)windowSizes.Y;
             CenterWindow(width, height, useDualScreenCentering);
 
@@ -128,6 +113,7 @@ public static class Program
         }
     }
 
+    // Centre la fenêtre à l’écran (avec option double écran)
     static void CenterWindow(int windowWidth, int windowHeight, bool useDualScreen = false)
     {
         IntPtr hwnd = GetWindowHandle();
@@ -135,16 +121,10 @@ public static class Program
         int screenHeight = GetMonitorHeight(0);
 
         if (useDualScreen)
-        {
-            // Utiliser tous les écrans disponibles pour le centrage horizontal
             screenWidth += GetMonitorWidth(1);
-        }
 
         int posX = (screenWidth - windowWidth) / 2;
-
-        // Ajuster la position verticale pour que la fenêtre apparaisse encore plus haute
-        // Utiliser 40% de la hauteur au lieu de 45% pour décaler encore plus vers le haut
-        int posY = (int)((screenHeight - windowHeight) * 0.40);
+        int posY = (int)((screenHeight - windowHeight) * 0.20);
 
         SetWindowPos(hwnd, IntPtr.Zero, posX, posY, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
     }

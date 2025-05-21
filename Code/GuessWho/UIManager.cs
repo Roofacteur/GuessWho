@@ -53,7 +53,6 @@ namespace GuessWho
                         if (i == 2) gameManager.CurrentState = GameState.Creating;
                         if (i == 3) gameManager.CurrentState = GameState.Settings;
                         if (i == 4) Environment.Exit(0);
-                        PlaySound(gameManager.soundManager.flickSound);
                     }
                 }
             }
