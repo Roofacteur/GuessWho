@@ -8,7 +8,6 @@ namespace GuessWho
     {
         public bool isMusicMuted = false;
         public bool isSfxMuted = false;
-        public bool isLoading = false;
         public bool gameStarted = false;
         public bool portraitsGenerated = false;
         public bool generatedExample = false;
@@ -160,7 +159,6 @@ namespace GuessWho
                 renderer = new PortraitRenderer();
                 generator = new PortraitGenerator();
 
-                isLoading = true;
                 allPortraits = generator.GeneratePortraits(24, userMaxAttributesInput);
 
                 // Créer les deux joueur
@@ -174,7 +172,6 @@ namespace GuessWho
                 }
 
                 portraitsGenerated = true;
-                isLoading = false;
             }
         }
 

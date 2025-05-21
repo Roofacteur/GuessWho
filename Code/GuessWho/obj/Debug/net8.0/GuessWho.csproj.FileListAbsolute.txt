@@ -1378,3 +1378,7 @@ C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait
 C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\uncommon_hair (4).png
 C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\uncommon_hair (5).png
 C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\hair\malehair\uncommon_hair (6).png
+C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\icons\rules3.png
+C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\eyebrows\eyebrowsDefaultGray.png
+C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\eyebrows\eyebrowsDefaultWhite.png
+C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\icons\GuessWhoTitle.png

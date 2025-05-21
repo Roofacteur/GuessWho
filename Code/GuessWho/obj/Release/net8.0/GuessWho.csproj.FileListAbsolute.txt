@@ -547,3 +547,6 @@ C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\obj\Release\net8.0\ref\GuessWho.
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\icons\rules3.png
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyebrows\eyebrowsDefaultGray.png
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyebrows\eyebrowsDefaultWhite.png
+C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\icons\rules3.png
+C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyebrows\eyebrowsDefaultGray.png
+C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\eyebrows\eyebrowsDefaultWhite.png

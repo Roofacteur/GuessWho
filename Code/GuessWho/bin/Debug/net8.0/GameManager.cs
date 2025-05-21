@@ -8,7 +8,6 @@ namespace GuessWho
     {
         public bool isMusicMuted = false;
         public bool isSfxMuted = false;
-
         public bool gameStarted = false;
         public bool portraitsGenerated = false;
         public bool generatedExample = false;
@@ -20,7 +19,7 @@ namespace GuessWho
             Menu,
             Rules,
             Generation,
-            Options,
+            Settings,
             Creating,
             InGame,
             Guessing,
@@ -81,7 +80,7 @@ namespace GuessWho
 
                     break;
 
-                case GameState.Options:
+                case GameState.Settings:
 
                     LoadUIAndSounds(gamemanager);
                     uIManager.DrawOptions(gamemanager);
@@ -157,6 +156,7 @@ namespace GuessWho
         {
             if (!portraitsGenerated)
             {
+                renderer.UnloadAll();
                 renderer = new PortraitRenderer();
                 generator = new PortraitGenerator();
 
@@ -218,7 +218,8 @@ namespace GuessWho
         {
             CurrentState = GameState.Victory;
         }
-        
+
+
 
     }
 }

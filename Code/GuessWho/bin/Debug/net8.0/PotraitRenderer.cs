@@ -9,28 +9,46 @@ namespace GuessWho
         private Dictionary<string, Texture2D> textures = new();
         public void LoadPotraitTextures(Portrait portrait)
         {
-            LoadPortrait(portrait.Skin);
-            LoadPortrait(portrait.Clothes);
-            LoadPortrait(portrait.Logo);
-            LoadPortrait(portrait.Eyebrows);
-            LoadPortrait(portrait.Eyes);
-            LoadPortrait(portrait.Beard);
-            LoadPortrait(portrait.Glasses);
-            LoadPortrait(portrait.Hair);
-            LoadPortrait(portrait.Mouth);
-            LoadPortrait(portrait.Gender);
+            LoadPortraitSafe(portrait.Skin);
+            LoadPortraitSafe(portrait.Clothes);
+            LoadPortraitSafe(portrait.Logo);
+            LoadPortraitSafe(portrait.Eyebrows);
+            LoadPortraitSafe(portrait.Eyes);
+            LoadPortraitSafe(portrait.Beard);
+            LoadPortraitSafe(portrait.Glasses);
+            LoadPortraitSafe(portrait.Hair);
+            LoadPortraitSafe(portrait.Mouth);
+            LoadPortraitSafe(portrait.Gender);
         }
 
-        private void LoadPortrait(string path)
+        private void LoadPortraitSafe(string path)
         {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                Console.WriteLine("Chemin vide ou null !");
+                return;
+            }
+
+            if (!File.Exists(path))
+            {
+                Console.WriteLine($"Fichier introuvable : {path}");
+                return;
+            }
+
             if (!textures.ContainsKey(path))
             {
                 Texture2D texture = LoadTexture(path);
+                if (texture.Id == 0)
+                {
+                    Console.WriteLine($"Erreur de chargement de texture : {path}");
+                    return;
+                }
+
                 SetTextureFilter(texture, TextureFilter.Bilinear);
                 textures[path] = texture;
             }
-
         }
+
 
         public void DrawPortrait(Portrait portrait, int x, int y, int size)
         {

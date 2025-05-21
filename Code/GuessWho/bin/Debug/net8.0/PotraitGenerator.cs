@@ -90,37 +90,69 @@ namespace GuessWho
             if (allFiles.Length == 0)
                 throw new FileNotFoundException($"Aucun fichier trouvé dans le répertoire : {directoryPath}");
 
-            double rarityRoll = random.NextDouble();
-            string[] selectedFiles;
+            // Filtrage des fichiers par rareté présente
+            Dictionary<string, List<string>> rarityFiles = new()
+            {
+                { "common", new List<string>() },
+                { "uncommon", new List<string>() },
+                { "rare", new List<string>() },
+                { "legendary", new List<string>() }
+            };
 
-            if (rarityRoll < 0.5) // 50% commun
+            // Définir les poids de rareté standard (modifiable selon votre logique)
+            Dictionary<string, double> rarityWeights = new()
             {
-                selectedFiles = FilterFiles(allFiles, file =>
-                    !file.Contains("uncommon", StringComparison.OrdinalIgnoreCase) &&
-                    !file.Contains("rare", StringComparison.OrdinalIgnoreCase) &&
-                    !file.Contains("legendary", StringComparison.OrdinalIgnoreCase));
-            }
-            else if (rarityRoll < 0.8) // 30% uncommon
+                { "common", 0.5 },
+                { "uncommon", 0.3 },
+                { "rare", 0.19999 },
+                { "legendary", 0.01 }
+            };
+
+            foreach (var file in allFiles)
             {
-                selectedFiles = FilterFiles(allFiles, file =>
-                    file.Contains("uncommon", StringComparison.OrdinalIgnoreCase));
-            }
-            else if (rarityRoll < 0.99999) // 19.999% rare
-            {
-                selectedFiles = FilterFiles(allFiles, file =>
-                    file.Contains("rare", StringComparison.OrdinalIgnoreCase));
-            }
-            else // 0.001% legendary
-            {
-                selectedFiles = FilterFiles(allFiles, file =>
-                    file.Contains("legendary", StringComparison.OrdinalIgnoreCase));
+                string f = file.ToLower();
+                if (f.Contains("legendary"))
+                    rarityFiles["legendary"].Add(file);
+                else if (f.Contains("rare"))
+                    rarityFiles["rare"].Add(file);
+                else if (f.Contains("uncommon"))
+                    rarityFiles["uncommon"].Add(file);
+                else
+                    rarityFiles["common"].Add(file);
             }
 
-            return selectedFiles.Length > 0
-                ? selectedFiles[random.Next(selectedFiles.Length)]
-                : allFiles[random.Next(allFiles.Length)];
+            // Supprimer les catégories vides
+            var availableRarities = rarityFiles
+                .Where(kv => kv.Value.Count > 0)
+                .ToDictionary(kv => kv.Key, kv => kv.Value);
+
+            // Normaliser les poids pour les raretés disponibles uniquement
+            var totalWeight = availableRarities.Keys.Sum(k => rarityWeights.ContainsKey(k) ? rarityWeights[k] : 0);
+            var normalizedWeights = availableRarities.ToDictionary(
+                kv => kv.Key,
+                kv => rarityWeights[kv.Key] / totalWeight
+            );
+
+            // Tirage selon la distribution normalisée
+            double roll = random.NextDouble();
+            double cumulative = 0;
+            string selectedRarity = "common"; // par défaut
+
+            foreach (var kv in normalizedWeights)
+            {
+                cumulative += kv.Value;
+                if (roll < cumulative)
+                {
+                    selectedRarity = kv.Key;
+                    break;
+                }
+            }
+
+            // Sélection finale
+            var pool = availableRarities[selectedRarity];
+            return pool[random.Next(pool.Count)];
+
         }
-
 
         public static string GetRandomName(string gender, List<string> alreadySelectedNames)
         {

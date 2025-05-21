@@ -11,7 +11,7 @@ namespace GuessWho
     {
         private string[] menuLabels = { "PLAY", "RULES", "CHARACTERS", "SETTINGS", "QUIT" };
         private GameState previousState = GameState.None;
-        private Model guessWhoTitle;
+        private Texture2D guessWhoTitle;
         static Texture2D backgroundMenu;
         static Texture2D backgroundInGame;
         static Texture2D backgroundInGameSelecting;
@@ -61,18 +61,9 @@ namespace GuessWho
         public void DrawMenu(GameManager gameManager)
         {
            
-            camera = new Camera3D(
-                new Vector3(0.0f, 2.5f, 5.0f),
-                new Vector3(0.0f, 1.5f, 0.0f),
-                new Vector3(0.0f, 1.0f, 0.0f),
-                45.0f,
-                CameraProjection.Perspective);
-
             DrawTexture(backgroundMenu, 0, 0, Color.White);
             DrawSoundButtons(gameManager);
-            BeginMode3D(camera);
-            DrawModel(guessWhoTitle, new Vector3(0.0f, 2.5f, 3f), 2.0f, Color.White);
-            EndMode3D();
+            DrawTexture(guessWhoTitle, 0, 0, Color.White);
 
             for (int i = 0; i < menuLabels.Length; i++)
             {
@@ -850,7 +841,7 @@ namespace GuessWho
                 {
                     case GameState.Menu:
                         backgroundMenu = LoadTexture("assets/backgrounds/MenuBackground.png");
-                        guessWhoTitle = LoadModel("assets/model3D/title/GuessWho3DTitle.glb");
+                        guessWhoTitle = LoadTexture("assets/icons/GuessWhoTitle.png");
                         speakerIcon = LoadTexture("assets/icons/speaker.png");
                         sfxIcon = LoadTexture("assets/icons/sfx.png");
                         break;
@@ -920,10 +911,10 @@ namespace GuessWho
                 backgroundInGameSelecting = new Texture2D();
             }
 
-            if (guessWhoTitle.MeshCount > 0)
+            if (guessWhoTitle.Id > 0)
             {
-                UnloadModel(guessWhoTitle);
-                guessWhoTitle = new Model();
+                UnloadTexture(guessWhoTitle);
+                guessWhoTitle = new Texture2D();
             }
         }
 

@@ -156,6 +156,7 @@ namespace GuessWho
         {
             if (!portraitsGenerated)
             {
+                renderer.UnloadAll();
                 renderer = new PortraitRenderer();
                 generator = new PortraitGenerator();
 
@@ -217,7 +218,8 @@ namespace GuessWho
         {
             CurrentState = GameState.Victory;
         }
-        
+
+
 
     }
 }

@@ -3,97 +3,101 @@ using Raylib_cs;
 using static Raylib_cs.Raylib;
 using static GuessWho.GameManager;
 
-public class SoundManager
+namespace GuessWho
 {
-    private GameState previousState = GameState.None;
-    private Music backgroundMusic;
-    public Sound flickSound = new Sound();
-    public Sound restartSound = new Sound();
-    public bool isMusicPlaying = false;
-    public int MusicVolume = 40;
-    public int SfxVolume = 40;
-    private string currentMusicPath = "";
-
-    public void SoundsLoader(GameManager gamemanager)
+    public class SoundManager
     {
-        GameState state = gamemanager.CurrentState;
-        string newMusicPath = "";
-        string flickSoundPath = "assets/sfx/flick.mp3";
-        string restartSoundPath = "assets/sfx/restart.mp3";
+        private GameState previousState = GameState.None;
+        private Music backgroundMusic;
+        public Sound flickSound = new Sound();
+        public Sound restartSound = new Sound();
+        public bool isMusicPlaying = false;
+        public int MusicVolume = 40;
+        public int SfxVolume = 40;
+        private string currentMusicPath = "";
 
-        switch (state)
+        public void SoundsLoader(GameManager gamemanager)
         {
-            case GameState.InGame:
-                newMusicPath = "assets/sfx/InGame2.mp3";
-                break;
-            case GameState.Menu:
-            case GameState.Settings:
-                newMusicPath = "assets/sfx/MainMenu.mp3";
-                break;
-            case GameState.Rules:
-                newMusicPath = "assets/sfx/MainMenu.mp3";
-                break;
-            case GameState.Generation:
-            case GameState.Creating:
-            case GameState.Victory:
-                newMusicPath = "assets/sfx/MainMenu.mp3";
-                break;
-        }
+            GameState state = gamemanager.CurrentState;
+            string newMusicPath = "";
+            string flickSoundPath = "assets/sfx/flick.mp3";
+            string restartSoundPath = "assets/sfx/restart.mp3";
 
-        if (newMusicPath == currentMusicPath && IsMusicStreamPlaying(backgroundMusic))
-        {
-            UpdateMusic();
-            return;
-        }
+            switch (state)
+            {
+                case GameState.InGame:
+                    newMusicPath = "assets/sfx/InGame2.mp3";
+                    break;
+                case GameState.Menu:
+                case GameState.Settings:
+                    newMusicPath = "assets/sfx/MainMenu.mp3";
+                    break;
+                case GameState.Rules:
+                    newMusicPath = "assets/sfx/MainMenu.mp3";
+                    break;
+                case GameState.Generation:
+                case GameState.Creating:
+                case GameState.Victory:
+                    newMusicPath = "assets/sfx/MainMenu.mp3";
+                    break;
+            }
 
-        if (isMusicPlaying)
-        {
-            StopMusicStream(backgroundMusic);
-            UnloadMusicStream(backgroundMusic);
-            isMusicPlaying = false;
-        }
+            if (newMusicPath == currentMusicPath && IsMusicStreamPlaying(backgroundMusic))
+            {
+                UpdateMusic();
+                return;
+            }
 
-        backgroundMusic = LoadMusicStream(newMusicPath);
-        flickSound = LoadSound(flickSoundPath);
-        restartSound = LoadSound(restartSoundPath);
+            if (isMusicPlaying)
+            {
+                StopMusicStream(backgroundMusic);
+                UnloadMusicStream(backgroundMusic);
+                isMusicPlaying = false;
+            }
 
-        SetMusicVolume(backgroundMusic, MusicVolume / 100.0f);
-        PlayMusicStream(backgroundMusic);
+            backgroundMusic = LoadMusicStream(newMusicPath);
+            flickSound = LoadSound(flickSoundPath);
+            restartSound = LoadSound(restartSoundPath);
 
-        UpdateSFX();
-
-        isMusicPlaying = true;
-        currentMusicPath = newMusicPath;
-        previousState = state;
-    }
-
-    public void UpdateMusic()
-    {
-        if (isMusicPlaying)
-        {
-            UpdateMusicStream(backgroundMusic);
             SetMusicVolume(backgroundMusic, MusicVolume / 100.0f);
-        }
-    }
+            PlayMusicStream(backgroundMusic);
 
-    public void StopMusic()
-    {
-        if (isMusicPlaying)
-        {
-            StopMusicStream(backgroundMusic);
-            UnloadMusicStream(backgroundMusic);
-            isMusicPlaying = false;
-            currentMusicPath = "";
+            UpdateSFX();
+
+            isMusicPlaying = true;
+            currentMusicPath = newMusicPath;
+            previousState = state;
         }
-    }
-    public void UpdateSFX()
-    {
-        SetSoundVolume(flickSound, SfxVolume / 100.0f);
-        SetSoundVolume(restartSound, SfxVolume / 100.0f);
-    }
-    public void StopSFX()
-    {
-        StopSound(flickSound);
-        StopSound(restartSound);
+
+        public void UpdateMusic()
+        {
+            if (isMusicPlaying)
+            {
+                UpdateMusicStream(backgroundMusic);
+                SetMusicVolume(backgroundMusic, MusicVolume / 100.0f);
+            }
+        }
+
+        public void StopMusic()
+        {
+            if (isMusicPlaying)
+            {
+                StopMusicStream(backgroundMusic);
+                UnloadMusicStream(backgroundMusic);
+                isMusicPlaying = false;
+                currentMusicPath = "";
+            }
+        }
+        public void UpdateSFX()
+        {
+            SetSoundVolume(flickSound, SfxVolume / 100.0f);
+            SetSoundVolume(restartSound, SfxVolume / 100.0f);
+        }
+        public void StopSFX()
+        {
+            StopSound(flickSound);
+            StopSound(restartSound);
+        }
     }
 }
+

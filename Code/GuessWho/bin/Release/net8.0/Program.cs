@@ -89,28 +89,19 @@ public static class Program
                 if (gameManager.CurrentState != GameState.InGame)
                 {
                     // Dans les fenêtres hors jeu
-                    InitWindow((int)windowSizes.X, (int)windowSizes.Y, "Guess who ?");
-                    SetWindowIcon(LoadImage("assets/icons/GuessWhoLogo.png"));
-                    SetTargetFPS(60);
-                    CenterWindow(1890, 1100, false);
-
+                    SetWindowSize((int)windowSizes.X, (int)windowSizes.Y);       
                 }
                 else
                 {
                     // Dans le jeu
-                    InitWindow((int)windowSizesInGame.X, (int)windowSizesInGame.Y, "Guess who ?");
-                    SetWindowIcon(LoadImage("assets/icons/GuessWhoLogo.png"));
-                    SetTargetFPS(60);
-                    CenterWindow(3760, 1100, true);
+                    SetWindowSize((int)windowSizesInGame.X, (int)windowSizesInGame.Y);
                 }
             }
             else
             {
                 // Toutes les fenêtres
-                InitWindow((int)windowSizes.X, (int)windowSizes.Y, "Guess who ?");
-                SetWindowIcon(LoadImage("assets/icons/GuessWhoLogo.png"));
-                SetTargetFPS(60);
-                CenterWindow(1890, 1100, false);
+                SetWindowSize((int)windowSizes.X, (int)windowSizes.Y);
+
             }
 
             lastState = gameManager.CurrentState;

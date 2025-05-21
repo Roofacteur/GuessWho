@@ -68,6 +68,9 @@
     <None Update="assets\icons\GuessWhoLogo_590x580.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\icons\GuessWhoTitle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\icons\rules1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
