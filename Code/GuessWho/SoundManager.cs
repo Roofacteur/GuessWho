@@ -39,13 +39,25 @@ namespace GuessWho
             GameState state = gameManager.CurrentState;
 
             // Choix de la musique en fonction de l’état
-            string newMusicPath = state switch
+            string newMusicPath;
+
+            if (state == GameState.InGame)
             {
-                GameState.InGame => "assets/sfx/InGame2.mp3",
-                GameState.Menu or GameState.Settings or GameState.Rules or GameState.Generation or GameState.Creating or GameState.Victory
-                    => "assets/sfx/MainMenu.mp3",
-                _ => currentMusicPath
-            };
+                newMusicPath = "assets/sfx/InGame2.mp3";
+            }
+            else if (state == GameState.Victory)
+            {
+                newMusicPath = "assets/sfx/Victory.mp3";
+            }
+            else if (new[] { GameState.Menu, GameState.Settings, GameState.Rules, GameState.Generation, GameState.Creating }.Contains(state))
+            {
+                newMusicPath = "assets/sfx/MainMenu.mp3";
+            }
+            else
+            {
+                newMusicPath = currentMusicPath;
+            }
+
 
             // Si la musique est déjà en cours, mise à jour simple
             if (newMusicPath == currentMusicPath && IsMusicStreamPlaying(backgroundMusic))

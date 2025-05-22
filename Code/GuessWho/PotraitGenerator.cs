@@ -70,7 +70,7 @@ namespace GuessWho
             selectedNames.Add(name);
 
             string beardAsset = gender == "female"
-                ? "assets\\portrait\\beard\\beardNone.png"
+                ? "assets\\portrait\\beard\\noBeard.png"
                 : GetRandomAsset("beard");
 
             return new Portrait

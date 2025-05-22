@@ -44,29 +44,29 @@
 
 
 Dans InGame
-	Au lancement
+	// Au lancement
 		24 portraits s'affiche
 		StateSelectingPortraits = vrai
 	
-	Le survol d'un portrait 
+	// Le survol d'un portrait 
 		Le fait s'élever fluidement
-	Au clic d'un portrait 
+	// Au clic d'un portrait 
 		Quand StateSelectingPortraits = vrai
 		le tour change et le joueur a comme Target le portrait cliqué
 
-	Au clic d'un portrait
+	//Au clic d'un portrait
 		Quand StateSelectingPortraits = faux
 		Le portrait est éliminé et s'affiche en noir
 
-	Au clic d'un portrait
+	// Au clic d'un portrait
 		Quand StateSelectingPortraits = faux
 		Quand le portrait est éliminé
 		Le portrait n'est plus éliminé
 
-	Taper "R"
+	// Taper "R"
 		Regenère 24 portraits
 
-	Après avoir choisi les Target le background s'inverse
+	// Après avoir choisi les Target le background s'inverse
 
 	Lorsque clic droit
 		Zone du joueur actuel grisée

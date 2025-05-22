@@ -1,42 +1,65 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace GuessWho
 {
+    /// <summary>
+    /// Représente un portrait généré pour le jeu avec tous ses attributs distinctifs.
+    /// </summary>
     public class Portrait
     {
+        #region Propriétés
+        // Identifiant unique du portrait
         public string Id;
-        required public string Name;
-        required public string Skin;
-        required public string Clothes;
-        required public string Logo;
-        required public string Eyebrows;
-        required public string Eyes;
-        required public string Beard;
-        required public string Glasses;
-        required public string Hair;
-        required public string Mouth;
-        required public string Gender;
 
-        public float HoverOffset = 0f;
-        public bool IsEliminated = false;
-        public bool isTarget = false;
-        public bool CanAppear = true;
+        // Attributs principaux (visuels et logiques)
+        public required string Name;
+        public required string Skin;
+        public required string Clothes;
+        public required string Logo;
+        public required string Eyebrows;
+        public required string Eyes;
+        public required string Beard;
+        public required string Glasses;
+        public required string Hair;
+        public required string Mouth;
+        public required string Gender;
 
-        public string[] GetDNA()
+        // États liés à l'interface utilisateur et à la logique de jeu
+        public float HoverOffset = 0f;       // Décalage visuel au survol
+        public bool IsEliminated = false;    // Portrait éliminé de la grille
+        public bool isTarget = false;        // Portrait à deviner
+        public bool CanAppear = true;        // Portrait visible dans la génération
+        #endregion
+
+        #region Méthodes
+        /// <summary>
+        /// Retourne le profil ADN sous forme de tableau d’attributs clés.
+        /// </summary>
+        public string[] GetDNA() => new[]
         {
-            return new[] { Skin, Clothes, Logo, Eyebrows, Eyes, Beard, Glasses, Hair, Mouth, Gender };
-        }
+            Skin, Clothes, Logo, Eyebrows, Eyes,
+            Beard, Glasses, Hair, Mouth, Gender
+        };
 
+        /// <summary>
+        /// Compare l’ADN avec un autre portrait pour évaluer leur similarité.
+        /// </summary>
+        /// <param name="other">Autre portrait à comparer.</param>
+        /// <param name="maxSimilarAttributes">Seuil maximal de similarités tolérées.</param>
+        /// <returns>True si le nombre de similarités dépasse le seuil.</returns>
         public bool IsSimilarTo(Portrait other, int maxSimilarAttributes)
         {
-            int similarCount = GetDNA().Zip(other.GetDNA(), (a, b) => a == b).Count(match => match);
+            int similarCount = GetDNA()
+                .Zip(other.GetDNA(), (a, b) => a == b)
+                .Count(match => match);
+
             return similarCount > maxSimilarAttributes;
         }
+
+        /// <summary>
+        /// Clone ce portrait avec un nouvel identifiant unique.
+        /// </summary>
         public Portrait Clone()
         {
             return new Portrait
@@ -53,10 +76,14 @@ namespace GuessWho
                 Hair = this.Hair,
                 Mouth = this.Mouth,
                 Gender = this.Gender,
+
+                // Copie des états
                 HoverOffset = this.HoverOffset,
-                IsEliminated = this.IsEliminated
+                IsEliminated = this.IsEliminated,
+                isTarget = this.isTarget,
+                CanAppear = this.CanAppear
             };
         }
+        #endregion
     }
-
 }

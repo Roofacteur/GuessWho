@@ -18,11 +18,20 @@ namespace GuessWho
         // Zone d'affichage dans la fenêtre (UI)
         public Rectangle Zone;
 
+        // Nom du joueur
+        public string Name;
+
         // Portrait que l’adversaire doit deviner
         public Portrait TargetPortrait;
 
         // Portrait actuellement sélectionné comme devinette
         public Portrait SelectedGuess { get; set; }
+
+        // Booléen définissant si le joueur est le gagnant
+        public bool IsTheWinner;
+
+        // Booléen définissant si le joueur est le perdant
+        public bool IsTheLoser;
         #endregion
 
         #region Constructeur
@@ -33,10 +42,29 @@ namespace GuessWho
         {
             Id = id;
             Board = new Board(portraits);
+            Name = "Player " + id;
         }
         #endregion
 
         #region Méthodes
+        public Portrait GetRemainingPortrait()
+        {
+            List<Portrait> remaining = Board.Portraits.Where(p => !p.IsEliminated).ToList();
+
+            if (remaining.Count == 1)
+            {
+                SelectedGuess = remaining[0];
+                return remaining[0];
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Déduis si le joueur n'a qu'un seul portrait qui n'est pas éliminé sur le plateau
+        /// </summary>
+        /// <returns>Booléen</returns>
+        public bool HasOnlyOnePortraitLeft() => Board.Portraits.Count(p => !p.IsEliminated) == 1;
+
         /// <summary>
         /// Réinitialise l’état du plateau du joueur (tous les portraits sont réactivés).
         /// </summary>

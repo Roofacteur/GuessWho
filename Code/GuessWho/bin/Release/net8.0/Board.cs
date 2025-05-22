@@ -1,36 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuessWho
 {
+    /// <summary>
+    /// Représente la grille de portraits d’un joueur, avec logique d’élimination par attribut.
+    /// </summary>
     public class Board
     {
-        public Portrait[] Portraits;
+        #region Propriétés
+        public Portrait[] Portraits { get; private set; }
+        #endregion
 
+        #region Constructeur
         public Board(Portrait[] portraits)
         {
-            Portraits = portraits;
+            Portraits = portraits ?? throw new ArgumentNullException(nameof(portraits), "Le tableau de portraits ne peut pas être nul.");
         }
+        #endregion
 
-        public void Display()
-        {
-            foreach (var portrait in Portraits)
-            {
-                if (!portrait.IsEliminated)
-                {
-                    
-                }
-            }
-        }
-
+        #region Méthodes
+        /// <summary>
+        /// Élimine les portraits qui ne correspondent pas à l'attribut et à la valeur spécifiés.
+        /// </summary>
+        /// <param name="attribute">Le nom de l’attribut à tester (ex : "Hair").</param>
+        /// <param name="value">La valeur à comparer (ex : "blonde.png").</param>
         public void EliminatePortraitsByQuestion(string attribute, string value)
         {
+            if (string.IsNullOrWhiteSpace(attribute))
+                throw new ArgumentException("L'attribut ne peut pas être vide.", nameof(attribute));
+
             foreach (var portrait in Portraits)
             {
-                var dna = portrait.GetDNA();
                 bool match = attribute switch
                 {
                     "Skin" => portrait.Skin == value,
@@ -38,16 +38,22 @@ namespace GuessWho
                     "Logo" => portrait.Logo == value,
                     "Eyebrows" => portrait.Eyebrows == value,
                     "Eyes" => portrait.Eyes == value,
+                    "Beard" => portrait.Beard == value,
                     "Glasses" => portrait.Glasses == value,
                     "Hair" => portrait.Hair == value,
                     "Mouth" => portrait.Mouth == value,
-                    _ => false
+                    "Gender" => portrait.Gender == value,
+                    _ => throw new ArgumentException($"Attribut inconnu : {attribute}")
                 };
 
-                if (!match) portrait.IsEliminated = true;
+                if (!match)
+                    portrait.IsEliminated = true;
             }
         }
 
+        /// <summary>
+        /// Réinitialise l’état d’élimination de tous les portraits.
+        /// </summary>
         public void Reset()
         {
             foreach (var portrait in Portraits)
@@ -55,7 +61,6 @@ namespace GuessWho
                 portrait.IsEliminated = false;
             }
         }
+        #endregion
     }
-
-
 }

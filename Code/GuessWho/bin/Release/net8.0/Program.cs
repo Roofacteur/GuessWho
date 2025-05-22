@@ -1,127 +1,137 @@
 ﻿using GuessWho;
 using Raylib_cs;
-using static GuessWho.GameManager;
-using static Raylib_cs.Raylib;
-using System.Runtime.InteropServices;
 using System.Numerics;
+using System.Runtime.InteropServices;
+using static Raylib_cs.Raylib;
+using static GuessWho.GameManager;
 
 public static class Program
 {
+    #region Import WinAPI
 
-    // Déclarations de la WinAPI (Attention ne fonctionne que sur Windows) qui permettent de centrer les fenêtres sur l'écran
     [DllImport("user32.dll", SetLastError = true)]
     static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
     [DllImport("raylib.dll", CallingConvention = CallingConvention.Cdecl)]
     public static extern IntPtr GetWindowHandle();
 
-    const uint SWP_NOSIZE = 0x0001;
-    const uint SWP_NOZORDER = 0x0004;
+    private const uint SWP_NOSIZE = 0x0001;
+    private const uint SWP_NOZORDER = 0x0004;
+
+    #endregion
+
+    #region Méthode principale
 
     public static void Main()
     {
-        Vector2 windowSizes = new Vector2(1870, 1000);
-        Vector2 windowSizesInGame = new Vector2(3740, 1000);
+        Vector2 windowSizeDefault = new Vector2(1870, 1000);
+        Vector2 windowSizeInGame = new Vector2(3740, 1000);
+        int frameCounter = 0;
 
-        // Fenêtre initiale
-        InitWindow(1870, 1000, "Guess who ?");
+        SetTraceLogLevel(TraceLogLevel.All);
+        InitWindow((int)windowSizeDefault.X, (int)windowSizeDefault.Y, "Guess who ?");
         SetWindowIcon(LoadImage("assets/icons/GuessWhoLogo.png"));
         InitAudioDevice();
         SetTargetFPS(60);
 
-        // Centrer la fenêtre sur l'écran
-        CenterWindow(1890, 1100, false);
+        CenterWindow((int)windowSizeDefault.X, (int)windowSizeDefault.Y);
 
         GameManager gameManager = new GameManager();
         gameManager.Initialize();
-        // Enregistrement du dernier état
+
         GameState lastState = gameManager.CurrentState;
 
+        #region Boucle principale
         while (!WindowShouldClose())
         {
             gameManager.Update(gameManager);
             BeginDrawing();
-            UpdateWindowSize(gameManager, windowSizes, windowSizesInGame, ref lastState);
+            UpdateWindowSize(gameManager, windowSizeDefault, windowSizeInGame, ref lastState);
 
-            if (gameManager.CurrentState == GameState.Generation)
+            // Recentrage automatique pendant les premières frames (évite les erreurs d’affichage)
+            if (frameCounter < 5)
             {
-                // Regénérer des portraits d'exemple
-                if (IsKeyPressed(KeyboardKey.R))
-                    gameManager.generatedExample = false;
+                CenterWindow((int)windowSizeDefault.X, (int)windowSizeDefault.Y);
+                frameCounter++;
             }
-            else if (gameManager.CurrentState == GameState.InGame)
+
+            switch (gameManager.CurrentState)
             {
-                // Passer le tour
-                if (IsMouseButtonPressed(MouseButton.Right))
-                {
-                    gameManager.NextTurn();
-                    gameManager.uIManager.MoveMouse(gameManager);
-                    PlaySound(gameManager.soundManager.flickSound);
-                }      
+                case GameState.Generation:
+                    if (IsKeyPressed(KeyboardKey.R))
+                        gameManager.generatedExample = false;
+                    break;
 
-                // Recommencer une partie et regénérer des portraits
-                if (IsKeyPressed(KeyboardKey.R))
-                {
-                    gameManager.StateSelectingPortrait = true;
-                    gameManager.portraitsGenerated = false;
-                    gameManager.Generate();
-                    PlaySound(gameManager.soundManager.restartSound);
-                }
+                case GameState.InGame:
+                    if (IsMouseButtonPressed(MouseButton.Right))
+                    {
+                        gameManager.NextTurn();
+                        gameManager.uIManager.MoveMouse(gameManager);
+                        PlaySound(gameManager.soundManager.flickSound);
+                    }
 
+                    if (IsKeyPressed(KeyboardKey.R))
+                    {
+                        gameManager.StateSelectingPortrait = true;
+                        gameManager.portraitsGenerated = false;
+                        gameManager.Generate();
+                        PlaySound(gameManager.soundManager.restartSound);
+                    }
+                    break;
             }
 
             EndDrawing();
         }
+        #endregion
 
-        // Déchargement des textures
+        // Nettoyage des ressources système
         gameManager.renderer.UnloadAll();
         gameManager.uIManager.UnloadAll();
         CloseWindow();
     }
-    static void UpdateWindowSize(GameManager gameManager, Vector2 windowSizes, Vector2 windowSizesInGame, ref GameState lastState)
+
+    #endregion
+
+    #region Méthodes utilitaires
+
+    /// <summary>
+    /// Met à jour dynamiquement la taille et la position de la fenêtre en fonction de l’état du jeu.
+    /// </summary>
+    static void UpdateWindowSize(GameManager gameManager, Vector2 sizeDefault, Vector2 sizeInGame, ref GameState lastState)
     {
         if (gameManager.CurrentState != lastState)
         {
-            CloseWindow();
-            if (gameManager.userHasDualScreen)
-            {
-                
-                if (gameManager.CurrentState != GameState.InGame)
-                {
-                    // Dans les fenêtres hors jeu
-                    SetWindowSize((int)windowSizes.X, (int)windowSizes.Y);       
-                }
-                else
-                {
-                    // Dans le jeu
-                    SetWindowSize((int)windowSizesInGame.X, (int)windowSizesInGame.Y);
-                }
-            }
-            else
-            {
-                // Toutes les fenêtres
-                SetWindowSize((int)windowSizes.X, (int)windowSizes.Y);
+            Vector2 newSize = gameManager.CurrentState == GameState.InGame && gameManager.userHasDualScreen
+                ? sizeInGame
+                : sizeDefault;
 
-            }
+            SetWindowSize((int)newSize.X, (int)newSize.Y);
+
+            bool useDualScreen = gameManager.userHasDualScreen && gameManager.CurrentState == GameState.InGame;
+            CenterWindow((int)newSize.X, (int)newSize.Y, useDualScreen);
 
             lastState = gameManager.CurrentState;
         }
     }
-    static void CenterWindow(int windowWidth, int windowHeight, bool dualScreen = false)
+
+    /// <summary>
+    /// Centre la fenêtre principale sur l’écran ou sur un double écran si précisé.
+    /// </summary>
+    static void CenterWindow(int windowWidth, int windowHeight, bool useDualScreen = false)
     {
-        IntPtr hwnd = GetWindowHandle(); 
-        int screenWidth = GetMonitorWidth(0); 
+        IntPtr hwnd = GetWindowHandle();
+
+        int screenWidth = GetMonitorWidth(0);
         int screenHeight = GetMonitorHeight(0);
 
-        if (dualScreen)
-        {
+        if (useDualScreen)
             screenWidth += GetMonitorWidth(1);
-        }
 
-        int posX = (screenWidth - windowWidth) / 2; 
-        int posY = (screenHeight - windowHeight) / 2;
+        int posX = (screenWidth - windowWidth) / 2;
+        int posY = (int)((screenHeight - windowHeight) * 0.20);
 
         SetWindowPos(hwnd, IntPtr.Zero, posX, posY, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
     }
 
+    #endregion
 }

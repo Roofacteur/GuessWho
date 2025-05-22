@@ -1175,6 +1175,9 @@
     <None Update="assets\sfx\restart.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="assets\sfx\Victory.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="libs\Raylib-cs.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

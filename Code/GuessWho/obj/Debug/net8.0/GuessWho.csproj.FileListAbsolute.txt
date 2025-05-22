@@ -1376,3 +1376,4 @@ C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\icons\ru
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\clothes\shirtWhite.png
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\eyebrows\eyebrowsDefaultGray.png
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\portrait\eyebrows\eyebrowsDefaultWhite.png
+C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Debug\net8.0\assets\sfx\Victory.mp3

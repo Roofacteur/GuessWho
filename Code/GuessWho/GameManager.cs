@@ -110,7 +110,6 @@ namespace GuessWho
 
                 case GameState.InGame:
                     LoadUIAndSounds(gameManager);
-
                     if (StateSelectingPortrait)
                     {
                         Generate();
@@ -126,10 +125,13 @@ namespace GuessWho
                             ResetTurn();
                             gameStarted = true;
                         }
-
+                        CheckVictory(player1, player2, this);
+                        if (CurrentState == GameState.Victory)
+                            return;
                         soundManager.SoundsLoader(this);
                         uIManager.DrawGame(gameManager);
                     }
+                    
                     break;
 
                 case GameState.Settings:
@@ -163,7 +165,8 @@ namespace GuessWho
                     break;
 
                 case GameState.Victory:
-                    uIManager.DrawEndScreen(CurrentState, currentPlayerTurn);
+                    LoadUIAndSounds(gameManager);
+                    uIManager.DrawWinScreen(gameManager, renderer);
                     break;
             }
         }
@@ -238,10 +241,41 @@ namespace GuessWho
         /// <summary>
         /// Vérifie si un joueur a deviné correctement le portrait de l’adversaire.
         /// </summary>
-        public void CheckVictory(Player guesser, Player opponent)
+        public void CheckVictory(Player player1, Player player2, GameManager gameManager)
         {
-            if (guesser.SelectedGuess == opponent.TargetPortrait)
-                CurrentState = GameState.Victory;
+            // Récupère les portraits restants pour chaque joueur
+            Portrait remainingForPlayer1 = player2.GetRemainingPortrait();
+            Portrait remainingForPlayer2 = player1.GetRemainingPortrait();
+
+            // Vérifie si les portraits restants correspondent aux cibles par nom (ou par Id si disponible)
+            bool player1Wins = remainingForPlayer1 != null &&
+                               player1.TargetPortrait != null &&
+                               remainingForPlayer1.Name == player1.TargetPortrait.Name;
+
+            bool player2Wins = remainingForPlayer2 != null &&
+                               player2.TargetPortrait != null &&
+                               remainingForPlayer2.Name == player2.TargetPortrait.Name;
+
+            // Affichage de debug
+            Console.WriteLine("P1 Guess: " + (remainingForPlayer1 != null ? remainingForPlayer1.Name : "null") +
+                              " | P2 Target: " + (player1.TargetPortrait != null ? player1.TargetPortrait.Name : "null"));
+            Console.WriteLine("P2 Guess: " + (remainingForPlayer2 != null ? remainingForPlayer2.Name : "null") +
+                              " | P1 Target: " + (player2.TargetPortrait != null ? player2.TargetPortrait.Name : "null"));
+            Console.WriteLine("Comparaison P1: " + player1Wins + " | Comparaison P2: " + player2Wins);
+
+            // Résolution de victoire
+            if (player1Wins && !player2Wins)
+            {
+                player1.IsTheWinner = true;
+                player2.IsTheLoser = true;
+                gameManager.CurrentState = GameState.Victory;
+            }
+            else if (player2Wins && !player1Wins)
+            {
+                player2.IsTheWinner = true;
+                player1.IsTheLoser = true;
+                gameManager.CurrentState = GameState.Victory;
+            }
         }
 
         /// <summary>
