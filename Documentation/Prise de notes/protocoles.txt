@@ -1,0 +1,74 @@
+// Affichage du menu (boutons, fond et titre)
+
+// Le survol des boutons du menu
+	Colories en jaune
+
+// Le clic sur les boutons du menu :
+	Ouvre les bonnes pages :
+		Play -> InGame
+		Rules -> Rules
+		Characters -> Creator
+		etc...
+// Le clic sur le bouton "Generation" dans la page Creator
+	Ouvre la page de génération
+
+// Le clic sur les boutons de sons (Haut-parleur, SFX)
+	Mute/demute la musique/les effets
+
+// Dans options 
+	// Le clic de Single Screen / Dualscreen
+		Affiche "Selected" en vert au dessus du choix
+		Change la disposition InGame
+
+	// Le clic d'un rectangle sur la barre de la musique
+		Change le volume de la musique
+
+	// Le clic d'un rectangle sur la barre des effets sonores
+		Change le volume des effets sonores
+
+// Dans rules
+	// Le survol des flèches de page 
+		Colories en jaune
+
+	// Le clic de la flèches droite
+		Augmente le nombre de la page de 1
+		Affiche la page suivante
+
+	// Le clic de la flèche gauche
+		Diminue le nombre de la page de 1
+		Affiche la page précédente
+
+	// Le clic d'une flèche grisée
+		N'agit pas sur la page
+
+
+
+Dans InGame
+	Au lancement
+		24 portraits s'affiche
+		StateSelectingPortraits = vrai
+	
+	Le survol d'un portrait 
+		Le fait s'élever fluidement
+	Au clic d'un portrait 
+		Quand StateSelectingPortraits = vrai
+		le tour change et le joueur a comme Target le portrait cliqué
+
+	Au clic d'un portrait
+		Quand StateSelectingPortraits = faux
+		Le portrait est éliminé et s'affiche en noir
+
+	Au clic d'un portrait
+		Quand StateSelectingPortraits = faux
+		Quand le portrait est éliminé
+		Le portrait n'est plus éliminé
+
+	Taper "R"
+		Regenère 24 portraits
+
+	Après avoir choisi les Target le background s'inverse
+
+	Lorsque clic droit
+		Zone du joueur actuel grisée
+		Impossibilité de cliquer sur les portraits du joueur actuel
+		Changement de tour

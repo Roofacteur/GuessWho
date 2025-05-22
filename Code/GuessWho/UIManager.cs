@@ -11,6 +11,7 @@ namespace GuessWho
     /// </summary>
     public class UIManager
     {
+        #region Propriétés
         // === Ressources graphiques ===
         private static Texture2D backgroundMenu;
         private static Texture2D backgroundInGame;
@@ -44,8 +45,9 @@ namespace GuessWho
         private string inputText = "";
         private Rectangle inputBox = new(320, 210, 50, 40);
 
-        private Camera3D camera;
+        #endregion
 
+        #region Boucle du menu principal
         /// <summary>
         /// Met à jour le menu principal. Détecte les clics sur les boutons et change l'état du jeu en conséquence.
         /// </summary>
@@ -72,6 +74,9 @@ namespace GuessWho
                 }
             }
         }
+        #endregion
+
+        #region Dessins d'interfaces
 
         /// <summary>
         /// Affiche les éléments visuels du menu principal (fond, titre, boutons).
@@ -273,22 +278,6 @@ namespace GuessWho
         }
 
         /// <summary>
-        /// Met à jour la valeur de similarité des gènes selon l'entrée utilisateur.
-        /// </summary>
-        private void UpdateUserMaxAttributes(GameManager gameManager)
-        {
-            if (int.TryParse(inputText, out int value) && value > 1 && value <= 10)
-            {
-                gameManager.userMaxAttributesInput = value;
-            }
-            else
-            {
-                gameManager.userMaxAttributesInput = 4;
-                inputText = "4";
-            }
-        }
-
-        /// <summary>
         /// Affiche l'écran des règles avec navigation entre les pages.
         /// </summary>
         public void DrawRules(GameManager gameManager)
@@ -390,8 +379,6 @@ namespace GuessWho
         }
 
 
-        #region OPTIONS MENU
-
         /// <summary>
         /// Affiche l'écran des options du jeu, permettant de configurer l'affichage (écran simple ou double) 
         /// ainsi que le volume de la musique et des effets sonores.
@@ -407,7 +394,6 @@ namespace GuessWho
             int screenWidth = GetScreenWidth();
             Vector2 mousePos = GetMousePosition();
 
-            #region CONFIGURATION ÉCRAN
 
             int titleY = 130;
             int lineY = titleY + 40;
@@ -447,10 +433,6 @@ namespace GuessWho
             DrawTexture(screenIcon, dualStartX, iconY, Color.White);
             DrawTexture(screenIcon, dualStartX + iconWidth, iconY, Color.White);
 
-            #endregion
-
-            #region CONFIGURATION SON
-
             int soundConfigY = iconY + iconWidth + 20;
             DrawText("Sound configuration", screenWidth / 2 - MeasureText("Sound configuration", 30) / 2, soundConfigY, 30, Color.White);
             DrawRectangle(120, lineY * 4 + 12, screenWidth - 240, 2, Color.White);
@@ -470,8 +452,6 @@ namespace GuessWho
                 gameManager.soundManager.UpdateSFX();
                 PlaySound(gameManager.soundManager.flickSound);
             });
-
-            #endregion
 
             DrawSoundButtons(gameManager);
         }
@@ -515,9 +495,7 @@ namespace GuessWho
                 Color fill = currentVolume >= (i + 1) * 20 ? (isMuted ? Color.Gray : Color.White) : Color.Gray;
                 DrawRectangle(x, y, barWidth, barHeight, fill);
             }
-            #endregion
         }
-        #region GRILLE DE PORTRAITS
 
         /// <summary>
         /// Affiche une grille de portraits sélectionnables ou éliminables avec effets visuels.
@@ -579,38 +557,6 @@ namespace GuessWho
         }
 
         /// <summary>
-        /// Gère la sélection d’un portrait pour un joueur donné.
-        /// </summary>
-        private void HandlePortraitSelection(GameManager gameManager, int playerId, Portrait selectedPortrait)
-        {
-            if (playerId == 1 && gameManager.player1.TargetPortrait == null)
-            {
-                gameManager.SelectedPortrait(gameManager.player1, selectedPortrait.Clone());
-                gameManager.NextTurn();
-                MoveMouse(gameManager);
-            }
-            else if (playerId == 2 && gameManager.player2.TargetPortrait == null)
-            {
-                gameManager.SelectedPortrait(gameManager.player2, selectedPortrait.Clone());
-                gameManager.NextTurn();
-                MoveMouse(gameManager);
-            }
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Déplace la souris à la position initiale selon le joueur courant.
-        /// </summary>
-        public void MoveMouse(GameManager gameManager)
-        {
-            if (gameManager.GetCurrentPlayer() == 1)
-                SetMousePosition(200, 500);
-            else
-                SetMousePosition(GetScreenWidth() / 2 + 200, 500);
-        }
-
-        /// <summary>
         /// Affiche un bouton pour revenir au menu précédent.
         /// </summary>
         public void DrawBackToMenuButton(GameManager gameManager, GameState lastState)
@@ -637,23 +583,6 @@ namespace GuessWho
             DrawRectangle(0, 0, 1280, 720, Color.Green);
             DrawText($"Player {winner} wins !", 400, 300, 40, Color.Black);
             DrawText("Press R to restart", 360, 360, 20, Color.Black);
-        }
-
-        /// <summary>
-        /// Retourne le rectangle du bouton de menu à une position donnée (par index).
-        /// </summary>
-        private Rectangle GetButtonRect(int index)
-        {
-            float width = 300, height = 60, spacing = 20;
-            float totalHeight = (height + spacing) * 3 - spacing;
-            float startY = (GetScreenHeight() - totalHeight) / 2 + 70;
-
-            return new Rectangle(
-                (GetScreenWidth() - width) / 2,
-                startY + index * (height + spacing),
-                width,
-                height
-            );
         }
 
         /// <summary>
@@ -760,7 +689,55 @@ namespace GuessWho
                 DrawText(textPlayer2, halfScreenWidth + (halfScreenWidth - textWidthP2) / 2, yPosition, fontSize, finalColor);
             }
         }
+        #endregion
 
+        #region Logique de selection et rendu UI
+
+        /// <summary>
+        /// Gère la sélection d’un portrait pour un joueur donné.
+        /// </summary>
+        private void HandlePortraitSelection(GameManager gameManager, int playerId, Portrait selectedPortrait)
+        {
+            if (playerId == 1 && gameManager.player1.TargetPortrait == null)
+            {
+                gameManager.SelectedPortrait(gameManager.player1, selectedPortrait.Clone());
+                gameManager.NextTurn();
+                MoveMouse(gameManager);
+            }
+            else if (playerId == 2 && gameManager.player2.TargetPortrait == null)
+            {
+                gameManager.SelectedPortrait(gameManager.player2, selectedPortrait.Clone());
+                gameManager.NextTurn();
+                MoveMouse(gameManager);
+            }
+        }
+
+        /// <summary>
+        /// Déplace la souris à la position initiale selon le joueur courant.
+        /// </summary>
+        public void MoveMouse(GameManager gameManager)
+        {
+            if (gameManager.GetCurrentPlayer() == 1)
+                SetMousePosition(200, 500);
+            else
+                SetMousePosition(GetScreenWidth() / 2 + 200, 500);
+        }
+        /// <summary>
+        /// Retourne le rectangle du bouton de menu à une position donnée (par index).
+        /// </summary>
+        private Rectangle GetButtonRect(int index)
+        {
+            float width = 300, height = 60, spacing = 20;
+            float totalHeight = (height + spacing) * 3 - spacing;
+            float startY = (GetScreenHeight() - totalHeight) / 2 + 70;
+
+            return new Rectangle(
+                (GetScreenWidth() - width) / 2,
+                startY + index * (height + spacing),
+                width,
+                height
+            );
+        }
         /// <summary>
         /// Cache le plateau adverse selon le joueur courant.
         /// </summary>
@@ -777,6 +754,24 @@ namespace GuessWho
             DrawRectangle((int)hidden.X, (int)hidden.Y, (int)hidden.Width, (int)hidden.Height, transparentBlack);
         }
 
+        /// <summary>
+        /// Met à jour la valeur de similarité des gènes selon l'entrée utilisateur.
+        /// </summary>
+        private void UpdateUserMaxAttributes(GameManager gameManager)
+        {
+            if (int.TryParse(inputText, out int value) && value > 1 && value <= 10)
+            {
+                gameManager.userMaxAttributesInput = value;
+            }
+            else
+            {
+                gameManager.userMaxAttributesInput = 4;
+                inputText = "4";
+            }
+        }
+        #endregion
+
+        #region Chargement et dechargement
         /// <summary>
         /// Charge les textures nécessaires en fonction de l’état du jeu.
         /// </summary>
@@ -847,5 +842,6 @@ namespace GuessWho
             Unload(ref backgroundInGameSelecting);
             Unload(ref guessWhoTitle);
         }
+        #endregion
     }
 }

@@ -3,9 +3,15 @@ using static Raylib_cs.Raylib;
 
 namespace GuessWho
 {
+    /// <summary>
+    /// Contrôleur central du jeu « Guess Who ».
+    /// Gère les états du jeu, les interactions entre joueurs, la logique de sélection des portraits
+    /// ainsi que les transitions entre les différentes phases (menu, jeu, règles, création...).
+    /// Sert de point d'entrée pour coordonner l'ensemble des composants du gameplay.
+    /// </summary>
     public class GameManager
     {
-        #region Configuration et États globaux
+        #region Configuration et états globaux
 
         public bool isMusicMuted = false;
         public bool isSfxMuted = false;
@@ -32,7 +38,7 @@ namespace GuessWho
 
         #endregion
 
-        #region Données de Jeu
+        #region Données de jeu
 
         public Portrait[] allPortraits;
         public Player player1;
@@ -53,7 +59,7 @@ namespace GuessWho
 
         #endregion
 
-        #region Gestion des Tours
+        #region Gestion des tours
 
         public int GetCurrentPlayer() => currentPlayerTurn;
         public void NextTurn() => currentPlayerTurn = (currentPlayerTurn == 1) ? 2 : 1;

@@ -8,6 +8,7 @@ namespace GuessWho
     /// </summary>
     public class Player
     {
+        #region Propriétés
         // Identifiant unique du joueur (ex. : 0 pour joueur 1, 1 pour joueur 2)
         public int Id { get; private set; }
 
@@ -22,7 +23,9 @@ namespace GuessWho
 
         // Portrait actuellement sélectionné comme devinette
         public Portrait SelectedGuess { get; set; }
+        #endregion
 
+        #region Constructeur
         /// <summary>
         /// Initialise un joueur avec un ensemble de portraits et un identifiant unique.
         /// </summary>
@@ -31,7 +34,9 @@ namespace GuessWho
             Id = id;
             Board = new Board(portraits);
         }
+        #endregion
 
+        #region Méthodes
         /// <summary>
         /// Réinitialise l’état du plateau du joueur (tous les portraits sont réactivés).
         /// </summary>
@@ -51,5 +56,6 @@ namespace GuessWho
             SelectedGuess = guess;
             return TargetPortrait == guess;
         }
+        #endregion
     }
 }

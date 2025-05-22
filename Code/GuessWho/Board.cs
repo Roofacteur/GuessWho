@@ -7,13 +7,18 @@ namespace GuessWho
     /// </summary>
     public class Board
     {
+        #region Propriétés
         public Portrait[] Portraits { get; private set; }
+        #endregion
 
+        #region Constructeur
         public Board(Portrait[] portraits)
         {
             Portraits = portraits ?? throw new ArgumentNullException(nameof(portraits), "Le tableau de portraits ne peut pas être nul.");
         }
+        #endregion
 
+        #region Méthodes
         /// <summary>
         /// Élimine les portraits qui ne correspondent pas à l'attribut et à la valeur spécifiés.
         /// </summary>
@@ -56,5 +61,6 @@ namespace GuessWho
                 portrait.IsEliminated = false;
             }
         }
+        #endregion
     }
 }

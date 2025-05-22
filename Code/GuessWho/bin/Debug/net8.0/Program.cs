@@ -41,11 +41,11 @@ public static class Program
 
         GameState lastState = gameManager.CurrentState;
 
+        #region Boucle principale
         while (!WindowShouldClose())
         {
             gameManager.Update(gameManager);
             BeginDrawing();
-
             UpdateWindowSize(gameManager, windowSizeDefault, windowSizeInGame, ref lastState);
 
             // Recentrage automatique pendant les premières frames (évite les erreurs d’affichage)
@@ -82,6 +82,7 @@ public static class Program
 
             EndDrawing();
         }
+        #endregion
 
         // Nettoyage des ressources système
         gameManager.renderer.UnloadAll();

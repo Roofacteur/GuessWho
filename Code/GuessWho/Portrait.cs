@@ -8,6 +8,7 @@ namespace GuessWho
     /// </summary>
     public class Portrait
     {
+        #region Propriétés
         // Identifiant unique du portrait
         public string Id;
 
@@ -29,7 +30,9 @@ namespace GuessWho
         public bool IsEliminated = false;    // Portrait éliminé de la grille
         public bool isTarget = false;        // Portrait à deviner
         public bool CanAppear = true;        // Portrait visible dans la génération
+        #endregion
 
+        #region Méthodes
         /// <summary>
         /// Retourne le profil ADN sous forme de tableau d’attributs clés.
         /// </summary>
@@ -81,5 +84,6 @@ namespace GuessWho
                 CanAppear = this.CanAppear
             };
         }
+        #endregion
     }
 }

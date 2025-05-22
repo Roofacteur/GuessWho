@@ -10,8 +10,11 @@ namespace GuessWho
     /// </summary>
     public class PortraitGenerator
     {
+        #region Propriétés
         private readonly Random random = new();
+        #endregion
 
+        #region Recuperation textures aléatoires
         /// <summary>
         /// Génère une liste de portraits uniques, dupliqués pour deux joueurs.
         /// </summary>
@@ -26,7 +29,7 @@ namespace GuessWho
             {
                 Portrait newPortrait = CreateRandomPortrait(portraits.Count.ToString());
 
-                if (maxSimilarAttributes > 0 && maxSimilarAttributes <= 10)
+                if (maxSimilarAttributes > 1 && maxSimilarAttributes <= 10)
                 {
                     bool isUnique = portraits.All(existing =>
                         !newPortrait.IsSimilarTo(existing, maxSimilarAttributes));
@@ -87,6 +90,7 @@ namespace GuessWho
             };
         }
 
+        #region Système de rareté
         /// <summary>
         /// Sélectionne un asset d’un dossier selon une distribution de rareté pondérée.
         /// </summary>
@@ -153,7 +157,10 @@ namespace GuessWho
             List<string> pool = available[selectedRarity];
             return pool[random.Next(pool.Count)];
         }
+        #endregion
+        #endregion
 
+        #region Récupération noms aléatoires
         /// <summary>
         /// Sélectionne un nom aléatoire unique depuis une liste spécifique au genre.
         /// </summary>
@@ -201,5 +208,6 @@ namespace GuessWho
                 return new List<string>();
             }
         }
+        #endregion
     }
 }
