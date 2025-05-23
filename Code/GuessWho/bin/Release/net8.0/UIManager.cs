@@ -728,7 +728,7 @@ namespace GuessWho
             }
 
 
-            string continueMessage = "Press Enter to go to menu";
+            string continueMessage = "Press Enter to go to menu, Press R to restart";
             int continueTextSize = 20;
             int continueTextWidth = MeasureText(continueMessage, continueTextSize);
             int continueTextY = screenHeight - 60;
@@ -753,6 +753,10 @@ namespace GuessWho
             if (IsKeyPressed(KeyboardKey.Enter))
             {
                 gameManager.CurrentState = GameState.Menu;
+            }
+            if(IsKeyPressed(KeyboardKey.R))
+            {
+                gameManager.CurrentState = GameState.InGame;
             }
         }
 
