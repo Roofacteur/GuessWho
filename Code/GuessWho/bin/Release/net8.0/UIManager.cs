@@ -576,16 +576,6 @@ namespace GuessWho
         }
 
         /// <summary>
-        /// Affiche l’écran de fin avec le joueur gagnant.
-        /// </summary>
-        public void DrawEndScreen(GameState state, int winner)
-        {
-            DrawRectangle(0, 0, 1280, 720, Color.Green);
-            DrawText($"Player {winner} wins !", 400, 300, 40, Color.Black);
-            DrawText("Press R to restart", 360, 360, 20, Color.Black);
-        }
-
-        /// <summary>
         /// Affiche les boutons de contrôle sonore (musique et SFX).
         /// Gère également leur activation/désactivation.
         /// </summary>
@@ -665,49 +655,106 @@ namespace GuessWho
             if (CheckCollisionPointRec(mousePos, sfxRect) && IsMouseButtonPressed(MouseButton.Left))
                 gameManager.isSfxMuted = !gameManager.isSfxMuted;
         }
-        public void DrawWinScreen(GameManager gameManager)
+        /// <summary>
+        /// Dessine l'écran de victoire
+        /// </summary>
+        /// <param name="gameManager"></param>
+        /// <param name="renderer"></param>
+        public void DrawWinScreen(GameManager gameManager, PortraitRenderer renderer)
         {
             HideBoard(gameManager);
 
-            string victoryMessage = "";
-
-            if (gameManager.player1.IsTheWinner)
-            {
-                victoryMessage = $"{gameManager.player1.Name} a gagné !";
-            }
-            else if (gameManager.player2.IsTheWinner)
-            {
-                victoryMessage = $"{gameManager.player2.Name} a gagné !";
-            }
-
-            // Définir les positions et couleurs
             int screenWidth = GetScreenWidth();
             int screenHeight = GetScreenHeight();
-
+            int halfWidth = screenWidth / 2;
             int fontSize = 40;
-            int textWidth = MeasureText(victoryMessage, fontSize);
-            int textX = (screenWidth - textWidth) / 2;
-            int textY = screenHeight / 2 - fontSize;
 
-            // Affichage du message de victoire
-            DrawText(victoryMessage, textX, textY, fontSize, trueYellow);
+            // Messages
+            string messageP1 = gameManager.player1.IsTheWinner
+                ? $"{gameManager.player1.Name} lost..."
+                : $"{gameManager.player1.Name} won !!!";
 
-            // Bouton simple : "Appuyez sur Entrée pour retourner au menu"
-            string continueMessage = "Appuyez sur Entrée pour revenir au menu";
+            string messageP2 = gameManager.player2.IsTheWinner
+                ? $"{gameManager.player2.Name} lost..."
+                : $"{gameManager.player2.Name} won !!!";
+
+            int textWidthP1 = MeasureText(messageP1, fontSize);
+            int textXP1 = (halfWidth - textWidthP1) / 2;
+            int textYP1 = screenHeight / 2 - fontSize;
+
+            int textWidthP2 = MeasureText(messageP2, fontSize);
+            int textXP2 = halfWidth + (halfWidth - textWidthP2) / 2;
+            int textYP2 = screenHeight / 2 - fontSize;
+
+            DrawText(messageP1, textXP1, textYP1, fontSize, trueYellow);
+            DrawText(messageP2, textXP2, textYP2, fontSize, trueYellow);
+
+            // Portraits cibles
+            int portraitSize = 200;
+            int spacingY = 40;
+
+            // Player 1
+            Portrait p1Target = gameManager.player1.TargetPortrait;
+            if (p1Target != null)
+            {
+                int portraitX = (halfWidth - portraitSize) / 2;
+                int portraitY = textYP1 - portraitSize - spacingY;
+                renderer.DrawPortrait(p1Target, portraitX, portraitY, portraitSize);
+
+                // Nom du portrait
+                int nameTextSize = 25;
+                int nameTextWidth = MeasureText(p1Target.Name, nameTextSize);
+                int nameTextX = portraitX + (portraitSize - nameTextWidth) / 2;
+                int nameTextY = portraitY + portraitSize + 5;
+
+                DrawText(p1Target.Name, nameTextX, nameTextY, nameTextSize, Color.White);
+            }
+
+            // Player 2
+            Portrait p2Target = gameManager.player2.TargetPortrait;
+            if (p2Target != null)
+            {
+                int portraitX = halfWidth + (halfWidth - portraitSize) / 2;
+                int portraitY = textYP2 - portraitSize - spacingY;
+                renderer.DrawPortrait(p2Target, portraitX, portraitY, portraitSize);
+
+                // Nom du portrait
+                int nameTextSize = 25;
+                int nameTextWidth = MeasureText(p2Target.Name, nameTextSize);
+                int nameTextX = portraitX + (portraitSize - nameTextWidth) / 2;
+                int nameTextY = portraitY + portraitSize + 5;
+
+                DrawText(p2Target.Name, nameTextX, nameTextY, nameTextSize, Color.White);
+            }
+
+
+            string continueMessage = "Press Enter to go to menu";
             int continueTextSize = 20;
             int continueTextWidth = MeasureText(continueMessage, continueTextSize);
-            int continueTextX = (screenWidth - continueTextWidth) / 2;
-            int continueTextY = textY + 60;
+            int continueTextY = screenHeight - 60;
 
-            DrawText(continueMessage, continueTextX, continueTextY, continueTextSize, Color.LightGray);
+            if (gameManager.userHasDualScreen)
+            {
+                // Affiche sur la moitié gauche
+                int continueTextX_Left = (screenWidth / 4) - (continueTextWidth / 2);
+                DrawText(continueMessage, continueTextX_Left, continueTextY, continueTextSize, Color.LightGray);
 
-            // Changement d'état si l'utilisateur appuie sur Entrée
+                // Affiche sur la moitié droite
+                int continueTextX_Right = (3 * screenWidth / 4) - (continueTextWidth / 2);
+                DrawText(continueMessage, continueTextX_Right, continueTextY, continueTextSize, Color.LightGray);
+            }
+            else
+            {
+                // Affiche centré sur tout l’écran
+                int continueTextX = (screenWidth - continueTextWidth) / 2;
+                DrawText(continueMessage, continueTextX, continueTextY, continueTextSize, Color.LightGray);
+            }
+
             if (IsKeyPressed(KeyboardKey.Enter))
             {
                 gameManager.CurrentState = GameState.Menu;
             }
         }
-
 
         /// <summary>
         /// Affiche un titre centré (1 ou 2 joueurs selon les paramètres).

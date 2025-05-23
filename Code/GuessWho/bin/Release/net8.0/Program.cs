@@ -101,18 +101,21 @@ public static class Program
     {
         if (gameManager.CurrentState != lastState)
         {
-            Vector2 newSize = gameManager.CurrentState == GameState.InGame && gameManager.userHasDualScreen
+            bool isInGameLikeState = gameManager.CurrentState == GameState.InGame || gameManager.CurrentState == GameState.Victory;
+
+            Vector2 newSize = isInGameLikeState && gameManager.userHasDualScreen
                 ? sizeInGame
                 : sizeDefault;
 
             SetWindowSize((int)newSize.X, (int)newSize.Y);
 
-            bool useDualScreen = gameManager.userHasDualScreen && gameManager.CurrentState == GameState.InGame;
+            bool useDualScreen = gameManager.userHasDualScreen && isInGameLikeState;
             CenterWindow((int)newSize.X, (int)newSize.Y, useDualScreen);
 
             lastState = gameManager.CurrentState;
         }
     }
+
 
     /// <summary>
     /// Centre la fenêtre principale sur l’écran ou sur un double écran si précisé.

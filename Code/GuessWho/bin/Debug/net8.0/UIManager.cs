@@ -576,16 +576,6 @@ namespace GuessWho
         }
 
         /// <summary>
-        /// Affiche l’écran de fin avec le joueur gagnant.
-        /// </summary>
-        public void DrawEndScreen(GameState state, int winner)
-        {
-            DrawRectangle(0, 0, 1280, 720, Color.Green);
-            DrawText($"Player {winner} wins !", 400, 300, 40, Color.Black);
-            DrawText("Press R to restart", 360, 360, 20, Color.Black);
-        }
-
-        /// <summary>
         /// Affiche les boutons de contrôle sonore (musique et SFX).
         /// Gère également leur activation/désactivation.
         /// </summary>
@@ -681,12 +671,12 @@ namespace GuessWho
 
             // Messages
             string messageP1 = gameManager.player1.IsTheWinner
-                ? $"{gameManager.player1.Name} a perdu..."
-                : $"{gameManager.player1.Name} a gagné !!!";
+                ? $"{gameManager.player1.Name} lost..."
+                : $"{gameManager.player1.Name} won !!!";
 
             string messageP2 = gameManager.player2.IsTheWinner
-                ? $"{gameManager.player2.Name} a perdu..."
-                : $"{gameManager.player2.Name} a gagné !!!";
+                ? $"{gameManager.player2.Name} lost..."
+                : $"{gameManager.player2.Name} won !!!";
 
             int textWidthP1 = MeasureText(messageP1, fontSize);
             int textXP1 = (halfWidth - textWidthP1) / 2;
@@ -738,7 +728,7 @@ namespace GuessWho
             }
 
 
-            string continueMessage = "Appuyez sur Entrée pour revenir au menu";
+            string continueMessage = "Press Enter to go to menu";
             int continueTextSize = 20;
             int continueTextWidth = MeasureText(continueMessage, continueTextSize);
             int continueTextY = screenHeight - 60;

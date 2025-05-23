@@ -42,15 +42,21 @@ namespace GuessWho
         {
             Id = id;
             Board = new Board(portraits);
-            Name = "player " + id;
+            Name = "Player " + id;
         }
         #endregion
 
         #region Méthodes
         public Portrait GetRemainingPortrait()
         {
-            var remaining = Board.Portraits.Where(p => !p.IsEliminated).ToList();
-            return remaining.Count == 1 ? remaining[0] : null;
+            List<Portrait> remaining = Board.Portraits.Where(p => !p.IsEliminated).ToList();
+
+            if (remaining.Count == 1)
+            {
+                SelectedGuess = remaining[0];
+                return remaining[0];
+            }
+            return null;
         }
 
         /// <summary>
