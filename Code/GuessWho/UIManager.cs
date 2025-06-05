@@ -45,6 +45,11 @@ namespace GuessWho
         private string inputText = "";
         private Rectangle inputBox = new(320, 210, 50, 40);
 
+        // === Export ===
+        private Rectangle exportButton = new Rectangle(50, GetScreenHeight() - 100, 180, 50); // Position du bouton
+        private bool exportClicked = false;
+        int portraitsExported = 0;
+
         #endregion
 
         #region Boucle du menu principal
@@ -195,9 +200,9 @@ namespace GuessWho
         /// </summary>
         public void DrawGeneration(GameManager gameManager)
         {
+
             DrawTexture(backgroundMenu, 0, 0, Color.White);
 
-            // Initialisation unique de la valeur de l'input si non encore faite
             if (!inputInitialized)
             {
                 inputText = gameManager.userMaxAttributesInput.ToString();
@@ -207,7 +212,7 @@ namespace GuessWho
             DrawTitle(gameManager, "PORTRAIT GENERATOR");
             DrawText("Press R !", GetScreenWidth() / 2 + 300, GetScreenHeight() - 100, 40, Color.White);
 
-            // Affichage du champ de saisie pour la limite de gènes similaires
+            // === Input génétique ===
             DrawText("Max similar genes in DNA :", 50, 220, 20, Color.White);
             DrawRectangleRec(inputBox, inputActive ? Color.SkyBlue : Color.LightGray);
             DrawRectangleLinesEx(inputBox, 1, Color.Black);
@@ -215,14 +220,11 @@ namespace GuessWho
 
             Vector2 mousePos = GetMousePosition();
 
-            // Activation ou désactivation du champ de saisie selon clic souris
             if (CheckCollisionPointRec(mousePos, inputBox) && IsMouseButtonPressed(MouseButton.Left))
             {
                 inputActive = true;
                 if (string.IsNullOrEmpty(inputText))
-                {
                     inputText = gameManager.userMaxAttributesInput.ToString();
-                }
             }
             else if (IsMouseButtonPressed(MouseButton.Left))
             {
@@ -230,23 +232,19 @@ namespace GuessWho
                 UpdateUserMaxAttributes(gameManager);
             }
 
-            // Gestion de la saisie clavier dans le champ actif
             if (inputActive)
             {
                 int key = GetCharPressed();
                 while (key > 0)
                 {
                     if (char.IsDigit((char)key) && inputText.Length < 2)
-                    {
                         inputText += (char)key;
-                    }
+
                     key = GetCharPressed();
                 }
 
                 if (IsKeyPressed(KeyboardKey.Backspace) && inputText.Length > 0)
-                {
-                    inputText = inputText[..^1]; // Supprime le dernier caractère
-                }
+                    inputText = inputText[..^1];
 
                 if (IsKeyPressed(KeyboardKey.Enter))
                 {
@@ -255,7 +253,7 @@ namespace GuessWho
                 }
             }
 
-            // Zone d'affichage des portraits
+            // === Affichage des portraits ===
             gameManager.player1.Zone = new Rectangle(
                 GetScreenWidth() - 200,
                 GetScreenHeight() / 6,
@@ -263,8 +261,10 @@ namespace GuessWho
                 GetScreenHeight() / 2
             );
 
+            var portraits = gameManager.player1.Board.Portraits;
+
             DrawPortraitGrid(
-                gameManager.player1.Board.Portraits,
+                portraits,
                 gameManager.renderer,
                 gameManager.player1.Zone,
                 100,
@@ -274,8 +274,47 @@ namespace GuessWho
                 gameManager
             );
 
+            // === BOUTON EXPORT PNG ===
+            DrawRectangleRec(exportButton, Color.DarkGreen);
+            DrawText("Exporter PNG", (int)exportButton.X + 10, (int)exportButton.Y + 15, 20, Color.White);
+
+            if (CheckCollisionPointRec(mousePos, exportButton) && IsMouseButtonPressed(MouseButton.Left))
+            {
+                portraitsExported++;
+
+                if (portraits.Count() > 0)
+                {
+                    Portrait portraitToExport = portraits[0];
+
+                    // Si la texture n'est pas encore générée, on la génère
+                    if (portraitToExport.portraitTexture.Id == 0)
+                    {
+                        gameManager.renderer.GenerateAndAssignPortraitTexture(portraitToExport, 500);
+                    }
+
+                    // === Dossier d'export ===
+                    string exportFolder = "exports";
+                    if (!Directory.Exists(exportFolder))
+                    {
+                        Directory.CreateDirectory(exportFolder);
+                    }
+
+                    // === Export de l’image ===
+                    Image img = LoadImageFromTexture(portraitToExport.portraitTexture);
+                    ImageFlipVertical(ref img); // Corrige l'orientation
+                    string exportPath = Path.Combine(exportFolder, $"portrait_{portraitsExported}_exported.png");
+                    ExportImage(img, exportPath);
+                    UnloadImage(img);
+                }
+            }
+
+
+
+
+            // === Retour au menu ===
             DrawBackToMenuButton(gameManager, GameState.Creating);
         }
+
 
         /// <summary>
         /// Affiche l'écran des règles avec navigation entre les pages.

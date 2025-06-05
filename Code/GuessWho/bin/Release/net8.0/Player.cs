@@ -13,7 +13,7 @@ namespace GuessWho
         public int Id { get; private set; }
 
         // Grille de jeu contenant les portraits visibles par le joueur
-        public Board Board { get; private set; }
+        public Board Board;
 
         // Zone d'affichage dans la fenêtre (UI)
         public Rectangle Zone;

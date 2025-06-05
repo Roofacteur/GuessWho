@@ -77,6 +77,63 @@ namespace GuessWho
                 }
             }
         }
+        /// <summary>
+        /// Génère et assigne une texture composite à un portrait (utilisé pour l'export ou cache).
+        /// </summary>
+        /// <param name="portrait">Le portrait à préparer.</param>
+        /// <param name="size">La taille finale de la texture carrée.</param>
+        public void GenerateAndAssignPortraitTexture(Portrait portrait, int size)
+        {
+            RenderTexture2D renderTex = LoadRenderTexture(size, size);
+            BeginTextureMode(renderTex);
+            ClearBackground(Color.Blank);
+
+            string[] layers = {
+                portrait.Skin,
+                portrait.Clothes,
+                portrait.Logo,
+                portrait.Eyes,
+                portrait.Eyebrows,
+                portrait.Hair,
+                portrait.Beard,
+                portrait.Mouth,
+                portrait.Glasses,
+                portrait.Gender
+            };
+
+            foreach (string path in layers)
+            {
+                if (textures.TryGetValue(path, out Texture2D texture))
+                {
+                    DrawTexturePro(
+                        texture,
+                        new Rectangle(0, 0, texture.Width, texture.Height),
+                        new Rectangle(0, 0, size, size),
+                        Vector2.Zero,
+                        0f,
+                        Color.White
+                    );
+                }
+            }
+
+            EndTextureMode();
+
+            Image img = LoadImageFromTexture(renderTex.Texture);
+            Texture2D finalTex = LoadTextureFromImage(img);
+
+            UnloadImage(img);
+            UnloadRenderTexture(renderTex);
+
+            // Libère l'ancienne texture si déjà existante
+            if (portrait.portraitTexture.Id != 0)
+            {
+                UnloadTexture(portrait.portraitTexture);
+            }
+
+            portrait.portraitTexture = finalTex;
+        }
+
+
 
         /// <summary>
         /// Libère toutes les textures chargées de la mémoire GPU.

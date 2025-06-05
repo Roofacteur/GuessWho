@@ -8,7 +8,7 @@ namespace GuessWho
     public class Board
     {
         #region Propriétés
-        public Portrait[] Portraits { get; private set; }
+        public Portrait[] Portraits;
         #endregion
 
         #region Constructeur

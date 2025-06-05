@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Raylib_cs;
+using System;
 using System.Linq;
 
 namespace GuessWho
@@ -30,6 +31,9 @@ namespace GuessWho
         public bool IsEliminated = false;    // Portrait éliminé de la grille
         public bool isTarget = false;        // Portrait à deviner
         public bool CanAppear = true;        // Portrait visible dans la génération
+
+        // Texture finale
+        public Texture2D portraitTexture;
         #endregion
 
         #region Méthodes
