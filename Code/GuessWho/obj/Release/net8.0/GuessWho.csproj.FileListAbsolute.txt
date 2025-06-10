@@ -543,3 +543,4 @@ C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portra
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\icons\GuessWhoTitle.png
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\portrait\clothes\shirtWhite.png
 C:\Users\leones1\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\sfx\Victory.mp3
+C:\Users\Inconnu\Desktop\GuessWho\Code\GuessWho\bin\Release\net8.0\assets\sfx\Victory.mp3

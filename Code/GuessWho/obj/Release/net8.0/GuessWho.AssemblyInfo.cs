@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GuessWho")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2156577ee99bf7adc15f9a7689cf59f3b7360535")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+da5dd85209e31d9097f318309013603091208663")]
 [assembly: System.Reflection.AssemblyProductAttribute("GuessWho")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GuessWho")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,9 @@
+Élements non mentionnés :
+
+Musiques
+
+Les textures :
+	-Comment j'ai exporté plus de 100 textures rapidement -> script Python dans Krita
+	-Inspiration
+
+Test et protocoles de test
