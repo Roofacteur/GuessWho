@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\Inconnu\\Desktop\\GuessWho\\Code\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\inconnu\\desktop\\guesswho\\code\\guesswho\\potraitgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\potraitgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|c:\\users\\inconnu\\desktop\\guesswho\\code\\guesswho\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{52D3AB5C-88A7-47F6-BB14-A325FD5E74A4}|GuessWho\\GuessWho.csproj|solutionrelative:guesswho\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -27,25 +23,12 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "PotraitGenerator.cs",
-              "DocumentMoniker": "C:\\Users\\Inconnu\\Desktop\\GuessWho\\Code\\GuessWho\\PotraitGenerator.cs",
-              "RelativeDocumentMoniker": "GuessWho\\PotraitGenerator.cs",
-              "ToolTip": "C:\\Users\\Inconnu\\Desktop\\GuessWho\\Code\\GuessWho\\PotraitGenerator.cs",
-              "RelativeToolTip": "GuessWho\\PotraitGenerator.cs",
-              "ViewState": "AgIAAJUAAAAAAAAAAAAwwJ8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T08:53:26.473Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Inconnu\\Desktop\\GuessWho\\Code\\GuessWho\\Program.cs",
               "RelativeDocumentMoniker": "GuessWho\\Program.cs",
               "ToolTip": "C:\\Users\\Inconnu\\Desktop\\GuessWho\\Code\\GuessWho\\Program.cs",
               "RelativeToolTip": "GuessWho\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-22T19:33:29.502Z",
               "EditorCaption": ""
