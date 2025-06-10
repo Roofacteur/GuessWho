@@ -12,36 +12,45 @@ namespace GuessWho
     {
         #region Propriétés
         private readonly Random random = new();
+        private readonly HashSet<string> selectedNames = new();
+        private const int MaxAttempts = 1000;
         #endregion
 
         #region Recuperation textures aléatoires
         /// <summary>
         /// Génère une liste de portraits uniques, dupliqués pour deux joueurs.
+        /// Limite le nombre d’essais pour éviter boucle infinie.
         /// </summary>
         /// <param name="count">Nombre de portraits de base (avant duplication).</param>
         /// <param name="maxSimilarAttributes">Nombre max d’attributs identiques autorisés entre deux portraits.</param>
         public Portrait[] GeneratePortraits(int count, int maxSimilarAttributes)
         {
+            if (maxSimilarAttributes < 1 || maxSimilarAttributes > 10)
+                throw new ArgumentOutOfRangeException(nameof(maxSimilarAttributes), "Doit être entre 1 et 10.");
+
             List<Portrait> portraits = new();
             int attempts = 0;
 
             while (portraits.Count < count)
             {
+                if (attempts++ > MaxAttempts)
+                    throw new InvalidOperationException("Nombre maximum d’essais atteint, impossible de générer plus de portraits uniques.");
+
                 Portrait newPortrait = CreateRandomPortrait(portraits.Count.ToString());
 
-                if (maxSimilarAttributes > 1 && maxSimilarAttributes <= 10)
-                {
-                    bool isUnique = portraits.All(existing =>
-                        !newPortrait.IsSimilarTo(existing, maxSimilarAttributes));
+                bool isUnique = portraits.All(existing => !newPortrait.IsSimilarTo(existing, maxSimilarAttributes));
 
-                    if (isUnique)
-                        portraits.Add(newPortrait);
-                    else
-                        Console.WriteLine($"Portrait rejeté - similarité trop élevée (tentative #{++attempts})");
+                if (isUnique)
+                {
+                    portraits.Add(newPortrait);
+                }
+                else
+                {
+                    Console.WriteLine($"Portrait rejeté - similarité trop élevée (tentative #{attempts})");
                 }
             }
 
-            // Dupliquer les portraits pour les deux joueurs
+            // Dupliquer les portraits pour les deux joueurs (assure deep copy)
             List<Portrait> duplicates = portraits.Select(p => p.Clone()).ToList();
             portraits.AddRange(duplicates);
 
@@ -53,24 +62,22 @@ namespace GuessWho
         /// </summary>
         private Portrait CreateRandomPortrait(string id)
         {
-            List<string> selectedNames = new();
-
             string clothesAsset = GetRandomAsset("clothes");
             string clothesFileName = Path.GetFileName(clothesAsset);
 
             // Pas de logo si vêtement rare ou légendaire
             string logoAsset = (clothesFileName.StartsWith("rare_") || clothesFileName.StartsWith("legendary_"))
-                ? "assets\\portrait\\logos\\logoNone.png"
+                ? Path.Combine("assets", "portrait", "logos", "logoNone.png")
                 : GetRandomAsset("logos");
 
             string genderAsset = GetRandomAsset("gender");
             string gender = Path.GetFileNameWithoutExtension(genderAsset).ToLower();
 
-            string name = GetRandomName(gender, selectedNames);
+            string name = GetRandomName(gender);
             selectedNames.Add(name);
 
             string beardAsset = gender == "female"
-                ? "assets\\portrait\\beard\\noBeard.png"
+                ? Path.Combine("assets", "portrait", "beard", "noBeard.png")
                 : GetRandomAsset("beard");
 
             return new Portrait
@@ -83,7 +90,7 @@ namespace GuessWho
                 Eyes = GetRandomAsset("eyes"),
                 Beard = beardAsset,
                 Glasses = GetRandomAsset("glasses"),
-                Hair = GetRandomAsset($"hair\\{gender}hair"),
+                Hair = GetRandomAsset(Path.Combine("hair", $"{gender}hair")),
                 Mouth = GetRandomAsset("mouth"),
                 Gender = genderAsset,
                 Name = name
@@ -102,21 +109,20 @@ namespace GuessWho
             if (files.Length == 0)
                 throw new FileNotFoundException($"Aucun asset trouvé dans : {path}");
 
-            // Classement par rareté
             var filesByRarity = new Dictionary<string, List<string>>
             {
-                { "common", new() },
-                { "uncommon", new() },
-                { "rare", new() },
-                { "legendary", new() }
+                { "common", new List<string>() },
+                { "uncommon", new List<string>() },
+                { "rare", new List<string>() },
+                { "legendary", new List<string>() }
             };
 
             foreach (string file in files)
             {
-                string f = file.ToLower();
-                if (f.Contains("legendary")) filesByRarity["legendary"].Add(file);
-                else if (f.Contains("rare")) filesByRarity["rare"].Add(file);
-                else if (f.Contains("uncommon")) filesByRarity["uncommon"].Add(file);
+                string lower = file.ToLowerInvariant();
+                if (lower.Contains("legendary")) filesByRarity["legendary"].Add(file);
+                else if (lower.Contains("rare")) filesByRarity["rare"].Add(file);
+                else if (lower.Contains("uncommon")) filesByRarity["uncommon"].Add(file);
                 else filesByRarity["common"].Add(file);
             }
 
@@ -125,26 +131,24 @@ namespace GuessWho
             {
                 { "common", 0.5 },
                 { "uncommon", 0.3 },
-                { "rare", 0.19999 },
+                { "rare", 0.19 },
                 { "legendary", 0.01 }
             };
 
-            var available = filesByRarity
-                .Where(kv => kv.Value.Any())
-                .ToDictionary(kv => kv.Key, kv => kv.Value);
+            // Filtrer les catégories disponibles
+            var available = filesByRarity.Where(kv => kv.Value.Count > 0).ToDictionary(kv => kv.Key, kv => kv.Value);
 
             double totalWeight = available.Keys.Sum(k => rarityWeights[k]);
-            var normalized = available.ToDictionary(
+            var normalizedWeights = available.ToDictionary(
                 kv => kv.Key,
-                kv => rarityWeights[kv.Key] / totalWeight
-            );
+                kv => rarityWeights[kv.Key] / totalWeight);
 
-            // Sélection pondérée
+            // Tirage pondéré
             double roll = random.NextDouble();
-            double cumulative = 0;
+            double cumulative = 0.0;
             string selectedRarity = "common";
 
-            foreach (var kv in normalized)
+            foreach (var kv in normalizedWeights)
             {
                 cumulative += kv.Value;
                 if (roll < cumulative)
@@ -158,13 +162,12 @@ namespace GuessWho
             return pool[random.Next(pool.Count)];
         }
         #endregion
-        #endregion
 
         #region Récupération noms aléatoires
         /// <summary>
         /// Sélectionne un nom aléatoire unique depuis une liste spécifique au genre.
         /// </summary>
-        public static string GetRandomName(string gender, List<string> alreadySelected)
+        public string GetRandomName(string gender)
         {
             string filename = gender switch
             {
@@ -177,14 +180,14 @@ namespace GuessWho
             var names = LoadNames(path);
 
             if (names.Count < 48)
-                throw new Exception($"'{filename}' doit contenir au moins 48 noms uniques.");
+                throw new Exception($"Le fichier '{filename}' doit contenir au moins 48 noms uniques.");
 
-            var available = names.Except(alreadySelected).ToList();
+            var available = names.Except(selectedNames).ToList();
 
-            if (!available.Any())
+            if (available.Count == 0)
                 throw new InvalidOperationException("Tous les noms uniques ont été utilisés.");
 
-            return available[new Random().Next(available.Count)];
+            return available[random.Next(available.Count)];
         }
 
         /// <summary>
@@ -211,3 +214,4 @@ namespace GuessWho
         #endregion
     }
 }
+#endregion
